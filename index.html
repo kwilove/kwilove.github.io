@@ -195,7 +195,7 @@
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span></span><br><span class="line"><span class="keyword">IF</span> <span class="keyword">EXISTS</span> <span class="string">`film_actor`</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="string">`film_actor`</span> (</span><br><span class="line">    <span class="string">`id`</span> <span class="built_in">INT</span> (<span class="number">11</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,</span><br><span class="line">    <span class="string">`film_id`</span> <span class="built_in">INT</span> (<span class="number">11</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,</span><br><span class="line">    <span class="string">`actor_id`</span> <span class="built_in">INT</span> (<span class="number">11</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,</span><br><span class="line">    <span class="string">`remark`</span> <span class="built_in">VARCHAR</span> (<span class="number">255</span>) <span class="keyword">DEFAULT</span> <span class="literal">NULL</span>,</span><br><span class="line">    PRIMARY <span class="keyword">KEY</span> (<span class="string">`id`</span>),</span><br><span class="line">    <span class="keyword">KEY</span> <span class="string">`idx_film_actor_id`</span> (<span class="string">`film_id`</span>, <span class="string">`actor_id`</span>)</span><br><span class="line">) <span class="keyword">ENGINE</span> = <span class="keyword">INNODB</span> <span class="keyword">DEFAULT</span> <span class="keyword">CHARSET</span> = utf8;</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> <span class="string">`film_actor`</span> </span><br><span class="line">    (<span class="string">`id`</span>, <span class="string">`film_id`</span>, <span class="string">`actor_id`</span>)</span><br><span class="line"><span class="keyword">VALUES</span></span><br><span class="line">    (<span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>),</span><br><span class="line">    (<span class="number">2</span>, <span class="number">1</span>, <span class="number">2</span>),</span><br><span class="line">    (<span class="number">3</span>, <span class="number">2</span>, <span class="number">1</span>);</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<h4 id="举例讲解"><a href="#举例讲解" class="headerlink" title="举例讲解"></a>举例讲解</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; explain select * from actor;`</span><br></pre></td></tr></table></figure>
+<h4 id="举例讲解"><a href="#举例讲解" class="headerlink" title="举例讲解"></a>举例讲解</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; explain select * from actor;</span><br></pre></td></tr></table></figure>
 <p><img src="/styles/images/mysql/1.png" alt></p>
 <h4 id="id列"><a href="#id列" class="headerlink" title="id列"></a>id列</h4><ul>
 <li>id列是select的序列号，id的个数等于SQL语句中select的个数，并且id列的顺序与select出现的顺序一一对应、</li>
@@ -216,42 +216,36 @@
  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">explain</span> <span class="keyword">select</span> (<span class="keyword">select</span> <span class="number">1</span> <span class="keyword">from</span> actor <span class="keyword">limit</span> <span class="number">1</span>) <span class="keyword">from</span> film;</span><br></pre></td></tr></table></figure>
 <p> <img src="/styles/images/mysql/2.png" alt></p>
 </li>
-</ol>
-<ol start="2">
 <li><p>from子句子查询</p>
  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">explain</span> <span class="keyword">select</span> <span class="keyword">id</span> <span class="keyword">from</span> (<span class="keyword">select</span> <span class="keyword">id</span> <span class="keyword">from</span> film) <span class="keyword">as</span> der;</span><br></pre></td></tr></table></figure>
-<p> <img src="/styles/images/mysql/3.png" alt></p>
+<p> <img src="/styles/images/mysql/3.png" alt><br> 这条查询语句执行时产生了一张临时表der，外部select引用了这张临时表。</p>
 </li>
-</ol>
-<p>这条查询语句执行时产生了一张临时表der，外部select引用了这张临时表。</p>
-<ol start="3">
 <li><p>union查询</p>
  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">explain</span> <span class="keyword">select</span> <span class="number">1</span> <span class="keyword">union</span> <span class="keyword">all</span> <span class="keyword">select</span> <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
-<p> <img src="/styles/images/mysql/4.png" alt></p>
+<p> <img src="/styles/images/mysql/4.png" alt><br> union执行结果总是放在一个匿名临时表中，因为这种临时表不在SQL中出现，所以它的id是NULL。</p>
 </li>
 </ol>
-<p>union执行结果总是放在一个匿名临时表中，因为这种临时表不在SQL中出现，所以它的id是NULL。</p>
 <h4 id="select-type列"><a href="#select-type列" class="headerlink" title="select_type列"></a>select_type列</h4><p>select_type列表示对应的select是简单查询还是复杂查询，如果是复杂查询又是哪种复杂查询。</p>
-<ol>
+<ul>
 <li><p><code>SIMPLE</code>: 简单查询，不包含子查询和union查询</p>
- <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">explain</span> <span class="keyword">select</span> * <span class="keyword">from</span> film <span class="keyword">where</span> <span class="keyword">id</span> = <span class="number">2</span>;</span><br></pre></td></tr></table></figure>
-<p> <img src="/styles/images/mysql/5.png" alt></p>
+  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">explain</span> <span class="keyword">select</span> * <span class="keyword">from</span> film <span class="keyword">where</span> <span class="keyword">id</span> = <span class="number">2</span>;</span><br></pre></td></tr></table></figure>
+<p>  <img src="/styles/images/mysql/5.png" alt></p>
 </li>
 <li><p><code>PRIMARY</code>: 复杂查询中最外层的select</p>
 </li>
 <li><p><code>SUBQUERY</code>: 包含在select中的子查询，不再from子句中</p>
 </li>
 <li><p><code>DERIVED</code>: 包含在from子句中的子查询，MySQL会将结果存放在一个临时表中，也称为派生表</p>
- <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">explain</span> <span class="keyword">select</span> (<span class="keyword">select</span> <span class="number">1</span> <span class="keyword">from</span> actor <span class="keyword">where</span> <span class="keyword">id</span> = <span class="number">1</span>) <span class="keyword">from</span> (<span class="keyword">select</span> * <span class="keyword">from</span> film <span class="keyword">where</span> <span class="keyword">id</span> = <span class="number">1</span>) der;</span><br></pre></td></tr></table></figure>
-<p> <img src="/styles/images/mysql/6.png" alt></p>
+  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">explain</span> <span class="keyword">select</span> (<span class="keyword">select</span> <span class="number">1</span> <span class="keyword">from</span> actor <span class="keyword">where</span> <span class="keyword">id</span> = <span class="number">1</span>) <span class="keyword">from</span> (<span class="keyword">select</span> * <span class="keyword">from</span> film <span class="keyword">where</span> <span class="keyword">id</span> = <span class="number">1</span>) der;</span><br></pre></td></tr></table></figure>
+<p>  <img src="/styles/images/mysql/6.png" alt></p>
 </li>
 <li><p><code>UNION</code>: 在union语句中的第二个和后面的select</p>
 </li>
 <li><p><code>UNION RESULT</code>: 在union匿名临时表中查询的select</p>
- <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">explain</span> <span class="keyword">select</span> <span class="number">1</span> <span class="keyword">union</span> <span class="keyword">all</span> <span class="keyword">select</span> <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
-<p> <img src="/styles/images/mysql/7.png" alt></p>
+  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">explain</span> <span class="keyword">select</span> <span class="number">1</span> <span class="keyword">union</span> <span class="keyword">all</span> <span class="keyword">select</span> <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+<p>  <img src="/styles/images/mysql/7.png" alt></p>
 </li>
-</ol>
+</ul>
 <h4 id="table列"><a href="#table列" class="headerlink" title="table列"></a>table列</h4><ul>
 <li>table列表示explain中的select语句正在访问哪张表。</li>
 <li>当from子句中有子查询时，table列为<code>&lt;derivenN&gt;</code>格式，表示当前查询依赖<code>id=N</code>的查询，于是先执行<code>id=N</code>的查询。</li>
@@ -1759,15 +1753,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">数据库事务</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Redis</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Springboot</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">数据库事务</a>
               </li>
              
               <li class="article-tag-list-item">
