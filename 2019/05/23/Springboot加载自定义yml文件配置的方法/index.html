@@ -15,8 +15,8 @@
 <meta property="og:url" content="https://kwilove.github.io/2019/05/23/Springboot加载自定义yml文件配置的方法/index.html">
 <meta property="og:site_name" content="子敬的博客">
 <meta property="og:description" content="Springboot在1.5.x版本之后，去除了@ConfigurationProperties注解中的location参数，因此无法再通过这种方式加载自定义的yml配置文件了。 我在网上看到很多资料都是这么说明的，我也没去验证，先不管吧，总之我搜集资料后特意总结了以下三种解决方法，亲测有效。 首先先在resources目录下创建一个测试用的yml配置文件，内容如下： PS：注意yml文件中key">
-<meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-05-23T14:11:14.048Z">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-05-24T10:15:07.378Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Springboot加载自定义yml文件配置的方法">
 <meta name="twitter:description" content="Springboot在1.5.x版本之后，去除了@ConfigurationProperties注解中的location参数，因此无法再通过这种方式加载自定义的yml配置文件了。 我在网上看到很多资料都是这么说明的，我也没去验证，先不管吧，总之我搜集资料后特意总结了以下三种解决方法，亲测有效。 首先先在resources目录下创建一个测试用的yml配置文件，内容如下： PS：注意yml文件中key">
@@ -219,7 +219,7 @@
 <li>输出结果：</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">YamlProperties&#123;name=&apos;zjhuang&apos;, password=&apos;123456&apos;, age=25&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="三-使用YamlPropertiesFactoryBean-Value方式"><a href="#三-使用YamlPropertiesFactoryBean-Value方式" class="headerlink" title="三.使用YamlPropertiesFactoryBean + @Value方式"></a><strong>三.使用YamlPropertiesFactoryBean + @Value方式</strong></h2><ul>
+<h2 id="三-使用YamlPropertiesFactoryBean-Value方式"><a href="#三-使用YamlPropertiesFactoryBean-Value方式" class="headerlink" title="三. 使用YamlPropertiesFactoryBean + @Value方式"></a><strong>三. 使用YamlPropertiesFactoryBean + @Value方式</strong></h2><ul>
 <li>PropertySourcesPlaceholderConfigurer类代码</li>
 </ul>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.config.YamlPropertiesFactoryBean;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Bean;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.support.PropertySourcesPlaceholderConfigurer;</span><br><span class="line"><span class="keyword">import</span> org.springframework.core.io.ClassPathResource;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Component;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PropertySourcesPlaceholderConfigurerBean</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> PropertySourcesPlaceholderConfigurer <span class="title">yaml</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        PropertySourcesPlaceholderConfigurer configurer = <span class="keyword">new</span> PropertySourcesPlaceholderConfigurer();</span><br><span class="line">        YamlPropertiesFactoryBean yaml = <span class="keyword">new</span> YamlPropertiesFactoryBean();</span><br><span class="line">        yaml.setResources(<span class="keyword">new</span> ClassPathResource(<span class="string">"test.yml"</span>));</span><br><span class="line">        configurer.setProperties(yaml.getObject());</span><br><span class="line">        <span class="keyword">return</span> configurer;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -488,19 +488,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Redis</a>
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Springboot</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Redis</a>
               </li>
              
               <li class="article-tag-list-item">
