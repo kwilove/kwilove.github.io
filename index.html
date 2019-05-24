@@ -211,11 +211,13 @@
 </ul>
 </li>
 </ul>
-<p>1.简单子查询</p>
-<pre><code><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">explain</span> <span class="keyword">select</span> (<span class="keyword">select</span> <span class="number">1</span> <span class="keyword">from</span> actor <span class="keyword">limit</span> <span class="number">1</span>) <span class="keyword">from</span> film;</span><br></pre></td></tr></table></figure>
-
-![](/styles/images/mysql/2.png)
-</code></pre><ol start="2">
+<ol>
+<li><p>简单子查询</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">explain</span> <span class="keyword">select</span> (<span class="keyword">select</span> <span class="number">1</span> <span class="keyword">from</span> actor <span class="keyword">limit</span> <span class="number">1</span>) <span class="keyword">from</span> film;</span><br></pre></td></tr></table></figure>
+<p> <img src="/styles/images/mysql/2.png" alt></p>
+</li>
+</ol>
+<ol start="2">
 <li><p>from子句子查询</p>
  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">explain</span> <span class="keyword">select</span> <span class="keyword">id</span> <span class="keyword">from</span> (<span class="keyword">select</span> <span class="keyword">id</span> <span class="keyword">from</span> film) <span class="keyword">as</span> der;</span><br></pre></td></tr></table></figure>
 <p> <img src="/styles/images/mysql/3.png" alt></p>
@@ -890,11 +892,11 @@
 <blockquote>
 <p>expire key secords<br>secords为过期时间，单位时秒</p>
 </blockquote>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; set city guangzhou</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; get city</span><br><span class="line">"guangzhou"</span><br><span class="line">127.0.0.1:6379&gt; expire city 5</span><br><span class="line">(integer) 1</span><br><span class="line"><span class="meta">#</span> 等待5s过后</span><br><span class="line">127.0.0.1:6379&gt; get city</span><br><span class="line">(nil)</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; set city guangzhou</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; get city</span><br><span class="line">"guangzhou"</span><br><span class="line">127.0.0.1:6379&gt; expire city 5</span><br><span class="line">(integer) 1</span><br><span class="line"><span class="meta">#</span><span class="bash"> 等待5s过后</span></span><br><span class="line">127.0.0.1:6379&gt; get city</span><br><span class="line">(nil)</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>setex key secords value<br>secords为过期时间，单位时秒，等价于set + expire</p>
 </blockquote>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; setex city 5 guangzhou</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; get city</span><br><span class="line">"guangzhou"</span><br><span class="line"><span class="meta">#</span> 等待5s过后</span><br><span class="line">127.0.0.1:6379&gt; get city</span><br><span class="line">(nil)</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; setex city 5 guangzhou</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; get city</span><br><span class="line">"guangzhou"</span><br><span class="line"><span class="meta">#</span><span class="bash"> 等待5s过后</span></span><br><span class="line">127.0.0.1:6379&gt; get city</span><br><span class="line">(nil)</span><br></pre></td></tr></table></figure>
 <p>set的其他扩展命令</p>
 <blockquote>
 <p>setnx key value<br>当key不存在时执行set操作</p>
@@ -1325,15 +1327,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Springboot</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">数据库事务</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Springboot</a>
               </li>
             
             <div class="clearfix"></div>
