@@ -44,7 +44,7 @@
 <meta property="og:image" content="https://kwilove.github.io/styles/images/mysql/25.png">
 <meta property="og:image" content="https://kwilove.github.io/styles/images/mysql/26.png">
 <meta property="og:image" content="https://kwilove.github.io/styles/images/mysql/27.png">
-<meta property="og:updated_time" content="2019-05-24T02:41:31.684Z">
+<meta property="og:updated_time" content="2019-05-24T04:14:22.810Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="了解MySQL的explain命令">
 <meta name="twitter:description" content="一. 预备知识阅读本文章前需要掌握MySQL索引的底层数据结构相关知识，可以查看我之前的文章了解。  索引前导列: 所谓前导列，就是联合索引的第一列或者从第一列开始连续多列的组合。比如通过语句CREATE INDEX table1_index ON table1 (x, y, z)创建索引，那么x、xy、xyz都是前导列，而yz，y，z这样的就不是。 覆盖索引: 覆盖索引是select的数据列只用">
@@ -224,7 +224,7 @@
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span></span><br><span class="line"><span class="keyword">IF</span> <span class="keyword">EXISTS</span> <span class="string">`film_actor`</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="string">`film_actor`</span> (</span><br><span class="line">    <span class="string">`id`</span> <span class="built_in">INT</span> (<span class="number">11</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,</span><br><span class="line">    <span class="string">`film_id`</span> <span class="built_in">INT</span> (<span class="number">11</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,</span><br><span class="line">    <span class="string">`actor_id`</span> <span class="built_in">INT</span> (<span class="number">11</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,</span><br><span class="line">    <span class="string">`remark`</span> <span class="built_in">VARCHAR</span> (<span class="number">255</span>) <span class="keyword">DEFAULT</span> <span class="literal">NULL</span>,</span><br><span class="line">    PRIMARY <span class="keyword">KEY</span> (<span class="string">`id`</span>),</span><br><span class="line">    <span class="keyword">KEY</span> <span class="string">`idx_film_actor_id`</span> (<span class="string">`film_id`</span>, <span class="string">`actor_id`</span>)</span><br><span class="line">) <span class="keyword">ENGINE</span> = <span class="keyword">INNODB</span> <span class="keyword">DEFAULT</span> <span class="keyword">CHARSET</span> = utf8;</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> <span class="string">`film_actor`</span> </span><br><span class="line">    (<span class="string">`id`</span>, <span class="string">`film_id`</span>, <span class="string">`actor_id`</span>)</span><br><span class="line"><span class="keyword">VALUES</span></span><br><span class="line">    (<span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>),</span><br><span class="line">    (<span class="number">2</span>, <span class="number">1</span>, <span class="number">2</span>),</span><br><span class="line">    (<span class="number">3</span>, <span class="number">2</span>, <span class="number">1</span>);</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<h4 id="举例讲解"><a href="#举例讲解" class="headerlink" title="举例讲解"></a>举例讲解</h4><p><code>mysql&gt; explain select * from actor;</code></p>
+<h4 id="举例讲解"><a href="#举例讲解" class="headerlink" title="举例讲解"></a>举例讲解</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; explain select * from actor;`</span><br></pre></td></tr></table></figure>
 <p><img src="/styles/images/mysql/1.png" alt></p>
 <h4 id="id列"><a href="#id列" class="headerlink" title="id列"></a>id列</h4><ul>
 <li>id列是select的序列号，id的个数等于SQL语句中select的个数，并且id列的顺序与select出现的顺序一一对应、</li>
@@ -549,8 +549,8 @@
 <nav id="article-nav">
   
   
-    <a href="/2019/05/23/数据库事务特性及隔离级别/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">数据库事务特性及隔离级别</div>
+    <a href="/2019/05/23/Springboot加载自定义yml文件配置的方法/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Springboot加载自定义yml文件配置的方法</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -693,6 +693,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Nginx</a>
               </li>
             
             <div class="clearfix"></div>

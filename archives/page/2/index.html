@@ -6,22 +6,18 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="https://kwilove.github.io">
-  <title>Redis核心原理 | 子敬的博客</title>
+  <title>Archives | 子敬的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Redis的单线程和高性能 Redis单线程为什么还能那么快？   因为它所有的数据都存储在内存中，所有的运算都是内存级别的运算。 单线程避免了线程间切换的性能损耗。 正因为redis是单线程的，所以要谨慎使用那些耗时指令，比如keys，否则会导致redis卡顿。   Redis在单线程模式下如何做到高效处理并发客户端连接？   Redis通过epoll（IO多路复用模型）实现将客户端连接信息和事">
-<meta name="keywords" content="Redis">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Redis核心原理">
-<meta property="og:url" content="https://kwilove.github.io/2019/05/23/Redis核心原理/index.html">
+  <meta name="description" content="子敬的博客">
+<meta property="og:type" content="website">
+<meta property="og:title" content="子敬的博客">
+<meta property="og:url" content="https://kwilove.github.io/archives/page/2/index.html">
 <meta property="og:site_name" content="子敬的博客">
-<meta property="og:description" content="Redis的单线程和高性能 Redis单线程为什么还能那么快？   因为它所有的数据都存储在内存中，所有的运算都是内存级别的运算。 单线程避免了线程间切换的性能损耗。 正因为redis是单线程的，所以要谨慎使用那些耗时指令，比如keys，否则会导致redis卡顿。   Redis在单线程模式下如何做到高效处理并发客户端连接？   Redis通过epoll（IO多路复用模型）实现将客户端连接信息和事">
+<meta property="og:description" content="子敬的博客">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://kwilove.github.io/styles/images/redis/3.png">
-<meta property="og:updated_time" content="2019-05-23T14:09:45.253Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Redis核心原理">
-<meta name="twitter:description" content="Redis的单线程和高性能 Redis单线程为什么还能那么快？   因为它所有的数据都存储在内存中，所有的运算都是内存级别的运算。 单线程避免了线程间切换的性能损耗。 正因为redis是单线程的，所以要谨慎使用那些耗时指令，比如keys，否则会导致redis卡顿。   Redis在单线程模式下如何做到高效处理并发客户端连接？   Redis通过epoll（IO多路复用模型）实现将客户端连接信息和事">
-<meta name="twitter:image" content="https://kwilove.github.io/styles/images/redis/3.png">
+<meta name="twitter:title" content="子敬的博客">
+<meta name="twitter:description" content="子敬的博客">
   
     <link rel="alternative" href="/atom.xml" title="子敬的博客" type="application/atom+xml">
   
@@ -157,221 +153,172 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-Redis核心原理" class="article article-type-post " itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+            
   
-    <h1 class="article-title" itemprop="name">
-      Redis核心原理
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2019" class="archive-year">2019</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2019/04/03/数据库事务特性及隔离级别/" class="archive-article-date">
+  	<time datetime="2019-04-03T14:11:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-03</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2019/04/03/数据库事务特性及隔离级别/">数据库事务特性及隔离级别</a>
     </h1>
   
 
-        
-        <a href="/2019/05/23/Redis核心原理/" class="archive-article-date">
-  	<time datetime="2019-05-23T14:07:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-23</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="Redis的单线程和高性能"><a href="#Redis的单线程和高性能" class="headerlink" title="Redis的单线程和高性能"></a>Redis的单线程和高性能</h2><ol>
-<li>Redis单线程为什么还能那么快？</li>
-</ol>
-<ul>
-<li>因为它所有的数据都存储在内存中，所有的运算都是内存级别的运算。</li>
-<li>单线程避免了线程间切换的性能损耗。</li>
-<li>正因为redis是单线程的，所以要谨慎使用那些耗时指令，比如keys，否则会导致redis卡顿。</li>
-</ul>
-<ol start="2">
-<li>Redis在单线程模式下如何做到高效处理并发客户端连接？</li>
-</ol>
-<ul>
-<li>Redis通过<code>epoll（IO多路复用模型）</code>实现将客户端连接信息和事件放入队列，然后由文件事件分派器依次分发给对应的事件处理器。</li>
-<li>Nginxy也是采用<code>IO多路复用</code>模型解决了<code>C10K（10K并发连接数）</code>问题。<br><img src="/styles/images/redis/3.png" alt="Redis的IO复用模型"></li>
-</ul>
-<h2 id="Redis的持久化"><a href="#Redis的持久化" class="headerlink" title="Redis的持久化"></a>Redis的持久化</h2><p>Redis 提供了多种不同级别的持久化方式：</p>
-<ol>
-<li>RDB快照</li>
-</ol>
-<ul>
-<li>RDB 持久化可以在指定的时间间隔内生成数据集的<code>时间点快照（point-in-time snapshot）</code>。</li>
-<li>在默认情况下， Redis 将数据库快照保存在名字为 dump.rdb 的二进制文件中。</li>
-<li>你可以对 Redis 进行设置， 让它在“N 秒内数据集至少有 M 个改动”这一条件被满足时， 自动保存一次数据集。</li>
-<li>你也可以通过调用 SAVE 或者 BGSAVE ， 手动让 Redis 进行数据集保存操作；比如说， 以下设置会让 Redis 在满足“ 60 秒内有至少有 1000 个键被改动”这一条件时， 自动保存一次数据集：</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">save 60 1000</span><br></pre></td></tr></table></figure>
-<ol start="2">
-<li>AOF持久化</li>
-</ol>
-<ul>
-<li>AOF持久化会记录Redis服务器执行过的所有<code>写操作指令</code>，并在服务器启动时，通过重新执行这些指令来还原数据集，</li>
-</ul>
-<p><strong>参考</strong></p>
-<ul>
-<li><a href="http://redisdoc.com/topic/persistence.html" target="_blank" rel="noopener">Redis持久化</a></li>
-</ul>
-
-      
-
-      
-        <div class="page-reward">
-          <a href="javascript:;" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            <span class="tooltip-item">
-              赏
-            </span>
-            <span class="tooltip-content">
-              <span class="tooltip-text">
-                <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
-                  <div class="reward-box">
-                    
-                    
-                  </div>
-                </span>
-              </span>
-            </span>
-          </div>
-          </a>
-        </div>
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
+        <div class="article-info info-on-right">
+          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Redis</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">数据库事务</a>
         		</li>
       		
 		</ul>
 	</div>
 
-      
+          
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/分布式框架//" class="article-tag-list-link color1">分布式框架</a>
+        			<a href="/categories/性能调优//" class="article-tag-list-link color5">性能调优</a>
         		</li>
       		
 		</ul>
 	</div>
 
 
-      
-
-      
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
         </div>
-      </div>
-    </span>
-  </div>
-</div>
-
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=https://kwilove.github.io/2019/05/23/Redis核心原理/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
-      
-      <div class="clearfix"></div>
-    </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
   
-<nav id="article-nav">
-  
-    <a href="/2019/05/23/Springboot加载自定义yml文件配置的方法/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          Springboot加载自定义yml文件配置的方法
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2019/05/23/Redis基础数据结构/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">2019-05-23-Redis基础数据结构</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
+    
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2019/03/28/nginx-2019-03-28-Nginx核心配置讲解与实践/" class="archive-article-date">
+  	<time datetime="2019-03-28T11:08:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-28</time>
+</a>
         </div>
-        
-        
-    </div>
-</aside>
-
-
-
+    	 
   
-  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2019/03/28/nginx-2019-03-28-Nginx核心配置讲解与实践/">Nginx核心配置讲解与实践</a>
+    </h1>
   
 
+        <div class="article-info info-on-right">
+          
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Nginx</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+          
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/性能调优//" class="article-tag-list-link color5">性能调优</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+        </div>
+        <div class="clearfix"></div>
+    </header>
+  </div>
+</article>
+  
+    
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2019/03/20/Hello-World/" class="archive-article-date">
+  	<time datetime="2019-03-20T11:08:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-20</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2019/03/20/Hello-World/">开博纪念</a>
+    </h1>
   
 
+        <div class="article-info info-on-right">
+          
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">杂谈</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+          
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/杂谈//" class="article-tag-list-link color3">杂谈</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+        </div>
+        <div class="clearfix"></div>
+    </header>
+  </div>
+</article>
+  
+  
+    </div></section>
   
 
+    
+    <nav id="page-nav">
+      <a class="extend prev" rel="prev" href="/archives/">&laquo; Prev</a><a class="page-number" href="/archives/">1</a><span class="page-number current">2</span>
+    </nav>
   
 
 
@@ -395,8 +342,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: true,
-		isArchive: false,
+		isPost: false,
+		isArchive: true,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,

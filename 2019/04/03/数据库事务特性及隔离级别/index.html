@@ -6,22 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="https://kwilove.github.io">
-  <title>Redis核心原理 | 子敬的博客</title>
+  <title>数据库事务特性及隔离级别 | 子敬的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Redis的单线程和高性能 Redis单线程为什么还能那么快？   因为它所有的数据都存储在内存中，所有的运算都是内存级别的运算。 单线程避免了线程间切换的性能损耗。 正因为redis是单线程的，所以要谨慎使用那些耗时指令，比如keys，否则会导致redis卡顿。   Redis在单线程模式下如何做到高效处理并发客户端连接？   Redis通过epoll（IO多路复用模型）实现将客户端连接信息和事">
-<meta name="keywords" content="Redis">
+  <meta name="description" content="事务的四个基本特性（ACID） 1. 原子性（Atomicity）：  同一个事务所包含的所有操作，要么全做，要么全不做，任何一项操作的失败都会导致整个事务的失败；  2. 一致性（Consistency）：  当事务结束后，系统在执行事务操作前后的状态是一致的； 这里举个例子来说，比如A（余额300元）转账给B（余额200元），在一个事务中，无论A转了多少钱，转了几次，在事务完成后，A和B的总金">
+<meta name="keywords" content="数据库事务">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Redis核心原理">
-<meta property="og:url" content="https://kwilove.github.io/2019/05/23/Redis核心原理/index.html">
+<meta property="og:title" content="数据库事务特性及隔离级别">
+<meta property="og:url" content="https://kwilove.github.io/2019/04/03/数据库事务特性及隔离级别/index.html">
 <meta property="og:site_name" content="子敬的博客">
-<meta property="og:description" content="Redis的单线程和高性能 Redis单线程为什么还能那么快？   因为它所有的数据都存储在内存中，所有的运算都是内存级别的运算。 单线程避免了线程间切换的性能损耗。 正因为redis是单线程的，所以要谨慎使用那些耗时指令，比如keys，否则会导致redis卡顿。   Redis在单线程模式下如何做到高效处理并发客户端连接？   Redis通过epoll（IO多路复用模型）实现将客户端连接信息和事">
+<meta property="og:description" content="事务的四个基本特性（ACID） 1. 原子性（Atomicity）：  同一个事务所包含的所有操作，要么全做，要么全不做，任何一项操作的失败都会导致整个事务的失败；  2. 一致性（Consistency）：  当事务结束后，系统在执行事务操作前后的状态是一致的； 这里举个例子来说，比如A（余额300元）转账给B（余额200元），在一个事务中，无论A转了多少钱，转了几次，在事务完成后，A和B的总金">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://kwilove.github.io/styles/images/redis/3.png">
-<meta property="og:updated_time" content="2019-05-23T14:09:45.253Z">
+<meta property="og:updated_time" content="2019-05-24T07:08:36.849Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Redis核心原理">
-<meta name="twitter:description" content="Redis的单线程和高性能 Redis单线程为什么还能那么快？   因为它所有的数据都存储在内存中，所有的运算都是内存级别的运算。 单线程避免了线程间切换的性能损耗。 正因为redis是单线程的，所以要谨慎使用那些耗时指令，比如keys，否则会导致redis卡顿。   Redis在单线程模式下如何做到高效处理并发客户端连接？   Redis通过epoll（IO多路复用模型）实现将客户端连接信息和事">
-<meta name="twitter:image" content="https://kwilove.github.io/styles/images/redis/3.png">
+<meta name="twitter:title" content="数据库事务特性及隔离级别">
+<meta name="twitter:description" content="事务的四个基本特性（ACID） 1. 原子性（Atomicity）：  同一个事务所包含的所有操作，要么全做，要么全不做，任何一项操作的失败都会导致整个事务的失败；  2. 一致性（Consistency）：  当事务结束后，系统在执行事务操作前后的状态是一致的； 这里举个例子来说，比如A（余额300元）转账给B（余额200元），在一个事务中，无论A转了多少钱，转了几次，在事务完成后，A和B的总金">
   
     <link rel="alternative" href="/atom.xml" title="子敬的博客" type="application/atom+xml">
   
@@ -157,61 +155,107 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-Redis核心原理" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-数据库事务特性及隔离级别" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      Redis核心原理
+      数据库事务特性及隔离级别
     </h1>
   
 
         
-        <a href="/2019/05/23/Redis核心原理/" class="archive-article-date">
-  	<time datetime="2019-05-23T14:07:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-23</time>
+        <a href="/2019/04/03/数据库事务特性及隔离级别/" class="archive-article-date">
+  	<time datetime="2019-04-03T14:11:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-03</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="Redis的单线程和高性能"><a href="#Redis的单线程和高性能" class="headerlink" title="Redis的单线程和高性能"></a>Redis的单线程和高性能</h2><ol>
-<li>Redis单线程为什么还能那么快？</li>
-</ol>
+        <h2 id="事务的四个基本特性（ACID）"><a href="#事务的四个基本特性（ACID）" class="headerlink" title="事务的四个基本特性（ACID）"></a>事务的四个基本特性（ACID）</h2><hr>
+<p><strong>1. 原子性（Atomicity）：</strong></p>
 <ul>
-<li>因为它所有的数据都存储在内存中，所有的运算都是内存级别的运算。</li>
-<li>单线程避免了线程间切换的性能损耗。</li>
-<li>正因为redis是单线程的，所以要谨慎使用那些耗时指令，比如keys，否则会导致redis卡顿。</li>
+<li>同一个事务所包含的所有操作，要么全做，要么全不做，任何一项操作的失败都会导致整个事务的失败；</li>
 </ul>
-<ol start="2">
-<li>Redis在单线程模式下如何做到高效处理并发客户端连接？</li>
-</ol>
+<p><strong>2. 一致性（Consistency）：</strong></p>
 <ul>
-<li>Redis通过<code>epoll（IO多路复用模型）</code>实现将客户端连接信息和事件放入队列，然后由文件事件分派器依次分发给对应的事件处理器。</li>
-<li>Nginxy也是采用<code>IO多路复用</code>模型解决了<code>C10K（10K并发连接数）</code>问题。<br><img src="/styles/images/redis/3.png" alt="Redis的IO复用模型"></li>
+<li>当事务结束后，系统在执行事务操作前后的状态是一致的；</li>
+<li>这里举个例子来说，比如A（余额300元）转账给B（余额200元），在一个事务中，无论A转了多少钱，转了几次，在事务完成后，A和B的总金额还是500元；</li>
 </ul>
-<h2 id="Redis的持久化"><a href="#Redis的持久化" class="headerlink" title="Redis的持久化"></a>Redis的持久化</h2><p>Redis 提供了多种不同级别的持久化方式：</p>
-<ol>
-<li>RDB快照</li>
-</ol>
+<p><strong>3. 隔离性（Durability）</strong></p>
 <ul>
-<li>RDB 持久化可以在指定的时间间隔内生成数据集的<code>时间点快照（point-in-time snapshot）</code>。</li>
-<li>在默认情况下， Redis 将数据库快照保存在名字为 dump.rdb 的二进制文件中。</li>
-<li>你可以对 Redis 进行设置， 让它在“N 秒内数据集至少有 M 个改动”这一条件被满足时， 自动保存一次数据集。</li>
-<li>你也可以通过调用 SAVE 或者 BGSAVE ， 手动让 Redis 进行数据集保存操作；比如说， 以下设置会让 Redis 在满足“ 60 秒内有至少有 1000 个键被改动”这一条件时， 自动保存一次数据集：</li>
+<li>并发执行的多个事务操作是相互隔离，互不影响的，并且无法看到其他事务的中间状态；</li>
+<li>数据库提供了多种隔离级别，这块后面会说道。</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">save 60 1000</span><br></pre></td></tr></table></figure>
-<ol start="2">
-<li>AOF持久化</li>
-</ol>
+<p><strong>4. 持久性</strong></p>
 <ul>
-<li>AOF持久化会记录Redis服务器执行过的所有<code>写操作指令</code>，并在服务器启动时，通过重新执行这些指令来还原数据集，</li>
+<li>事务完成后所做的所有改动都会被持久化，永久生效，即使数据库发生了灾难性故障也不会对已经完成的事务结果造成影响。</li>
 </ul>
-<p><strong>参考</strong></p>
+<h2 id="事务隔离级别"><a href="#事务隔离级别" class="headerlink" title="事务隔离级别"></a>事务隔离级别</h2><hr>
+<p>在高并发情况下，要完成保证事务ACID特性是十分困难的，除非把所有的事务串行化执行，但是因此造成的影响将是系统性能大大降低。在实际开发中很多业务对事务的要求是不一样的，因此数据库设计了四种隔离级别供用户基于业务进行选择。</p>
+<table>
+<thead>
+<tr>
+<th>隔离级别</th>
+<th>脏读（Dirty Read）</th>
+<th>不可重复读（Non-repeatable Read）</th>
+<th>幻读（Phantom Read）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>读未提交（Read uncommitted）</td>
+<td>可能</td>
+<td>可能</td>
+<td>可能</td>
+</tr>
+<tr>
+<td>读已提交（Read committed）</td>
+<td>不可能</td>
+<td>可能</td>
+<td>可能</td>
+</tr>
+<tr>
+<td>可重复读（Repeatable read）</td>
+<td>不可能</td>
+<td>不可能</td>
+<td>可能</td>
+</tr>
+<tr>
+<td>串行化（Serializable）</td>
+<td>不可能</td>
+<td>不可能</td>
+<td>不可能</td>
+</tr>
+</tbody>
+</table>
 <ul>
-<li><a href="http://redisdoc.com/topic/persistence.html" target="_blank" rel="noopener">Redis持久化</a></li>
+<li><strong>脏读：</strong><br>一个事务读取到另一个事务还未提交的数据。</li>
+<li><strong>不可重复读：</strong><br>在同一个事务中，前后两次执行相同的查询操作，出现返回的结果不一致的情况，换言之就是后一次查询操作能够读取到其他事务已提交的更新数据；<strong>“可重复读”</strong> 与之相反，是指在同一个事务中，前后两次查询操作读取到的结果一致，其他事务提交的更新数据不会对本事务造成影响。</li>
+<li><strong>幻读：</strong><br>查询表中一条记录，如果发现不存在就插入一条，并发情况下，发现表中出现两条相同记录，这就是幻读。</li>
+</ul>
+<h2 id="数据库默认的隔离级别"><a href="#数据库默认的隔离级别" class="headerlink" title="数据库默认的隔离级别"></a>数据库默认的隔离级别</h2><hr>
+<ul>
+<li>Oracle默认隔离级别是Read committed；</li>
+<li>MySQL默认是Repeatable read，另外在MySQL中执行一条查询语句默认是一个独立事务操作，所以看上去效果跟Read committed一样；</li>
+<li>查看MySQL隔离级别信息：</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> @@tx_isolation;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>设置MySQL隔离级别：</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span> [<span class="keyword">global</span>|<span class="keyword">session</span>]  <span class="keyword">transaction</span> <span class="keyword">isolation</span> <span class="keyword">level</span> 隔离级别名称;</span><br></pre></td></tr></table></figure>
+<p>或</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span> tx_isolation=’隔离级别名称;’</span><br></pre></td></tr></table></figure>
+<p>可选参数：</p>
+<ul>
+<li>READ-UNCOMMITTED</li>
+<li>READ-COMMITTED</li>
+<li>REPEATABLE-READ</li>
+<li>SERIALIZABLE</li>
 </ul>
 
       
@@ -247,7 +291,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Redis</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">数据库事务</a>
         		</li>
       		
 		</ul>
@@ -259,7 +303,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/分布式框架//" class="article-tag-list-link color1">分布式框架</a>
+        			<a href="/categories/性能调优//" class="article-tag-list-link color5">性能调优</a>
         		</li>
       		
 		</ul>
@@ -314,7 +358,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=https://kwilove.github.io/2019/05/23/Redis核心原理/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=https://kwilove.github.io/2019/04/03/数据库事务特性及隔离级别/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -328,18 +372,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2019/05/23/Springboot加载自定义yml文件配置的方法/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2019/04/04/nginx-2019-04-04-Nginx反向代理/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          Springboot加载自定义yml文件配置的方法
+          Nginx反向代理
         
       </div>
     </a>
   
   
-    <a href="/2019/05/23/Redis基础数据结构/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">2019-05-23-Redis基础数据结构</div>
+    <a href="/2019/03/28/nginx-2019-03-28-Nginx核心配置讲解与实践/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Nginx核心配置讲解与实践</div>
       <i class="icon-circle-right"></i>
     </a>
   

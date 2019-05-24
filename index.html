@@ -195,7 +195,7 @@
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span></span><br><span class="line"><span class="keyword">IF</span> <span class="keyword">EXISTS</span> <span class="string">`film_actor`</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="string">`film_actor`</span> (</span><br><span class="line">    <span class="string">`id`</span> <span class="built_in">INT</span> (<span class="number">11</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,</span><br><span class="line">    <span class="string">`film_id`</span> <span class="built_in">INT</span> (<span class="number">11</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,</span><br><span class="line">    <span class="string">`actor_id`</span> <span class="built_in">INT</span> (<span class="number">11</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,</span><br><span class="line">    <span class="string">`remark`</span> <span class="built_in">VARCHAR</span> (<span class="number">255</span>) <span class="keyword">DEFAULT</span> <span class="literal">NULL</span>,</span><br><span class="line">    PRIMARY <span class="keyword">KEY</span> (<span class="string">`id`</span>),</span><br><span class="line">    <span class="keyword">KEY</span> <span class="string">`idx_film_actor_id`</span> (<span class="string">`film_id`</span>, <span class="string">`actor_id`</span>)</span><br><span class="line">) <span class="keyword">ENGINE</span> = <span class="keyword">INNODB</span> <span class="keyword">DEFAULT</span> <span class="keyword">CHARSET</span> = utf8;</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> <span class="string">`film_actor`</span> </span><br><span class="line">    (<span class="string">`id`</span>, <span class="string">`film_id`</span>, <span class="string">`actor_id`</span>)</span><br><span class="line"><span class="keyword">VALUES</span></span><br><span class="line">    (<span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>),</span><br><span class="line">    (<span class="number">2</span>, <span class="number">1</span>, <span class="number">2</span>),</span><br><span class="line">    (<span class="number">3</span>, <span class="number">2</span>, <span class="number">1</span>);</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<h4 id="举例讲解"><a href="#举例讲解" class="headerlink" title="举例讲解"></a>举例讲解</h4><p><code>mysql&gt; explain select * from actor;</code></p>
+<h4 id="举例讲解"><a href="#举例讲解" class="headerlink" title="举例讲解"></a>举例讲解</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; explain select * from actor;`</span><br></pre></td></tr></table></figure>
 <p><img src="/styles/images/mysql/1.png" alt></p>
 <h4 id="id列"><a href="#id列" class="headerlink" title="id列"></a>id列</h4><ul>
 <li>id列是select的序列号，id的个数等于SQL语句中select的个数，并且id列的顺序与select出现的顺序一一对应、</li>
@@ -439,136 +439,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2019/05/23/了解MySQL的explain命令/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-数据库事务特性及隔离级别" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/05/23/数据库事务特性及隔离级别/">数据库事务特性及隔离级别</a>
-    </h1>
-  
-
-        
-        <a href="/2019/05/23/数据库事务特性及隔离级别/" class="archive-article-date">
-  	<time datetime="2019-05-23T14:11:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-23</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="事务的四个基本特性（ACID）"><a href="#事务的四个基本特性（ACID）" class="headerlink" title="事务的四个基本特性（ACID）"></a>事务的四个基本特性（ACID）</h2><hr>
-<p><strong>1. 原子性（Atomicity）：</strong></p>
-<ul>
-<li>同一个事务所包含的所有操作，要么全做，要么全不做，任何一项操作的失败都会导致整个事务的失败；</li>
-</ul>
-<p><strong>2. 一致性（Consistency）：</strong></p>
-<ul>
-<li>当事务结束后，系统在执行事务操作前后的状态是一致的；</li>
-<li>这里举个例子来说，比如A（余额300元）转账给B（余额200元），在一个事务中，无论A转了多少钱，转了几次，在事务完成后，A和B的总金额还是500元；</li>
-</ul>
-<p><strong>3. 隔离性（Durability）</strong></p>
-<ul>
-<li>并发执行的多个事务操作是相互隔离，互不影响的，并且无法看到其他事务的中间状态；</li>
-<li>数据库提供了多种隔离级别，这块后面会说道。</li>
-</ul>
-<p><strong>4. 持久性</strong></p>
-<ul>
-<li>事务完成后所做的所有改动都会被持久化，永久生效，即使数据库发生了灾难性故障也不会对已经完成的事务结果造成影响。</li>
-</ul>
-<h2 id="事务隔离级别"><a href="#事务隔离级别" class="headerlink" title="事务隔离级别"></a>事务隔离级别</h2><hr>
-<p>在高并发情况下，要完成保证事务ACID特性是十分困难的，除非把所有的事务串行化执行，但是因此造成的影响将是系统性能大大降低。在实际开发中很多业务对事务的要求是不一样的，因此数据库设计了四种隔离级别供用户基于业务进行选择。<br>| 隔离级别 | 脏读（Dirty Read） | 不可重复读（Non-repeatable Read） | 幻读（Phantom Read） |<br>|–|–|–|–|<br>|读未提交（Read uncommitted）|可能|可能|可能|<br>|读已提交（Read committed）|不可能|可能|可能<br>|可重复读（Repeatable read）|不可能|不可能|可能|<br>|串行化（Serializable）|不可能|不可能|不可能|</p>
-<ul>
-<li><strong>脏读：</strong><br>一个事务读取到另一个事务还未提交的数据。</li>
-<li><strong>不可重复读：</strong><br>在同一个事务中，前后两次执行相同的查询操作，出现返回的结果不一致的情况，换言之就是后一次查询操作能够读取到其他事务已提交的更新数据；<strong>“可重复读”</strong> 与之相反，是指在同一个事务中，前后两次查询操作读取到的结果一致，其他事务提交的更新数据不会对本事务造成影响。</li>
-<li><strong>幻读：</strong><br>查询表中一条记录，如果发现不存在就插入一条，并发情况下，发现表中出现两条相同记录，这就是幻读。</li>
-</ul>
-<h2 id="数据库默认的隔离级别"><a href="#数据库默认的隔离级别" class="headerlink" title="数据库默认的隔离级别"></a>数据库默认的隔离级别</h2><hr>
-<ul>
-<li>Oracle默认隔离级别是Read committed；</li>
-<li>MySQL默认是Repeatable read，另外在MySQL中执行一条查询语句默认是一个独立事务操作，所以看上去效果跟Read committed一样；</li>
-<li>查看MySQL隔离级别信息：</li>
-</ul>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> @@tx_isolation;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>设置MySQL隔离级别：</li>
-</ul>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span> [<span class="keyword">global</span>|<span class="keyword">session</span>]  <span class="keyword">transaction</span> <span class="keyword">isolation</span> <span class="keyword">level</span> 隔离级别名称;</span><br></pre></td></tr></table></figure>
-<p>或</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span> tx_isolation=’隔离级别名称;’</span><br></pre></td></tr></table></figure>
-<p>可选参数：</p>
-<ul>
-<li>READ-UNCOMMITTED</li>
-<li>READ-COMMITTED</li>
-<li>REPEATABLE-READ</li>
-<li>SERIALIZABLE</li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">数据库事务</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/性能调优//" class="article-tag-list-link color5">性能调优</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/05/23/数据库事务特性及隔离级别/">展开全文 >></a>
         </p>
       
 
@@ -1137,20 +1007,20 @@
 
 
   
-    <article id="post-Hello-World" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-nginx-2019-04-12-Nginx性能参数调优" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/20/Hello-World/">开博纪念</a>
+      <a class="article-title" href="/2019/04/12/nginx-2019-04-12-Nginx性能参数调优/">Nginx性能参数调优</a>
     </h1>
   
 
         
-        <a href="/2019/03/20/Hello-World/" class="archive-article-date">
-  	<time datetime="2019-03-20T11:08:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-20</time>
+        <a href="/2019/04/12/nginx-2019-04-12-Nginx性能参数调优/" class="archive-article-date">
+  	<time datetime="2019-04-12T11:08:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-12</time>
 </a>
         
       </header>
@@ -1158,10 +1028,28 @@
     <div class="article-entry" itemprop="articleBody">
       
         <ul>
-<li>终于成功搭建了自己的私人博客，以前都是在CSDN等平台上发布技术相关的文章，现在可以优先上传到这里后再同步到其他平台上。</li>
-<li>简历上也能放上自己的网址了，咱也得慢慢将档次提升上来才行。</li>
-<li>以后有空会陆续将在其他平台发布的原创文章迁移过来，敬请期待！！！</li>
+<li>content<br>{:toc}</li>
 </ul>
+<h4 id="1-worker-processes"><a href="#1-worker-processes" class="headerlink" title="1. worker_processes"></a>1. worker_processes</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">语法:worker_processes number | auto;</span><br><span class="line">* number：Nginx进程最多可以产生的工作进程数量</span><br><span class="line">* auto：  Nginx进程将自动检测</span><br></pre></td></tr></table></figure>
+<p>Nginx服务器实现并发处理服务的关键。<br>每个worker进程都是单线程的进程，它们会调用各个模块以实现多种多样的功能。如果这些模块确认不会出现阻塞式的调用，那么，有多少CPU内核就应该配置多少个进程；反之，如果有可能出现阻塞式调用，那么需要配置稍多一些的worker进程。<br>例如，如果业务方面会致使用户请求大量读取本地磁盘上的静态资源文件，而且服务器上的内存较小，以至于大部分的请求访问静态资源文件时都必须读取磁盘（磁头的寻址是缓慢的），而不是内存中的磁盘缓存，那么磁盘I/O调用可能会阻塞住worker进程少量时间，进而导致服务整体性能下降。</p>
+<h4 id="2-worker-connections"><a href="#2-worker-connections" class="headerlink" title="2. worker_connections"></a>2. worker_connections</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">worker_connections</span> number;</span><br><span class="line">Default: worker_connections 1024</span><br></pre></td></tr></table></figure>
+<p>每个worker进程的最大连接数，理论上每台nginx服务器的最大连接数为worker_processes * worker_connections。</p>
+<h4 id="3-worker-cpu-affinity"><a href="#3-worker-cpu-affinity" class="headerlink" title="3. worker_cpu_affinity"></a>3. worker_cpu_affinity</h4><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">worker_cpu_affinity</span> cpumask [cpumask……];</span><br></pre></td></tr></table></figure>
+<p>绑定Nginx worker进程到指定的CPU内核。<br>为什么要绑定worker进程到指定的CPU内核呢？假定每一个worker进程都是非常繁忙的，如果多个worker进程都在抢同一个CPU，那么这就会出现同步问题。反之，如果每一个worker进程都独享一个CPU，就在内核的调度策略上实现了完全的并发。<br>例如，如果有4核CPU，就可以进行如下配置：<br>worker_processes 4;<br>worker_cpu_affinity 1000 0100 0010 0001;<br>注意 </p>
+<ul>
+<li>worker_cpu_affinity配置仅对Linux操作系统有效。</li>
+<li>四核CPU，cpumask为1000 0100 0010 0001；<br>八核CPU，cpumask为10000000 01000000 00100000 00010000 00001000 00000100 00000010 00000001，以此类推。</li>
+</ul>
+<h4 id="4-worker-priority"><a href="#4-worker-priority" class="headerlink" title="4. worker_priority"></a>4. worker_priority</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">worker_priority</span> nice;</span><br><span class="line">Default: worker_priority 0;</span><br></pre></td></tr></table></figure>
+<p>Nginx worker进程优先级设置。<br>优先级由静态优先级和内核根据进程执行情况所做的动态调整（目前只有±5的调整）共同决定。nice值是进程的静态优先级，它的取值范围是–20～+19，–20是最高优先级，+19是最低优先级。因此，如果用户希望Nginx占有更多的系统资源，那么可以把nice值配置得更小一些，但不建议比内核进程的nice值（通常为–5）还要小</p>
+<h4 id="5-worker-rlimit-nofile"><a href="#5-worker-rlimit-nofile" class="headerlink" title="5. worker_rlimit_nofile"></a>5. worker_rlimit_nofile</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">worker_rlimit_nofile</span> limit;</span><br><span class="line">Default: 空</span><br></pre></td></tr></table></figure>
+<p>Nginx worker进程可以打开的最大句柄描述符个数。<br>更改worker进程的最大打开文件数限制。如果没设置的话，这个值为操作系统的限制。设置后你的操作系统和Nginx可以处理比<code>ulimit -a</code>更多的文件，所以把这个值设高，这样nginx就不会有<code>too many open files</code>问题了。</p>
+<h4 id="6-open-file-cache"><a href="#6-open-file-cache" class="headerlink" title="6. open_file_cache"></a>6. open_file_cache</h4><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">open_file_cache</span> max=<span class="number">65535</span> inactive=<span class="number">20s</span>;</span><br></pre></td></tr></table></figure>
+<p>为打开文件指定缓存，默认是没有启用的，max指定缓存数量，建议和打开文件数一致，inactive是指经过多长时间文件没被请求后删除缓存。</p>
+<h4 id="7-accept-mutext"><a href="#7-accept-mutext" class="headerlink" title="7. accept_mutext"></a>7. accept_mutext</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">accept_mutex</span> [<span class="literal">on</span>|<span class="literal">off</span>];</span><br><span class="line">Default: accept_mutext on;</span><br></pre></td></tr></table></figure>
+<p>是否打开accept锁。<br>accept_mutex是Nginx的负载均衡锁，当某一个worker进程建立的连接数量达到worker_connections配置的最大连接数的7/8时，会大大地减小该worker进程试图建立新TCP连接的机会，accept锁默认是打开的，如果关闭它，那么建立TCP连接的耗时会更短，但worker进程之间的负载会非常不均衡，因此不建议关闭它。</p>
+<h4 id="8-accept-mutex-delay"><a href="#8-accept-mutex-delay" class="headerlink" title="8. accept_mutex_delay"></a>8. accept_mutex_delay</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">accept_mutex_delay</span> Nms;</span><br><span class="line">Default: accept_mutex_delay 500ms;</span><br></pre></td></tr></table></figure>
+<p>使用accept锁后到真正建立连接之间的延迟时间。<br>在启用accept锁后，同一时间只有一个worker进程能够取到accept锁。这个accept锁不是阻塞锁，如果取不到会立刻返回。如果只有一个worker进程试图取锁而没有取到，他至少要等待accept_mutex_delay定义的时间才能再次试图取锁。</p>
 
       
 
@@ -1175,7 +1063,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">杂谈</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Nginx</a>
         		</li>
       		
 		</ul>
@@ -1187,7 +1075,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/杂谈//" class="article-tag-list-link color3">杂谈</a>
+        			<a href="/categories/性能调优//" class="article-tag-list-link color5">性能调优</a>
         		</li>
       		
 		</ul>
@@ -1196,7 +1084,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/03/20/Hello-World/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/04/12/nginx-2019-04-12-Nginx性能参数调优/">展开全文 >></a>
         </p>
       
 
@@ -1226,6 +1114,554 @@
 
 
   
+    <article id="post-nginx-2019-04-10-Nginx实用案例" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/04/10/nginx-2019-04-10-Nginx实用案例/">Nginx实用案例</a>
+    </h1>
+  
+
+        
+        <a href="/2019/04/10/nginx-2019-04-10-Nginx实用案例/" class="archive-article-date">
+  	<time datetime="2019-04-10T11:08:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-10</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <ul>
+<li>content<br>{:toc}</li>
+</ul>
+<h2 id="一-动静分离"><a href="#一-动静分离" class="headerlink" title="一. 动静分离"></a>一. 动静分离</h2><ol>
+<li><p>基于目录实现</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">    <span class="attribute">listen</span> <span class="number">80</span>;</span><br><span class="line">    <span class="attribute">server_name</span> <span class="regexp">*.abc.com</span>;</span><br><span class="line">    <span class="attribute">root</span> /usr/www/abc;</span><br><span class="line">    <span class="attribute">location</span> / &#123;</span><br><span class="line">        <span class="attribute">index</span> index.html;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="attribute">location</span> /static &#123;</span><br><span class="line">        <span class="attribute">alias</span> /usr/www/static;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>基于正则实现</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">location</span> <span class="regexp">~* \.(gif|jpg|png|css|js)$</span> &#123;</span><br><span class="line">      <span class="attribute">root</span> /usr/www/static;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="二-防盗链"><a href="#二-防盗链" class="headerlink" title="二. 防盗链"></a>二. 防盗链</h2><p>Nginx的ngx_http_referer_module模块通常用于阻止来源非法的请求，但是伪装Referer头信息是非常简单的，所以该模块只是能阻止大部分非法请求，另外，由于受浏览器、防火墙或代理服务器处理的影响，有些合法请求是不携带Referer头信息或者Referer的值被删除，这种情况也应该要考虑在内。<br>详情请参考<a href="http://nginx.org/en/docs/http/ngx_http_referer_module.html" target="_blank" rel="noopener">官方文档</a>。</p>
+<p>在server或location配置块内加入以下指令：<br><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># none:允许请求头缺少Referer参数的请求访问资源。</span></span><br><span class="line"><span class="comment"># blocked:允许请求头中Referer参数值为空的请求访问资源。</span></span><br><span class="line"><span class="comment"># *.abc.com:设置来源白名单，只允许来自域名*.abc.com的请求访问资源，多个值使用空格分割。</span></span><br><span class="line"><span class="attribute">valid_referers</span> <span class="literal">none</span> <span class="literal">blocked</span> <span class="regexp">*.abc.com</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果请求不满足上述条件，$invalid_referer将被设置成"1"。</span></span><br><span class="line"><span class="attribute">if</span> (<span class="variable">$invalid_referer</span>) &#123;</span><br><span class="line">    <span class="attribute">return</span> <span class="number">403</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="三-下载限速"><a href="#三-下载限速" class="headerlink" title="三. 下载限速"></a>三. 下载限速</h2><ul>
+<li><p>limit_rate rate;<br>限制向客户端传输响应的速率。<code>rate</code>以字节每秒为单位指定。默认值为<code>0</code>表示关闭速率限制。限制是根据每个请求设置的，因此，如果客户端同时打开两个连接，那么总速率将是rate值的两倍。<br>也可以通过设置$limit_rate变量实现限速，这种方式对于需要根据某些条件对速率进行限制的情况是很有用的。</p>
+</li>
+<li><p>limit_rate_after size;<br>设置初始总量，在向客户端传输的响应数据总大小超出<code>limit_rate_after</code>设置的数值之后才会进行速率限制，未超出则<code>limit_rate</code>不生效。</p>
+</li>
+</ul>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">location</span> /download &#123;</span><br><span class="line">    <span class="attribute">limit_rate</span> <span class="number">1m</span>;</span><br><span class="line">    <span class="attribute">limit_rate_after</span> <span class="number">30m</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="四-IP黑名单"><a href="#四-IP黑名单" class="headerlink" title="四. IP黑名单"></a>四. IP黑名单</h2><p><strong>step1</strong>. 创建黑名单文件:<br>echo ‘deny 192.168.0.111;’ &gt;&gt; black.ip</p>
+<p><strong>step2</strong>. 在<code>http</code>配置块中引入黑名单文件:<br><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">include</span> black.ip;</span><br></pre></td></tr></table></figure></p>
+<h1 id="五-针对指定客户端请求输出debug级别日志"><a href="#五-针对指定客户端请求输出debug级别日志" class="headerlink" title="五. 针对指定客户端请求输出debug级别日志"></a>五. 针对指定客户端请求输出debug级别日志</h1><p>语法:<code>debug_connection [IP | CIDR]</code><br>作用:这个配置项实际上是属于事件类，所以要放在<code>events</code>配置块中才有效。<br><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">events</span> &#123;</span><br><span class="line">    <span class="attribute">debug_connection</span> <span class="number">192.168.0.111</span>; </span><br><span class="line">    <span class="attribute">debug_connection</span> <span class="number">192.168.0.0</span>/<span class="number">24</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="http://nginx.org/en/docs/http/ngx_http_referer_module.html" target="_blank" rel="noopener">Nginx之ngx_http_referer_module模块</a></li>
+<li><a href="http://nginx.org/en/docs/http/ngx_http_core_module.html#limit_rate" target="_blank" rel="noopener">Nginx之ngx_http_core_module模块#limit_rate参数</a></li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Nginx</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/性能调优//" class="article-tag-list-link color5">性能调优</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/04/10/nginx-2019-04-10-Nginx实用案例/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-nginx-2019-04-08-Nginx之ngx-http-rewrite-module模块" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/04/08/nginx-2019-04-08-Nginx之ngx-http-rewrite-module模块/">Nginx之ngx_http_rewrite_module模块</a>
+    </h1>
+  
+
+        
+        <a href="/2019/04/08/nginx-2019-04-08-Nginx之ngx-http-rewrite-module模块/" class="archive-article-date">
+  	<time datetime="2019-04-08T11:08:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-08</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <ul>
+<li>content<br>{:toc}</li>
+</ul>
+<h2 id="1-ngx-http-rewrite-module模块介绍"><a href="#1-ngx-http-rewrite-module模块介绍" class="headerlink" title="1. ngx_http_rewrite_module模块介绍"></a>1. ngx_http_rewrite_module模块介绍</h2><hr>
+<ul>
+<li>Nginx的<code>ngx_http_rewrite_module</code>模块用于通过PCRE正则表达式修改请求URI，返回重定向，和按条件选择符合的配置信息。</li>
+<li>本篇文章根据<a href="http://nginx.org/en/docs/http/ngx_http_rewrite_module.html" target="_blank" rel="noopener">官方文档</a>进行翻译，限于个人水平，如有错误，欢迎指正。</li>
+</ul>
+<h4 id="break、if、return、rewrite和set指令的处理顺序"><a href="#break、if、return、rewrite和set指令的处理顺序" class="headerlink" title="break、if、return、rewrite和set指令的处理顺序"></a>break、if、return、rewrite和set指令的处理顺序</h4><ol>
+<li>如果在<code>server</code>级别下配置了<code>rewrite</code>指令，它会在<code>location</code>指令之前执行。</li>
+<li>匹配<code>location</code>。</li>
+<li>执行匹配到的<code>location</code>中配置的<code>rewrite</code>重写规则，重写URI。</li>
+<li>在URI重写后，使用新的URI循环执行第<code>1、2、3</code>步骤。</li>
+<li>循环最多重复10次，超过后Nginx将返回500 error。</li>
+</ol>
+<h2 id="2-break指令"><a href="#2-break指令" class="headerlink" title="2. break指令"></a>2. break指令</h2><hr>
+<p><strong>语法</strong>：break<br><strong>默认值</strong>：none<br><strong>作用域</strong>：server、location、if<br><strong>作用</strong>：停止执行当前虚拟主机（server{}）的后续rewrite指令。<br><strong>示例</strong>：</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">if</span> (<span class="variable">$slow</span>) &#123;</span><br><span class="line">    <span class="attribute">limit_rate</span>  <span class="number">10k</span>;</span><br><span class="line">    break;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="3-if指令"><a href="#3-if指令" class="headerlink" title="3. if指令"></a>3. if指令</h2><hr>
+<p><strong>语法</strong>：if(condition) {…}<br><strong>默认</strong>：none<br><strong>作用域</strong>：server、location<br><strong>作用</strong>：判断condition条件的真假，如果为true，定义在大括号内的模块指令将被执行，请求将按照<code>if</code>指令内的配置处理；<code>if</code>指令内的配置会继承以前的配置级别。</p>
+<h4 id="condition表达式："><a href="#condition表达式：" class="headerlink" title="condition表达式："></a>condition表达式：</h4><ul>
+<li>一个变量名称；如果一个变量的值是空字符串””或”0”，则表示false；在1.0.1版本之前，任何以”0”开头的字符串都被认为是false；</li>
+<li>使用<code>=</code>和<code>!=</code>运算符比较变量和字符串；</li>
+<li><p>使用<code>~*</code>和<code>~</code>运算符对变量进行正则表达式匹配：</p>
+<ul>
+<li><code>~</code>区分大小写；</li>
+<li><code>~*</code>不区分大小写，例如firefox匹配到FireFox；</li>
+<li><code>!~*</code>和<code>!~</code>表示否定，表示不匹配。</li>
+<li><p>使用括号<code>()</code>捕获的正则表达式，后续可以通过<code>$1</code>-<code>$9</code>使用；</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">正则表达式： /users/(.*)$</span><br><span class="line">请求uri：   /users/get/100</span><br><span class="line">$1的值：    get/100</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>如果正则表达式包含<code>}</code>或<code>;</code>字符，则整个表达式应该用单引号或双引号括起来。</p>
+</li>
+</ul>
+</li>
+<li>使用<code>-f</code>和<code>!-f</code>运算符检测一个文件是否存在；</li>
+<li>使用<code>-d</code>和<code>!-d</code>运算符检测一个目录是否存在；</li>
+<li>使用<code>-e</code>和<code>!-e</code>运算符检测一个文件/目录/符号链接是否存在；</li>
+<li>使用<code>-x</code>和<code>!-x</code>运算符检测一个文件是否可执行。</li>
+</ul>
+<p><strong>示例</strong>：</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">if</span> (<span class="variable">$http_user_agent</span> <span class="regexp">~ MSIE)</span> &#123;</span><br><span class="line">    <span class="attribute">rewrite</span> <span class="regexp"> ^(.*)$</span>  /msie/<span class="variable">$1</span>  <span class="literal">break</span>;</span><br><span class="line">&#125;</span><br><span class="line">if ($http_cookie ~* "id=([^;] +)(?:;|$)" ) &#123;</span><br><span class="line">    <span class="attribute">set</span>  <span class="variable">$id</span>  <span class="variable">$1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="attribute">if</span> (<span class="variable">$request_method</span> = POST ) &#123;</span><br><span class="line">    <span class="attribute">return</span> <span class="number">405</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="attribute">if</span> (!-f <span class="variable">$request_filename</span>) &#123;</span><br><span class="line">    break;</span><br><span class="line">    <span class="attribute">proxy_pass</span>  http://127.0.0.1;</span><br><span class="line">&#125;</span><br><span class="line"><span class="attribute">if</span> (<span class="variable">$slow</span>) &#123;</span><br><span class="line">    <span class="attribute">limit_rate</span>  <span class="number">10k</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment"># 内置变量$invalid_referer的值由valid_referers指令提供。</span></span><br><span class="line"><span class="attribute">if</span> (<span class="variable">$invalid_referer</span>) &#123;</span><br><span class="line">    <span class="attribute">return</span>   <span class="number">403</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="4-return指令"><a href="#4-return指令" class="headerlink" title="4. return指令"></a>4. return指令</h2><hr>
+<p><strong>语法</strong>：return code [text]; return code URL; return URL;<br><strong>默认值</strong>：none<br><strong>作用域</strong>：server、location、if<br><strong>作用</strong>：</p>
+<ul>
+<li>此指令结束规则的执行，并返回状态码给客户端，在0.7.51的版本之前只能返回以下状态码：204、400、402-406、408、410、411、413、416和500-504；</li>
+<li>此外，可以通过返回非标准代码444，在不发送相应头的情况下关闭一个连接；</li>
+<li>从0.8.42版本起，return指令可以指定重定向URL（针对状态码301、302、303、307），或者指定响应体text（针对其他状态码）；<ul>
+<li>响应体文本和重定向URL可以包含变量；</li>
+<li>有一种特殊情况，可以将重定向URL指定为当前服务器的本地URI，在这种情况下，将根据请求协议($scheme)、server_name_in_redirect指令和port_in_redirect指令形成完整的重定向URL。</li>
+</ul>
+</li>
+<li><p>此外，带有302状态码的临时重定向URL可以被指定为唯一参数，这个参数应该以”http://“、”https://“或者”$scheme”字符串开头，可以包含变量；</p>
+  <figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 监听www.abc.com/abc.com的80端口，将http请求转为到https请求。</span></span><br><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">    <span class="attribute">listen</span> <span class="number">80</span>;</span><br><span class="line">    <span class="attribute">server_name</span> www.abc.cn abc.cn;</span><br><span class="line">    <span class="attribute">return</span> <span class="number">301</span> https://<span class="variable">$server_name</span><span class="variable">$request_uri</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>状态码307直到版本1.1.16和1.0.13才被视为重定向。</p>
+</li>
+<li>状态码308直到1.13.0版本才被视为重定向。</li>
+</ul>
+<h2 id="5-rewrite指令"><a href="#5-rewrite指令" class="headerlink" title="5. rewrite指令"></a>5. rewrite指令</h2><hr>
+<p><strong>语法</strong>：rewrite regex replacement [flag];<br><strong>默认</strong>：none<br><strong>作用域</strong>：server、location、if<br><strong>作用</strong>：</p>
+<ul>
+<li>如果指定的正则表达式能匹配请求URI，URI将被更改为指定的replacement字符串；</li>
+<li>rewrite指令将按照它们在配置文件中出现的位置顺序执行；</li>
+<li>可以使用标志flag终止对指令的进一步处理，flag可以选择下列值之一；<ul>
+<li><code>last</code> 停止处理当前的ngx_http_rewrite_module指令集，并开始搜索一个能匹配更改后URI的location规则;</li>
+<li><code>break</code> 与break指令一样，停止处理当前的ngx_http_rewrite_module指令集;</li>
+<li><code>redirect</code> 返回一个带有302状态码的临时重定向，如果替换字符串不以”http://“、”https://“或”$scheme”开头，则可以使用这个值;</li>
+<li><code>permanent</code> 返回带有301状态码的永久重定向。</li>
+</ul>
+</li>
+<li>如果替换字符串以”http://“、”https://“或”$scheme”开头，处理工作将停止，并将重定向的结果返回给客户端。</li>
+<li><p>完整的重定向URL将根据请求协议($scheme)、server_name_in_redirect指令和port_in_redirect指令形成</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">    ...</span><br><span class="line">    <span class="attribute">rewrite</span><span class="regexp"> ^(/download/.*)/media/(.*)\..*$</span> <span class="variable">$1</span>/mp3/<span class="variable">$2</span>.mp3 <span class="literal">last</span>;</span><br><span class="line">    <span class="attribute">rewrite</span><span class="regexp"> ^(/download/.*)/audio/(.*)\..*$</span> <span class="variable">$1</span>/mp3/<span class="variable">$2</span>.ra  <span class="literal">last</span>;</span><br><span class="line">    <span class="attribute">return</span>  <span class="number">403</span>;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果上面这个例子的指令放在`location /download/ &#123;...&#125;`内部，则需要将`last`标志换成`break`，否则nginx将会进行10次循环，最终返回500错误，修改如下。</span></span><br><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">    ...</span><br><span class="line">    <span class="attribute">location</span> /download/ &#123;</span><br><span class="line">        <span class="attribute">rewrite</span><span class="regexp"> ^(/download/.*)/media/(.*)\..*$</span> <span class="variable">$1</span>/mp3/<span class="variable">$2</span>.mp3 <span class="literal">break</span>;</span><br><span class="line">        <span class="attribute">rewrite</span><span class="regexp"> ^(/download/.*)/audio/(.*)\..*$</span> <span class="variable">$1</span>/mp3/<span class="variable">$2</span>.ra  <span class="literal">break</span>;</span><br><span class="line">        <span class="attribute">return</span>  <span class="number">403</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>注意重写表达式只对相对路径有效，如果你想匹配主机名，你应该使用if条件语句，如下：</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">if</span> (<span class="variable">$host</span> <span class="regexp">~* www\.(.*))</span> &#123;</span><br><span class="line">    <span class="attribute">set</span> <span class="variable">$host_without_www</span> <span class="variable">$1</span>;</span><br><span class="line">    <span class="comment"># $1 contains '/foo', not 'www.mydomain.com/foo'</span></span><br><span class="line">    <span class="attribute">rewrite</span><span class="regexp"> ^(.*)$</span> http://<span class="variable">$host_without_www</span><span class="variable">$1</span> <span class="literal">permanent</span>; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>如果替换字符串包含新的请求参数，则将在新参数之后追加先前的请求参数。如果不希望这样，在替换字符串的末尾加上问号可以避免最新就请求参数，例如:</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">rewrite</span><span class="regexp"> ^/users/(.*)$</span> /show?user=<span class="variable">$1</span>? <span class="literal">last</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>如果正则表达式包含<code>}</code>或<code>;</code>字符，则整个表达式需要用单引号或双引号括起来。</p>
+</li>
+</ul>
+<h2 id="6-rewrite-log指令"><a href="#6-rewrite-log指令" class="headerlink" title="6. rewrite_log指令"></a>6. rewrite_log指令</h2><hr>
+<p><strong>语法</strong>：rewrite_log on | off;<br><strong>默认</strong>：rewrite_log off;<br><strong>作用域</strong>：http, server, location, if<br><strong>作用</strong>：开启或关闭将<code>ngx_http_rewrite_module</code>模块指令处理结果的<code>notice</code>级别日志写入<code>error.log</code>文件中。</p>
+<h2 id="7-set指令"><a href="#7-set指令" class="headerlink" title="7. set指令"></a>7. set指令</h2><hr>
+<p><strong>语法</strong>：set $variable value;<br><strong>默认</strong>：none<br><strong>作用域</strong>：server, location, if<br><strong>作用</strong>：为指定的变量设置一个值。该值可以包含文本、变量及其组合。</p>
+<h2 id="8-uninitialized-variable-warn指令"><a href="#8-uninitialized-variable-warn指令" class="headerlink" title="8. uninitialized_variable_warn指令"></a>8. uninitialized_variable_warn指令</h2><hr>
+<p><strong>语法</strong>：uninitialized_variable_warn on | off;<br><strong>默认</strong>：uninitialized_variable_warn on;<br><strong>作用域</strong>：http, server, location, if<br><strong>作用</strong>：控制是否记录未初始化变量的警告信息。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Nginx</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/性能调优//" class="article-tag-list-link color5">性能调优</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/04/08/nginx-2019-04-08-Nginx之ngx-http-rewrite-module模块/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-nginx-2019-04-06-Nginx负载均衡" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/04/06/nginx-2019-04-06-Nginx负载均衡/">Nginx负载均衡</a>
+    </h1>
+  
+
+        
+        <a href="/2019/04/06/nginx-2019-04-06-Nginx负载均衡/" class="archive-article-date">
+  	<time datetime="2019-04-06T11:08:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-06</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <ul>
+<li>content<br>{:toc}</li>
+</ul>
+<h2 id="一-介绍"><a href="#一-介绍" class="headerlink" title="一. 介绍"></a>一. 介绍</h2><p>这篇文章是介绍如何配置nginx的负载均衡以及几种负载均衡策略的用法，其实实现起来非常之简单，使用<code>upstream</code>块就能做到，不多说，我们直接上配置。</p>
+<h2 id="二-负载均衡配置"><a href="#二-负载均衡配置" class="headerlink" title="二. 负载均衡配置"></a>二. 负载均衡配置</h2><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#设定http服务器，利用它的反向代理功能提供负载均衡支持</span></span><br><span class="line"><span class="section">http</span> &#123;</span><br><span class="line">    <span class="comment"># 设定mime类型,类型由mime.type文件定义</span></span><br><span class="line">    <span class="attribute">include</span>    mime.types;</span><br><span class="line">    <span class="attribute">default_type</span>  application/octet-stream;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">#设定负载均衡的服务器列表</span></span><br><span class="line">    <span class="attribute">upstream</span> backend1 &#123;</span><br><span class="line">        <span class="comment">#weigth参数表示权值，权值越高被分配到的几率越大</span></span><br><span class="line">        <span class="attribute">server</span> <span class="number">192.168.8.101:8080</span>   weight=<span class="number">5</span>;</span><br><span class="line">        <span class="attribute">server</span> <span class="number">192.168.8.102:8080</span>   weight=<span class="number">1</span>;</span><br><span class="line">        <span class="attribute">server</span> <span class="number">192.168.8.103:8080</span>   weight=<span class="number">6</span>;</span><br><span class="line">    &#125;</span><br><span class="line">        </span><br><span class="line">    <span class="attribute">upstream</span> backend2 &#123;</span><br><span class="line">        <span class="comment">#weigth参数表示权值，权值越高被分配到的几率越大</span></span><br><span class="line">        <span class="attribute">server</span> <span class="number">192.168.8.201:8080</span>   weight=<span class="number">1</span>;</span><br><span class="line">        <span class="attribute">server</span> <span class="number">192.168.8.202:8080</span>   weight=<span class="number">6</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 设定虚拟主机配置</span></span><br><span class="line">    <span class="section">server</span> &#123;</span><br><span class="line">        <span class="comment"># 侦听80端口</span></span><br><span class="line">        <span class="attribute">listen</span>    <span class="number">80</span>;</span><br><span class="line">        <span class="comment"># 定义使用什么虚拟主机地址访问，可以填写多个值，使用空格分开，支持通配符和正则</span></span><br><span class="line">        <span class="attribute">server_name</span>  localhost;</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 定义服务器的默认网站根目录位置，支持相对路径和绝对路径，此处html为相对路径，等同于$&#123;NGINX_HOME&#125;/html</span></span><br><span class="line">        <span class="attribute">root</span> html;</span><br><span class="line">        <span class="comment"># 定义首页索引文件的名称</span></span><br><span class="line">        <span class="attribute">index</span> index.php index.html index.htm;</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 设定本虚拟主机的访问日志</span></span><br><span class="line">        <span class="attribute">access_log</span>  logs/nginx.access.log  main;</span><br><span class="line">        <span class="attribute">error_log</span>   logs/quancha.<span class="literal">error</span>.log;</span><br><span class="line"></span><br><span class="line">        </span><br><span class="line">        <span class="comment">#对以/static/开始的uri请求进行负载均衡</span></span><br><span class="line">        <span class="attribute">location</span><span class="regexp"> ^~</span> /static/ &#123;</span><br><span class="line">            </span><br><span class="line">            <span class="comment">#请求转向backend1定义的服务器列表</span></span><br><span class="line">            <span class="attribute">proxy_pass</span>    http://backend1;</span><br><span class="line">              </span><br><span class="line">            <span class="comment"># 省略一些反向代理的配置</span></span><br><span class="line">            <span class="comment"># ...</span></span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 对通用请求进行负载均衡</span></span><br><span class="line">        <span class="attribute">location</span> / &#123;</span><br><span class="line"></span><br><span class="line">            <span class="comment">#请求转向backend2定义的服务器列表</span></span><br><span class="line">            <span class="attribute">proxy_pass</span>  http:/backend2;</span><br><span class="line">              </span><br><span class="line">            <span class="comment"># 省略一些反向代理的配置</span></span><br><span class="line">            <span class="comment"># ...</span></span><br><span class="line"> </span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="三-负载均衡策略"><a href="#三-负载均衡策略" class="headerlink" title="三. 负载均衡策略"></a>三. 负载均衡策略</h2><p>Nginx的负载均衡策略可以分为两大类:内置策略和扩展策略。<br>在最新的Nginx版本中，常见的几种内置策略包含<code>轮询</code>、<code>加权轮询weight</code>、<code>ip_hash</code>、<code>least_conn</code>、<code>least_time</code>和<code>普通hash和一致性hash</code>，在默认的情况下这两种策略是编译进nginx内核中的，只需在nginx配置中指明即可启用。<br>扩展策略有很多类，<code>fair</code>、<code>url_hash</code>。</p>
+<ul>
+<li>轮询（默认）<br>每个请求按顺序逐一分配到不同的后端服务器处理，如果服务器down掉，会自动剔除。</li>
+<li>加权轮询weight<br>指定轮询到的几率，访问比率和weight成正比，这种策略适用于后端服务器性能不均的场景，为性能更优的服务器设置更大的权重weight。</li>
+<li><p>ip_hash<br>根据每个请求的来源IP信息做hash处理后的结果分配服务器，这种策略可以将同一个IP来源的请求固定分配到同一台机器，可以用于解决session一致性问题。</p>
+  <figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">upstream</span> backend &#123;</span><br><span class="line">    <span class="comment"># 可选项：ip_hash、least_conn、least_time...</span></span><br><span class="line">    ip_hash;</span><br><span class="line">    <span class="attribute">server</span> <span class="number">192.168.8.101:8080</span>;</span><br><span class="line">    <span class="attribute">server</span> <span class="number">192.168.8.102:8080</span>;</span><br><span class="line">    <span class="comment"># ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>least_conn<br>将请求分配给活跃连接数最小的后端服务器，如果存在多个这样的节点，将按照加权轮询算法处理。</p>
+</li>
+<li>least_time<br>将请求分配给平均响应时间最短和活跃连接数最小的后端服务器，如果存在多个这样的节点，将按照加权轮询算法处理。</li>
+<li><p>普通hash和一致性hash<br>语法:<code>hash key [consistent];</code></p>
+<ul>
+<li><p>普通hash<br>不指定<code>consistent</code>参数，采用普通hash，使用这种策略时，nginx会基于<code>key</code>值通过内部算法计算出客户机-服务器映射表，key可以包含文本、变量及其组合。注意，从服务器列表中添加或删除节点可能会导致大多数的keys值需要重新映射到不同的服务器。</p>
+  <figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">upstream</span> backend &#123;</span><br><span class="line">    <span class="comment"># key设为$request_uri，将按照请求uri映射到具体某个服务器。</span></span><br><span class="line">    <span class="attribute">hash</span> <span class="variable">$request_uri</span>;</span><br><span class="line">    <span class="attribute">server</span> <span class="number">192.168.8.101:8080</span>;</span><br><span class="line">    <span class="attribute">server</span> <span class="number">192.168.8.102:8080</span>;</span><br><span class="line">    <span class="comment"># ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>一致性hash<br>如果指定了<code>consistent</code>参数，则采用<code>ketama一致哈希算法</code>（点击<a href="http://www.berlinix.com/dev/consistency-hash.php" target="_blank" rel="noopener">这里</a>了解）。该算法确保了在从服务器列表中添加或删除节点时，只有少数keys需要重新映射到不同的服务器。这有助于为缓存服务器实现更高的缓存命中率。</p>
+</li>
+</ul>
+</li>
+<li>fair<br>根据每个后端服务器的响应时间判断负载情况，将请求分配到响应时间最短的服务器，也就是负载最小的节点。</li>
+<li>url_hash<br>通过将请求url做hash处理后的结果分配后端服务器，这种策略可以将相同的url分配到同一个服务器处理，经常用于做静态资源缓存。</li>
+</ul>
+<h2 id="四-upstream相关参数"><a href="#四-upstream相关参数" class="headerlink" title="四. upstream相关参数"></a>四. upstream相关参数</h2><ul>
+<li><p>server:负载均衡的后端服务器地址加端口号。</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"> <span class="attribute">upstream</span> backend &#123;</span><br><span class="line">    <span class="comment"># server host:port</span></span><br><span class="line">    <span class="attribute">server</span> <span class="number">192.168.8.101:8080</span>;</span><br><span class="line">    <span class="attribute">server</span> <span class="number">192.168.8.102:8080</span>;</span><br><span class="line">    <span class="comment"># ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>weight:设置服务器权重，默认值为1。</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"> <span class="attribute">upstream</span> backend &#123;</span><br><span class="line">    <span class="comment"># server host:port</span></span><br><span class="line">    <span class="attribute">server</span> <span class="number">192.168.8.101:8080</span> weight=<span class="number">5</span>;</span><br><span class="line">    <span class="attribute">server</span> <span class="number">192.168.8.102:8080</span> weight=<span class="number">10</span>;</span><br><span class="line">    <span class="comment"># ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>max_fails:判断后端服务器访问失败多少次后认为已经down掉，主动剔除。</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"> <span class="attribute">upstream</span> backend &#123;</span><br><span class="line">    <span class="comment"># server host:port</span></span><br><span class="line">    <span class="attribute">server</span> <span class="number">192.168.8.101:8080</span> max_fails=<span class="number">3</span>;</span><br><span class="line">    <span class="attribute">server</span> <span class="number">192.168.8.102:8080</span> max_fails=<span class="number">5</span>;</span><br><span class="line">    <span class="comment"># ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>fail_timeout:后端服务器被剔除后重新探测的时间。</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"> <span class="attribute">upstream</span> backend &#123;</span><br><span class="line">    <span class="comment"># server host:port</span></span><br><span class="line">    <span class="attribute">server</span> <span class="number">192.168.8.101:8080</span> max_fails=<span class="number">3</span> fail_timeout=<span class="number">30s</span>;</span><br><span class="line">    <span class="attribute">server</span> <span class="number">192.168.8.102:8080</span> max_fails=<span class="number">5</span>;</span><br><span class="line">    <span class="comment"># ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>backup:将服务器标记为备份服务器。当主服务器不可用时，它将会处理请求。</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"> <span class="attribute">upstream</span> backend &#123;</span><br><span class="line">    <span class="comment"># server host:port</span></span><br><span class="line">    <span class="attribute">server</span> <span class="number">192.168.8.101:8080</span>;</span><br><span class="line">    <span class="attribute">server</span> <span class="number">192.168.8.102:8080</span>;</span><br><span class="line">    <span class="comment"># 在其他主服务器可用时，192.168.8.103服务器不参与负载均衡。</span></span><br><span class="line">    <span class="attribute">server</span> <span class="number">192.168.8.103:8080</span> backup;</span><br><span class="line">    <span class="comment"># ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>max_conns:允许后端服务器的最大并发连接数，默认值为0表示没有限制。</p>
+<blockquote>
+<p>如果启用了<u>idle keepalive</u> connections、多个工作进程（multiple worker）和共享内存（shared memory），代理服务器活跃和空闲连接的总数可能会超出max_conns的值。</p>
+</blockquote>
+</li>
+<li><p>slow_start:当节点恢复，不立即加入，而是等待slow_start后加入服务对列。</p>
+<blockquote>
+<p>The parameter cannot be used along with the hash and ip_hash load balancing methods.<br>该参数不能在hash和ip_hash策略下使用。</p>
+</blockquote>
+</li>
+<li><p>down:将服务器标记为永久不可用。</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"> <span class="attribute">upstream</span> backend &#123;</span><br><span class="line">    <span class="comment"># server host:port</span></span><br><span class="line">    <span class="attribute">server</span> <span class="number">192.168.8.101:8080</span>;</span><br><span class="line">    <span class="attribute">server</span> <span class="number">192.168.8.102:8080</span>;</span><br><span class="line">    <span class="comment"># 192.168.8.103服务器不参与负载均衡。</span></span><br><span class="line">    <span class="attribute">server</span> <span class="number">192.168.8.103:8080</span> down;</span><br><span class="line">    <span class="comment"># ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="https://www.cnblogs.com/wpjamer/articles/6443332.html" target="_blank" rel="noopener">解析 Nginx 负载均衡策略</a><br>这篇文章写的非常好，着重分析了内置策略的源码，并且对各种负载均衡策略做了对比测试，很有参考价值。</li>
+<li><a href="http://nginx.org/en/docs/http/ngx_http_upstream_module.html" target="_blank" rel="noopener">官方文档:Module ngx_http_upstream_module</a></li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Nginx</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/性能调优//" class="article-tag-list-link color5">性能调优</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/04/06/nginx-2019-04-06-Nginx负载均衡/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-nginx-2019-04-04-Nginx反向代理" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/04/04/nginx-2019-04-04-Nginx反向代理/">Nginx反向代理</a>
+    </h1>
+  
+
+        
+        <a href="/2019/04/04/nginx-2019-04-04-Nginx反向代理/" class="archive-article-date">
+  	<time datetime="2019-04-04T11:08:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-04</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <ul>
+<li>content<br>{:toc}</li>
+</ul>
+<h2 id="一-介绍"><a href="#一-介绍" class="headerlink" title="一. 介绍"></a>一. 介绍</h2><p>反向代理是Ngxin非常重要的一项功能，那么什么是反向代理呢？以及我们什么时候会用到反向代理？</p>
+<ul>
+<li>反向代理：外部客户端通过网关访问网关所在内部网络中服务器上的内容，此时网关起到了反向代理的作用，</li>
+<li>我们平常通过浏览器访问远程Web服务器基本都是通过反向代理访问内容的。<br>Nginx的反向代理功能可以通过在配置文件的<strong>http-&gt;server-&gt;location</strong>块中设置<code>proxy_pass</code>指令帮助我们完成。</li>
+</ul>
+<h2 id="二-准备工作"><a href="#二-准备工作" class="headerlink" title="二. 准备工作"></a>二. 准备工作</h2><p>在配置nginx之前，我们先在本地启动一个应用程序，然后确保能正常访问到服务 <a href="http://127.0.0.1:8080/" target="_blank" rel="noopener">http://127.0.0.1:8080/</a><br><img src="/styles/images/nginx/3.png" alt="应用程序主页"></p>
+<h2 id="三-nginx-conf-配置"><a href="#三-nginx-conf-配置" class="headerlink" title="三. nginx.conf 配置"></a>三. nginx.conf 配置</h2><p>为了简洁，我这里只列出核心配置，需要完整配置的可以参考我的上一篇文章<a href="2019-03-28-Nginx核心配置讲解与实践.md">Nginx核心配置讲解与实践</a></p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">http</span> &#123;</span><br><span class="line">    <span class="comment"># 设定mime类型,类型由mime.type文件定义</span></span><br><span class="line">    <span class="attribute">include</span>    mime.types;</span><br><span class="line">    <span class="attribute">default_type</span>  application/octet-stream;</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 设定虚拟主机配置</span></span><br><span class="line">    <span class="section">server</span> &#123;</span><br><span class="line">        <span class="comment"># 侦听80端口</span></span><br><span class="line">        <span class="attribute">listen</span>    <span class="number">80</span>;</span><br><span class="line">        <span class="comment"># 定义使用什么虚拟主机地址访问，可以填写多个值，使用空格分开，支持通配符和正则</span></span><br><span class="line">        <span class="attribute">server_name</span>  localhost;</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 定义服务器的默认网站根目录位置，支持相对路径和绝对路径，此处html为相对路径，等同于$&#123;NGINX_HOME&#125;/html</span></span><br><span class="line">        <span class="attribute">root</span> html;</span><br><span class="line">        <span class="comment"># 定义首页索引文件的名称</span></span><br><span class="line">        <span class="attribute">index</span> index.php index.html index.htm;</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 设定本虚拟主机的访问日志</span></span><br><span class="line">        <span class="attribute">access_log</span>  logs/nginx.access.log  main;</span><br><span class="line">        <span class="attribute">error_log</span>   logs/quancha.<span class="literal">error</span>.log;</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 默认请求</span></span><br><span class="line">        <span class="attribute">location</span> / &#123;</span><br><span class="line"></span><br><span class="line">            <span class="comment"># 请求转发到目标服务地址</span></span><br><span class="line">            <span class="attribute">proxy_pass</span>  http://127.0.0.1:8080/;</span><br><span class="line">            </span><br><span class="line">            <span class="comment"># 以下是一些反向代理的配置参数，可删除</span></span><br><span class="line">            <span class="attribute">proxy_redirect</span> <span class="literal">off</span>;</span><br><span class="line"></span><br><span class="line">            <span class="comment">#后端的Web服务器可以通过X-Forwarded-For获取用户真实IP</span></span><br><span class="line">            <span class="attribute">proxy_set_header</span> Host <span class="variable">$host</span>;</span><br><span class="line">            <span class="attribute">proxy_set_header</span> X-Real-IP <span class="variable">$remote_addr</span>;</span><br><span class="line">            <span class="attribute">proxy_set_header</span> X-Forwarded-For <span class="variable">$proxy_add_x_forwarded_for</span>;</span><br><span class="line">            </span><br><span class="line">            <span class="comment">#允许客户端请求的最大单文件字节数</span></span><br><span class="line">            <span class="attribute">client_max_body_size</span> <span class="number">10m</span>; </span><br><span class="line"> </span><br><span class="line">            <span class="comment">#缓冲区代理缓冲用户端请求的最大字节数，</span></span><br><span class="line">            <span class="attribute">client_body_buffer_size</span> <span class="number">128k</span>;</span><br><span class="line"> </span><br><span class="line">            <span class="comment">#nginx跟后端服务器连接超时时间(代理连接超时)</span></span><br><span class="line">            <span class="attribute">proxy_connect_timeout</span> <span class="number">90</span>;</span><br><span class="line"> </span><br><span class="line">            <span class="comment">#连接成功后，后端服务器响应时间(代理接收超时)</span></span><br><span class="line">            <span class="attribute">proxy_read_timeout</span> <span class="number">90</span>;</span><br><span class="line"> </span><br><span class="line">            <span class="comment">#设置代理服务器（nginx）保存用户头信息的缓冲区大小</span></span><br><span class="line">            <span class="attribute">proxy_buffer_size</span> <span class="number">4k</span>;</span><br><span class="line"> </span><br><span class="line">            <span class="comment">#proxy_buffers缓冲区，网页平均在32k以下的话，这样设置</span></span><br><span class="line">            <span class="attribute">proxy_buffers</span> <span class="number">4</span> <span class="number">32k</span>;</span><br><span class="line"> </span><br><span class="line">            <span class="comment">#高负荷下缓冲大小（proxy_buffers * 2）</span></span><br><span class="line">            <span class="attribute">proxy_busy_buffers_size</span> <span class="number">64k</span>; </span><br><span class="line"> </span><br><span class="line">            <span class="comment">#设定缓存文件夹大小，大于这个值，将从upstream服务器传</span></span><br><span class="line">            <span class="attribute">proxy_temp_file_write_size</span> <span class="number">64k</span>;    </span><br><span class="line"> </span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 配置静态资源，$&#123;APP_HOME&#125;为应用程序根目录</span></span><br><span class="line">        <span class="attribute">location</span> /static &#123;</span><br><span class="line">            <span class="attribute">alias</span>    <span class="variable">$&#123;APP_HOME&#125;</span>/static;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上述配置nginx监听了localhost的80端口，并且将该端口接收到的所有请求（<code>location /</code>匹配任意uri）转发给<a href="http://127.0.0.1:8080/，由后者负责处理并返回结果给请求发起终端，由此实现了反向代理的功能。" target="_blank" rel="noopener">http://127.0.0.1:8080/，由后者负责处理并返回结果给请求发起终端，由此实现了反向代理的功能。</a><br>最后我们访问localhost（在未显式声明端口号时默认使用80端口）<br><img src="/styles/images/nginx/4.png" alt></p>
+<h2 id="四-自定义vhosts"><a href="#四-自定义vhosts" class="headerlink" title="四. 自定义vhosts"></a>四. 自定义vhosts</h2><p>在上面的步骤中，我们是直接将配置写入nginx.conf文件，但是在实际工作中，我们建议能自己建立vhost文件。</p>
+<ul>
+<li><p>前面是通过IP地址访问，下面我们改为使用域名访问；域名需要事先指向我们Nginx服务器，我们可以通过在hosts文件中添加映射记录实现域名和IP地址的映射：</p>
+<ul>
+<li>hosts文件路径<ul>
+<li>Windows：<code>C:\Windows\System32\drivers\etc\hosts</code></li>
+<li>Linux：<code>/etc/hosts</code></li>
+</ul>
+</li>
+<li>添加hosts记录<br><code>127.0.0.1  www.abc.com</code></li>
+</ul>
+</li>
+<li><p>首先我们现在<code>nginx.conf</code>同目录下新建一个<code>vhosts目录</code>（当然您也可以不建立，后续的include引入路径差异而已）</p>
+</li>
+<li>在<code>vhosts目录</code>下创建一个<code>www.abc.com.conf（域名.conf）</code>文件，文件名可自由定义，一般我会用域名作为文件名；文件内容如下:</li>
+</ul>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 设定虚拟主机配置</span></span><br><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">    <span class="comment"># 侦听80端口</span></span><br><span class="line">    <span class="attribute">listen</span>    <span class="number">80</span>;</span><br><span class="line">    <span class="comment"># 这里我改为使用域名访问，注意：域名需要指向当前Nginx服务器</span></span><br><span class="line">    <span class="attribute">server_name</span>  www.abc.com;</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 定义服务器的默认网站根目录位置，支持相对路径和绝对路径，此处html为相对路径，等同于$&#123;NGINX_HOME&#125;/html</span></span><br><span class="line">    <span class="attribute">root</span> html;</span><br><span class="line">    <span class="comment"># 定义首页索引文件的名称</span></span><br><span class="line">    <span class="attribute">index</span> index.php index.html index.htm;</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 设定本虚拟主机的访问日志</span></span><br><span class="line">    <span class="attribute">access_log</span>  logs/nginx.access.log  main;</span><br><span class="line">    <span class="attribute">error_log</span>   logs/quancha.<span class="literal">error</span>.log;</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 默认请求</span></span><br><span class="line">    <span class="attribute">location</span> / &#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 请求转发到目标服务地址</span></span><br><span class="line">        <span class="attribute">proxy_pass</span>  http://127.0.0.1:8080/;</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 这里省略其它反向代理配置项...</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 配置静态资源，$&#123;APP_HOME&#125;为应用程序根目录</span></span><br><span class="line">    <span class="attribute">location</span> /static &#123;</span><br><span class="line">        <span class="attribute">alias</span>    <span class="variable">$&#123;APP_HOME&#125;</span>/static;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>再来使用<a href="http://www.abc.com/访问下" target="_blank" rel="noopener">http://www.abc.com/访问下</a><br><img src="/styles/images/nginx/5.png" alt></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Nginx</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/性能调优//" class="article-tag-list-link color5">性能调优</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/04/04/nginx-2019-04-04-Nginx反向代理/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+  
+    <nav id="page-nav">
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+    </nav>
   
 
 
@@ -1336,6 +1772,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Nginx</a>
               </li>
             
             <div class="clearfix"></div>

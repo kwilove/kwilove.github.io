@@ -6,22 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="https://kwilove.github.io">
-  <title>Redis核心原理 | 子敬的博客</title>
+  <title>Nginx实用案例 | 子敬的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Redis的单线程和高性能 Redis单线程为什么还能那么快？   因为它所有的数据都存储在内存中，所有的运算都是内存级别的运算。 单线程避免了线程间切换的性能损耗。 正因为redis是单线程的，所以要谨慎使用那些耗时指令，比如keys，否则会导致redis卡顿。   Redis在单线程模式下如何做到高效处理并发客户端连接？   Redis通过epoll（IO多路复用模型）实现将客户端连接信息和事">
-<meta name="keywords" content="Redis">
+  <meta name="description" content="content{:toc}  一. 动静分离 基于目录实现 1234567891011server &amp;#123;    listen 80;    server_name *.abc.com;    root /usr/www/abc;    location / &amp;#123;        index index.html;    &amp;#125;    location /static &amp;#12">
+<meta name="keywords" content="Nginx">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Redis核心原理">
-<meta property="og:url" content="https://kwilove.github.io/2019/05/23/Redis核心原理/index.html">
+<meta property="og:title" content="Nginx实用案例">
+<meta property="og:url" content="https://kwilove.github.io/2019/04/10/nginx-2019-04-10-Nginx实用案例/index.html">
 <meta property="og:site_name" content="子敬的博客">
-<meta property="og:description" content="Redis的单线程和高性能 Redis单线程为什么还能那么快？   因为它所有的数据都存储在内存中，所有的运算都是内存级别的运算。 单线程避免了线程间切换的性能损耗。 正因为redis是单线程的，所以要谨慎使用那些耗时指令，比如keys，否则会导致redis卡顿。   Redis在单线程模式下如何做到高效处理并发客户端连接？   Redis通过epoll（IO多路复用模型）实现将客户端连接信息和事">
+<meta property="og:description" content="content{:toc}  一. 动静分离 基于目录实现 1234567891011server &amp;#123;    listen 80;    server_name *.abc.com;    root /usr/www/abc;    location / &amp;#123;        index index.html;    &amp;#125;    location /static &amp;#12">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://kwilove.github.io/styles/images/redis/3.png">
-<meta property="og:updated_time" content="2019-05-23T14:09:45.253Z">
+<meta property="og:updated_time" content="2019-05-23T05:14:22.226Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Redis核心原理">
-<meta name="twitter:description" content="Redis的单线程和高性能 Redis单线程为什么还能那么快？   因为它所有的数据都存储在内存中，所有的运算都是内存级别的运算。 单线程避免了线程间切换的性能损耗。 正因为redis是单线程的，所以要谨慎使用那些耗时指令，比如keys，否则会导致redis卡顿。   Redis在单线程模式下如何做到高效处理并发客户端连接？   Redis通过epoll（IO多路复用模型）实现将客户端连接信息和事">
-<meta name="twitter:image" content="https://kwilove.github.io/styles/images/redis/3.png">
+<meta name="twitter:title" content="Nginx实用案例">
+<meta name="twitter:description" content="content{:toc}  一. 动静分离 基于目录实现 1234567891011server &amp;#123;    listen 80;    server_name *.abc.com;    root /usr/www/abc;    location / &amp;#123;        index index.html;    &amp;#125;    location /static &amp;#12">
   
     <link rel="alternative" href="/atom.xml" title="子敬的博客" type="application/atom+xml">
   
@@ -157,61 +155,52 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-Redis核心原理" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-nginx-2019-04-10-Nginx实用案例" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      Redis核心原理
+      Nginx实用案例
     </h1>
   
 
         
-        <a href="/2019/05/23/Redis核心原理/" class="archive-article-date">
-  	<time datetime="2019-05-23T14:07:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-23</time>
+        <a href="/2019/04/10/nginx-2019-04-10-Nginx实用案例/" class="archive-article-date">
+  	<time datetime="2019-04-10T11:08:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-10</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="Redis的单线程和高性能"><a href="#Redis的单线程和高性能" class="headerlink" title="Redis的单线程和高性能"></a>Redis的单线程和高性能</h2><ol>
-<li>Redis单线程为什么还能那么快？</li>
-</ol>
-<ul>
-<li>因为它所有的数据都存储在内存中，所有的运算都是内存级别的运算。</li>
-<li>单线程避免了线程间切换的性能损耗。</li>
-<li>正因为redis是单线程的，所以要谨慎使用那些耗时指令，比如keys，否则会导致redis卡顿。</li>
+        <ul>
+<li>content<br>{:toc}</li>
 </ul>
-<ol start="2">
-<li>Redis在单线程模式下如何做到高效处理并发客户端连接？</li>
+<h2 id="一-动静分离"><a href="#一-动静分离" class="headerlink" title="一. 动静分离"></a>一. 动静分离</h2><ol>
+<li><p>基于目录实现</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">    <span class="attribute">listen</span> <span class="number">80</span>;</span><br><span class="line">    <span class="attribute">server_name</span> <span class="regexp">*.abc.com</span>;</span><br><span class="line">    <span class="attribute">root</span> /usr/www/abc;</span><br><span class="line">    <span class="attribute">location</span> / &#123;</span><br><span class="line">        <span class="attribute">index</span> index.html;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="attribute">location</span> /static &#123;</span><br><span class="line">        <span class="attribute">alias</span> /usr/www/static;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>基于正则实现</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">location</span> <span class="regexp">~* \.(gif|jpg|png|css|js)$</span> &#123;</span><br><span class="line">      <span class="attribute">root</span> /usr/www/static;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
 </ol>
-<ul>
-<li>Redis通过<code>epoll（IO多路复用模型）</code>实现将客户端连接信息和事件放入队列，然后由文件事件分派器依次分发给对应的事件处理器。</li>
-<li>Nginxy也是采用<code>IO多路复用</code>模型解决了<code>C10K（10K并发连接数）</code>问题。<br><img src="/styles/images/redis/3.png" alt="Redis的IO复用模型"></li>
+<h2 id="二-防盗链"><a href="#二-防盗链" class="headerlink" title="二. 防盗链"></a>二. 防盗链</h2><p>Nginx的ngx_http_referer_module模块通常用于阻止来源非法的请求，但是伪装Referer头信息是非常简单的，所以该模块只是能阻止大部分非法请求，另外，由于受浏览器、防火墙或代理服务器处理的影响，有些合法请求是不携带Referer头信息或者Referer的值被删除，这种情况也应该要考虑在内。<br>详情请参考<a href="http://nginx.org/en/docs/http/ngx_http_referer_module.html" target="_blank" rel="noopener">官方文档</a>。</p>
+<p>在server或location配置块内加入以下指令：<br><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># none:允许请求头缺少Referer参数的请求访问资源。</span></span><br><span class="line"><span class="comment"># blocked:允许请求头中Referer参数值为空的请求访问资源。</span></span><br><span class="line"><span class="comment"># *.abc.com:设置来源白名单，只允许来自域名*.abc.com的请求访问资源，多个值使用空格分割。</span></span><br><span class="line"><span class="attribute">valid_referers</span> <span class="literal">none</span> <span class="literal">blocked</span> <span class="regexp">*.abc.com</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果请求不满足上述条件，$invalid_referer将被设置成"1"。</span></span><br><span class="line"><span class="attribute">if</span> (<span class="variable">$invalid_referer</span>) &#123;</span><br><span class="line">    <span class="attribute">return</span> <span class="number">403</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="三-下载限速"><a href="#三-下载限速" class="headerlink" title="三. 下载限速"></a>三. 下载限速</h2><ul>
+<li><p>limit_rate rate;<br>限制向客户端传输响应的速率。<code>rate</code>以字节每秒为单位指定。默认值为<code>0</code>表示关闭速率限制。限制是根据每个请求设置的，因此，如果客户端同时打开两个连接，那么总速率将是rate值的两倍。<br>也可以通过设置$limit_rate变量实现限速，这种方式对于需要根据某些条件对速率进行限制的情况是很有用的。</p>
+</li>
+<li><p>limit_rate_after size;<br>设置初始总量，在向客户端传输的响应数据总大小超出<code>limit_rate_after</code>设置的数值之后才会进行速率限制，未超出则<code>limit_rate</code>不生效。</p>
+</li>
 </ul>
-<h2 id="Redis的持久化"><a href="#Redis的持久化" class="headerlink" title="Redis的持久化"></a>Redis的持久化</h2><p>Redis 提供了多种不同级别的持久化方式：</p>
-<ol>
-<li>RDB快照</li>
-</ol>
-<ul>
-<li>RDB 持久化可以在指定的时间间隔内生成数据集的<code>时间点快照（point-in-time snapshot）</code>。</li>
-<li>在默认情况下， Redis 将数据库快照保存在名字为 dump.rdb 的二进制文件中。</li>
-<li>你可以对 Redis 进行设置， 让它在“N 秒内数据集至少有 M 个改动”这一条件被满足时， 自动保存一次数据集。</li>
-<li>你也可以通过调用 SAVE 或者 BGSAVE ， 手动让 Redis 进行数据集保存操作；比如说， 以下设置会让 Redis 在满足“ 60 秒内有至少有 1000 个键被改动”这一条件时， 自动保存一次数据集：</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">save 60 1000</span><br></pre></td></tr></table></figure>
-<ol start="2">
-<li>AOF持久化</li>
-</ol>
-<ul>
-<li>AOF持久化会记录Redis服务器执行过的所有<code>写操作指令</code>，并在服务器启动时，通过重新执行这些指令来还原数据集，</li>
-</ul>
-<p><strong>参考</strong></p>
-<ul>
-<li><a href="http://redisdoc.com/topic/persistence.html" target="_blank" rel="noopener">Redis持久化</a></li>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">location</span> /download &#123;</span><br><span class="line">    <span class="attribute">limit_rate</span> <span class="number">1m</span>;</span><br><span class="line">    <span class="attribute">limit_rate_after</span> <span class="number">30m</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="四-IP黑名单"><a href="#四-IP黑名单" class="headerlink" title="四. IP黑名单"></a>四. IP黑名单</h2><p><strong>step1</strong>. 创建黑名单文件:<br>echo ‘deny 192.168.0.111;’ &gt;&gt; black.ip</p>
+<p><strong>step2</strong>. 在<code>http</code>配置块中引入黑名单文件:<br><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">include</span> black.ip;</span><br></pre></td></tr></table></figure></p>
+<h1 id="五-针对指定客户端请求输出debug级别日志"><a href="#五-针对指定客户端请求输出debug级别日志" class="headerlink" title="五. 针对指定客户端请求输出debug级别日志"></a>五. 针对指定客户端请求输出debug级别日志</h1><p>语法:<code>debug_connection [IP | CIDR]</code><br>作用:这个配置项实际上是属于事件类，所以要放在<code>events</code>配置块中才有效。<br><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">events</span> &#123;</span><br><span class="line">    <span class="attribute">debug_connection</span> <span class="number">192.168.0.111</span>; </span><br><span class="line">    <span class="attribute">debug_connection</span> <span class="number">192.168.0.0</span>/<span class="number">24</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="http://nginx.org/en/docs/http/ngx_http_referer_module.html" target="_blank" rel="noopener">Nginx之ngx_http_referer_module模块</a></li>
+<li><a href="http://nginx.org/en/docs/http/ngx_http_core_module.html#limit_rate" target="_blank" rel="noopener">Nginx之ngx_http_core_module模块#limit_rate参数</a></li>
 </ul>
 
       
@@ -247,7 +236,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Redis</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Nginx</a>
         		</li>
       		
 		</ul>
@@ -259,7 +248,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/分布式框架//" class="article-tag-list-link color1">分布式框架</a>
+        			<a href="/categories/性能调优//" class="article-tag-list-link color5">性能调优</a>
         		</li>
       		
 		</ul>
@@ -314,7 +303,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=https://kwilove.github.io/2019/05/23/Redis核心原理/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=https://kwilove.github.io/2019/04/10/nginx-2019-04-10-Nginx实用案例/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -328,18 +317,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2019/05/23/Springboot加载自定义yml文件配置的方法/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2019/04/12/nginx-2019-04-12-Nginx性能参数调优/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          Springboot加载自定义yml文件配置的方法
+          Nginx性能参数调优
         
       </div>
     </a>
   
   
-    <a href="/2019/05/23/Redis基础数据结构/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">2019-05-23-Redis基础数据结构</div>
+    <a href="/2019/04/08/nginx-2019-04-08-Nginx之ngx-http-rewrite-module模块/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Nginx之ngx_http_rewrite_module模块</div>
       <i class="icon-circle-right"></i>
     </a>
   

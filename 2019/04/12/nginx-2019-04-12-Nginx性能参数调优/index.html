@@ -6,22 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="https://kwilove.github.io">
-  <title>Redis核心原理 | 子敬的博客</title>
+  <title>Nginx性能参数调优 | 子敬的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Redis的单线程和高性能 Redis单线程为什么还能那么快？   因为它所有的数据都存储在内存中，所有的运算都是内存级别的运算。 单线程避免了线程间切换的性能损耗。 正因为redis是单线程的，所以要谨慎使用那些耗时指令，比如keys，否则会导致redis卡顿。   Redis在单线程模式下如何做到高效处理并发客户端连接？   Redis通过epoll（IO多路复用模型）实现将客户端连接信息和事">
-<meta name="keywords" content="Redis">
+  <meta name="description" content="content{:toc}  1. worker_processes123语法:worker_processes number | auto;* number：Nginx进程最多可以产生的工作进程数量* auto：  Nginx进程将自动检测 Nginx服务器实现并发处理服务的关键。每个worker进程都是单线程的进程，它们会调用各个模块以实现多种多样的功能。如果这些模块确认不会出现阻塞式的调用">
+<meta name="keywords" content="Nginx">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Redis核心原理">
-<meta property="og:url" content="https://kwilove.github.io/2019/05/23/Redis核心原理/index.html">
+<meta property="og:title" content="Nginx性能参数调优">
+<meta property="og:url" content="https://kwilove.github.io/2019/04/12/nginx-2019-04-12-Nginx性能参数调优/index.html">
 <meta property="og:site_name" content="子敬的博客">
-<meta property="og:description" content="Redis的单线程和高性能 Redis单线程为什么还能那么快？   因为它所有的数据都存储在内存中，所有的运算都是内存级别的运算。 单线程避免了线程间切换的性能损耗。 正因为redis是单线程的，所以要谨慎使用那些耗时指令，比如keys，否则会导致redis卡顿。   Redis在单线程模式下如何做到高效处理并发客户端连接？   Redis通过epoll（IO多路复用模型）实现将客户端连接信息和事">
+<meta property="og:description" content="content{:toc}  1. worker_processes123语法:worker_processes number | auto;* number：Nginx进程最多可以产生的工作进程数量* auto：  Nginx进程将自动检测 Nginx服务器实现并发处理服务的关键。每个worker进程都是单线程的进程，它们会调用各个模块以实现多种多样的功能。如果这些模块确认不会出现阻塞式的调用">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://kwilove.github.io/styles/images/redis/3.png">
-<meta property="og:updated_time" content="2019-05-23T14:09:45.253Z">
+<meta property="og:updated_time" content="2019-05-23T05:14:22.227Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Redis核心原理">
-<meta name="twitter:description" content="Redis的单线程和高性能 Redis单线程为什么还能那么快？   因为它所有的数据都存储在内存中，所有的运算都是内存级别的运算。 单线程避免了线程间切换的性能损耗。 正因为redis是单线程的，所以要谨慎使用那些耗时指令，比如keys，否则会导致redis卡顿。   Redis在单线程模式下如何做到高效处理并发客户端连接？   Redis通过epoll（IO多路复用模型）实现将客户端连接信息和事">
-<meta name="twitter:image" content="https://kwilove.github.io/styles/images/redis/3.png">
+<meta name="twitter:title" content="Nginx性能参数调优">
+<meta name="twitter:description" content="content{:toc}  1. worker_processes123语法:worker_processes number | auto;* number：Nginx进程最多可以产生的工作进程数量* auto：  Nginx进程将自动检测 Nginx服务器实现并发处理服务的关键。每个worker进程都是单线程的进程，它们会调用各个模块以实现多种多样的功能。如果这些模块确认不会出现阻塞式的调用">
   
     <link rel="alternative" href="/atom.xml" title="子敬的博客" type="application/atom+xml">
   
@@ -157,62 +155,49 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-Redis核心原理" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-nginx-2019-04-12-Nginx性能参数调优" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      Redis核心原理
+      Nginx性能参数调优
     </h1>
   
 
         
-        <a href="/2019/05/23/Redis核心原理/" class="archive-article-date">
-  	<time datetime="2019-05-23T14:07:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-23</time>
+        <a href="/2019/04/12/nginx-2019-04-12-Nginx性能参数调优/" class="archive-article-date">
+  	<time datetime="2019-04-12T11:08:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-12</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="Redis的单线程和高性能"><a href="#Redis的单线程和高性能" class="headerlink" title="Redis的单线程和高性能"></a>Redis的单线程和高性能</h2><ol>
-<li>Redis单线程为什么还能那么快？</li>
-</ol>
-<ul>
-<li>因为它所有的数据都存储在内存中，所有的运算都是内存级别的运算。</li>
-<li>单线程避免了线程间切换的性能损耗。</li>
-<li>正因为redis是单线程的，所以要谨慎使用那些耗时指令，比如keys，否则会导致redis卡顿。</li>
+        <ul>
+<li>content<br>{:toc}</li>
 </ul>
-<ol start="2">
-<li>Redis在单线程模式下如何做到高效处理并发客户端连接？</li>
-</ol>
+<h4 id="1-worker-processes"><a href="#1-worker-processes" class="headerlink" title="1. worker_processes"></a>1. worker_processes</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">语法:worker_processes number | auto;</span><br><span class="line">* number：Nginx进程最多可以产生的工作进程数量</span><br><span class="line">* auto：  Nginx进程将自动检测</span><br></pre></td></tr></table></figure>
+<p>Nginx服务器实现并发处理服务的关键。<br>每个worker进程都是单线程的进程，它们会调用各个模块以实现多种多样的功能。如果这些模块确认不会出现阻塞式的调用，那么，有多少CPU内核就应该配置多少个进程；反之，如果有可能出现阻塞式调用，那么需要配置稍多一些的worker进程。<br>例如，如果业务方面会致使用户请求大量读取本地磁盘上的静态资源文件，而且服务器上的内存较小，以至于大部分的请求访问静态资源文件时都必须读取磁盘（磁头的寻址是缓慢的），而不是内存中的磁盘缓存，那么磁盘I/O调用可能会阻塞住worker进程少量时间，进而导致服务整体性能下降。</p>
+<h4 id="2-worker-connections"><a href="#2-worker-connections" class="headerlink" title="2. worker_connections"></a>2. worker_connections</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">worker_connections</span> number;</span><br><span class="line">Default: worker_connections 1024</span><br></pre></td></tr></table></figure>
+<p>每个worker进程的最大连接数，理论上每台nginx服务器的最大连接数为worker_processes * worker_connections。</p>
+<h4 id="3-worker-cpu-affinity"><a href="#3-worker-cpu-affinity" class="headerlink" title="3. worker_cpu_affinity"></a>3. worker_cpu_affinity</h4><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">worker_cpu_affinity</span> cpumask [cpumask……];</span><br></pre></td></tr></table></figure>
+<p>绑定Nginx worker进程到指定的CPU内核。<br>为什么要绑定worker进程到指定的CPU内核呢？假定每一个worker进程都是非常繁忙的，如果多个worker进程都在抢同一个CPU，那么这就会出现同步问题。反之，如果每一个worker进程都独享一个CPU，就在内核的调度策略上实现了完全的并发。<br>例如，如果有4核CPU，就可以进行如下配置：<br>worker_processes 4;<br>worker_cpu_affinity 1000 0100 0010 0001;<br>注意 </p>
 <ul>
-<li>Redis通过<code>epoll（IO多路复用模型）</code>实现将客户端连接信息和事件放入队列，然后由文件事件分派器依次分发给对应的事件处理器。</li>
-<li>Nginxy也是采用<code>IO多路复用</code>模型解决了<code>C10K（10K并发连接数）</code>问题。<br><img src="/styles/images/redis/3.png" alt="Redis的IO复用模型"></li>
+<li>worker_cpu_affinity配置仅对Linux操作系统有效。</li>
+<li>四核CPU，cpumask为1000 0100 0010 0001；<br>八核CPU，cpumask为10000000 01000000 00100000 00010000 00001000 00000100 00000010 00000001，以此类推。</li>
 </ul>
-<h2 id="Redis的持久化"><a href="#Redis的持久化" class="headerlink" title="Redis的持久化"></a>Redis的持久化</h2><p>Redis 提供了多种不同级别的持久化方式：</p>
-<ol>
-<li>RDB快照</li>
-</ol>
-<ul>
-<li>RDB 持久化可以在指定的时间间隔内生成数据集的<code>时间点快照（point-in-time snapshot）</code>。</li>
-<li>在默认情况下， Redis 将数据库快照保存在名字为 dump.rdb 的二进制文件中。</li>
-<li>你可以对 Redis 进行设置， 让它在“N 秒内数据集至少有 M 个改动”这一条件被满足时， 自动保存一次数据集。</li>
-<li>你也可以通过调用 SAVE 或者 BGSAVE ， 手动让 Redis 进行数据集保存操作；比如说， 以下设置会让 Redis 在满足“ 60 秒内有至少有 1000 个键被改动”这一条件时， 自动保存一次数据集：</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">save 60 1000</span><br></pre></td></tr></table></figure>
-<ol start="2">
-<li>AOF持久化</li>
-</ol>
-<ul>
-<li>AOF持久化会记录Redis服务器执行过的所有<code>写操作指令</code>，并在服务器启动时，通过重新执行这些指令来还原数据集，</li>
-</ul>
-<p><strong>参考</strong></p>
-<ul>
-<li><a href="http://redisdoc.com/topic/persistence.html" target="_blank" rel="noopener">Redis持久化</a></li>
-</ul>
+<h4 id="4-worker-priority"><a href="#4-worker-priority" class="headerlink" title="4. worker_priority"></a>4. worker_priority</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">worker_priority</span> nice;</span><br><span class="line">Default: worker_priority 0;</span><br></pre></td></tr></table></figure>
+<p>Nginx worker进程优先级设置。<br>优先级由静态优先级和内核根据进程执行情况所做的动态调整（目前只有±5的调整）共同决定。nice值是进程的静态优先级，它的取值范围是–20～+19，–20是最高优先级，+19是最低优先级。因此，如果用户希望Nginx占有更多的系统资源，那么可以把nice值配置得更小一些，但不建议比内核进程的nice值（通常为–5）还要小</p>
+<h4 id="5-worker-rlimit-nofile"><a href="#5-worker-rlimit-nofile" class="headerlink" title="5. worker_rlimit_nofile"></a>5. worker_rlimit_nofile</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">worker_rlimit_nofile</span> limit;</span><br><span class="line">Default: 空</span><br></pre></td></tr></table></figure>
+<p>Nginx worker进程可以打开的最大句柄描述符个数。<br>更改worker进程的最大打开文件数限制。如果没设置的话，这个值为操作系统的限制。设置后你的操作系统和Nginx可以处理比<code>ulimit -a</code>更多的文件，所以把这个值设高，这样nginx就不会有<code>too many open files</code>问题了。</p>
+<h4 id="6-open-file-cache"><a href="#6-open-file-cache" class="headerlink" title="6. open_file_cache"></a>6. open_file_cache</h4><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">open_file_cache</span> max=<span class="number">65535</span> inactive=<span class="number">20s</span>;</span><br></pre></td></tr></table></figure>
+<p>为打开文件指定缓存，默认是没有启用的，max指定缓存数量，建议和打开文件数一致，inactive是指经过多长时间文件没被请求后删除缓存。</p>
+<h4 id="7-accept-mutext"><a href="#7-accept-mutext" class="headerlink" title="7. accept_mutext"></a>7. accept_mutext</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">accept_mutex</span> [<span class="literal">on</span>|<span class="literal">off</span>];</span><br><span class="line">Default: accept_mutext on;</span><br></pre></td></tr></table></figure>
+<p>是否打开accept锁。<br>accept_mutex是Nginx的负载均衡锁，当某一个worker进程建立的连接数量达到worker_connections配置的最大连接数的7/8时，会大大地减小该worker进程试图建立新TCP连接的机会，accept锁默认是打开的，如果关闭它，那么建立TCP连接的耗时会更短，但worker进程之间的负载会非常不均衡，因此不建议关闭它。</p>
+<h4 id="8-accept-mutex-delay"><a href="#8-accept-mutex-delay" class="headerlink" title="8. accept_mutex_delay"></a>8. accept_mutex_delay</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">accept_mutex_delay</span> Nms;</span><br><span class="line">Default: accept_mutex_delay 500ms;</span><br></pre></td></tr></table></figure>
+<p>使用accept锁后到真正建立连接之间的延迟时间。<br>在启用accept锁后，同一时间只有一个worker进程能够取到accept锁。这个accept锁不是阻塞锁，如果取不到会立刻返回。如果只有一个worker进程试图取锁而没有取到，他至少要等待accept_mutex_delay定义的时间才能再次试图取锁。</p>
 
       
 
@@ -247,7 +232,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Redis</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Nginx</a>
         		</li>
       		
 		</ul>
@@ -259,7 +244,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/分布式框架//" class="article-tag-list-link color1">分布式框架</a>
+        			<a href="/categories/性能调优//" class="article-tag-list-link color5">性能调优</a>
         		</li>
       		
 		</ul>
@@ -314,7 +299,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=https://kwilove.github.io/2019/05/23/Redis核心原理/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=https://kwilove.github.io/2019/04/12/nginx-2019-04-12-Nginx性能参数调优/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -328,18 +313,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2019/05/23/Springboot加载自定义yml文件配置的方法/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2019/05/23/hello-world/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          Springboot加载自定义yml文件配置的方法
+          Hello World
         
       </div>
     </a>
   
   
-    <a href="/2019/05/23/Redis基础数据结构/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">2019-05-23-Redis基础数据结构</div>
+    <a href="/2019/04/10/nginx-2019-04-10-Nginx实用案例/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Nginx实用案例</div>
       <i class="icon-circle-right"></i>
     </a>
   
