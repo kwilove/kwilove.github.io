@@ -255,8 +255,7 @@
 <th>幻读（Phantom Read）</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>读未提交（Read uncommitted）</td>
 <td>可能</td>
 <td>可能</td>
@@ -280,8 +279,7 @@
 <td>不可能</td>
 <td>不可能</td>
 </tr>
-</tbody>
-</table>
+</tbody></table>
 <ul>
 <li><strong>脏读：</strong><br>一个事务读取到另一个事务还未提交的数据。</li>
 <li><strong>不可重复读：</strong><br>在同一个事务中，前后两次执行相同的查询操作，出现返回的结果不一致的情况，换言之就是后一次查询操作能够读取到其他事务已提交的更新数据；<strong>“可重复读”</strong> 与之相反，是指在同一个事务中，前后两次查询操作读取到的结果一致，其他事务提交的更新数据不会对本事务造成影响。</li>
@@ -294,12 +292,15 @@
 <li>查看MySQL隔离级别信息：</li>
 </ul>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> @@tx_isolation;</span><br></pre></td></tr></table></figure>
+
 <ul>
 <li>设置MySQL隔离级别：</li>
 </ul>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span> [<span class="keyword">global</span>|<span class="keyword">session</span>]  <span class="keyword">transaction</span> <span class="keyword">isolation</span> <span class="keyword">level</span> 隔离级别名称;</span><br></pre></td></tr></table></figure>
+
 <p>或</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span> tx_isolation=’隔离级别名称;’</span><br></pre></td></tr></table></figure>
+
 <p>可选参数：</p>
 <ul>
 <li>READ-UNCOMMITTED</li>

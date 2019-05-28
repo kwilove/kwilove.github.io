@@ -229,24 +229,32 @@
 <li>content<br>{:toc}</li>
 </ul>
 <h4 id="1-worker-processes"><a href="#1-worker-processes" class="headerlink" title="1. worker_processes"></a>1. worker_processes</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">语法:worker_processes number | auto;</span><br><span class="line">* number：Nginx进程最多可以产生的工作进程数量</span><br><span class="line">* auto：  Nginx进程将自动检测</span><br></pre></td></tr></table></figure>
+
 <p>Nginx服务器实现并发处理服务的关键。<br>每个worker进程都是单线程的进程，它们会调用各个模块以实现多种多样的功能。如果这些模块确认不会出现阻塞式的调用，那么，有多少CPU内核就应该配置多少个进程；反之，如果有可能出现阻塞式调用，那么需要配置稍多一些的worker进程。<br>例如，如果业务方面会致使用户请求大量读取本地磁盘上的静态资源文件，而且服务器上的内存较小，以至于大部分的请求访问静态资源文件时都必须读取磁盘（磁头的寻址是缓慢的），而不是内存中的磁盘缓存，那么磁盘I/O调用可能会阻塞住worker进程少量时间，进而导致服务整体性能下降。</p>
 <h4 id="2-worker-connections"><a href="#2-worker-connections" class="headerlink" title="2. worker_connections"></a>2. worker_connections</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">worker_connections</span> number;</span><br><span class="line">Default: worker_connections 1024</span><br></pre></td></tr></table></figure>
+
 <p>每个worker进程的最大连接数，理论上每台nginx服务器的最大连接数为worker_processes * worker_connections。</p>
 <h4 id="3-worker-cpu-affinity"><a href="#3-worker-cpu-affinity" class="headerlink" title="3. worker_cpu_affinity"></a>3. worker_cpu_affinity</h4><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">worker_cpu_affinity</span> cpumask [cpumask……];</span><br></pre></td></tr></table></figure>
+
 <p>绑定Nginx worker进程到指定的CPU内核。<br>为什么要绑定worker进程到指定的CPU内核呢？假定每一个worker进程都是非常繁忙的，如果多个worker进程都在抢同一个CPU，那么这就会出现同步问题。反之，如果每一个worker进程都独享一个CPU，就在内核的调度策略上实现了完全的并发。<br>例如，如果有4核CPU，就可以进行如下配置：<br>worker_processes 4;<br>worker_cpu_affinity 1000 0100 0010 0001;<br>注意 </p>
 <ul>
 <li>worker_cpu_affinity配置仅对Linux操作系统有效。</li>
 <li>四核CPU，cpumask为1000 0100 0010 0001；<br>八核CPU，cpumask为10000000 01000000 00100000 00010000 00001000 00000100 00000010 00000001，以此类推。</li>
 </ul>
 <h4 id="4-worker-priority"><a href="#4-worker-priority" class="headerlink" title="4. worker_priority"></a>4. worker_priority</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">worker_priority</span> nice;</span><br><span class="line">Default: worker_priority 0;</span><br></pre></td></tr></table></figure>
+
 <p>Nginx worker进程优先级设置。<br>优先级由静态优先级和内核根据进程执行情况所做的动态调整（目前只有±5的调整）共同决定。nice值是进程的静态优先级，它的取值范围是–20～+19，–20是最高优先级，+19是最低优先级。因此，如果用户希望Nginx占有更多的系统资源，那么可以把nice值配置得更小一些，但不建议比内核进程的nice值（通常为–5）还要小</p>
 <h4 id="5-worker-rlimit-nofile"><a href="#5-worker-rlimit-nofile" class="headerlink" title="5. worker_rlimit_nofile"></a>5. worker_rlimit_nofile</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">worker_rlimit_nofile</span> limit;</span><br><span class="line">Default: 空</span><br></pre></td></tr></table></figure>
+
 <p>Nginx worker进程可以打开的最大句柄描述符个数。<br>更改worker进程的最大打开文件数限制。如果没设置的话，这个值为操作系统的限制。设置后你的操作系统和Nginx可以处理比<code>ulimit -a</code>更多的文件，所以把这个值设高，这样nginx就不会有<code>too many open files</code>问题了。</p>
 <h4 id="6-open-file-cache"><a href="#6-open-file-cache" class="headerlink" title="6. open_file_cache"></a>6. open_file_cache</h4><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">open_file_cache</span> max=<span class="number">65535</span> inactive=<span class="number">20s</span>;</span><br></pre></td></tr></table></figure>
+
 <p>为打开文件指定缓存，默认是没有启用的，max指定缓存数量，建议和打开文件数一致，inactive是指经过多长时间文件没被请求后删除缓存。</p>
 <h4 id="7-accept-mutext"><a href="#7-accept-mutext" class="headerlink" title="7. accept_mutext"></a>7. accept_mutext</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">accept_mutex</span> [<span class="literal">on</span>|<span class="literal">off</span>];</span><br><span class="line">Default: accept_mutext on;</span><br></pre></td></tr></table></figure>
+
 <p>是否打开accept锁。<br>accept_mutex是Nginx的负载均衡锁，当某一个worker进程建立的连接数量达到worker_connections配置的最大连接数的7/8时，会大大地减小该worker进程试图建立新TCP连接的机会，accept锁默认是打开的，如果关闭它，那么建立TCP连接的耗时会更短，但worker进程之间的负载会非常不均衡，因此不建议关闭它。</p>
 <h4 id="8-accept-mutex-delay"><a href="#8-accept-mutex-delay" class="headerlink" title="8. accept_mutex_delay"></a>8. accept_mutex_delay</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">accept_mutex_delay</span> Nms;</span><br><span class="line">Default: accept_mutex_delay 500ms;</span><br></pre></td></tr></table></figure>
+
 <p>使用accept锁后到真正建立连接之间的延迟时间。<br>在启用accept锁后，同一时间只有一个worker进程能够取到accept锁。这个accept锁不是阻塞锁，如果取不到会立刻返回。如果只有一个worker进程试图取锁而没有取到，他至少要等待accept_mutex_delay定义的时间才能再次试图取锁。</p>
 
     </div>

@@ -243,9 +243,11 @@
 </li>
 <li><p>film_actor影片演员关联表</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span></span><br><span class="line"><span class="keyword">IF</span> <span class="keyword">EXISTS</span> <span class="string">`film_actor`</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="string">`film_actor`</span> (</span><br><span class="line">    <span class="string">`id`</span> <span class="built_in">INT</span> (<span class="number">11</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,</span><br><span class="line">    <span class="string">`film_id`</span> <span class="built_in">INT</span> (<span class="number">11</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,</span><br><span class="line">    <span class="string">`actor_id`</span> <span class="built_in">INT</span> (<span class="number">11</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,</span><br><span class="line">    <span class="string">`remark`</span> <span class="built_in">VARCHAR</span> (<span class="number">255</span>) <span class="keyword">DEFAULT</span> <span class="literal">NULL</span>,</span><br><span class="line">    PRIMARY <span class="keyword">KEY</span> (<span class="string">`id`</span>),</span><br><span class="line">    <span class="keyword">KEY</span> <span class="string">`idx_film_actor_id`</span> (<span class="string">`film_id`</span>, <span class="string">`actor_id`</span>)</span><br><span class="line">) <span class="keyword">ENGINE</span> = <span class="keyword">INNODB</span> <span class="keyword">DEFAULT</span> <span class="keyword">CHARSET</span> = utf8;</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> <span class="string">`film_actor`</span> </span><br><span class="line">    (<span class="string">`id`</span>, <span class="string">`film_id`</span>, <span class="string">`actor_id`</span>)</span><br><span class="line"><span class="keyword">VALUES</span></span><br><span class="line">    (<span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>),</span><br><span class="line">    (<span class="number">2</span>, <span class="number">1</span>, <span class="number">2</span>),</span><br><span class="line">    (<span class="number">3</span>, <span class="number">2</span>, <span class="number">1</span>);</span><br></pre></td></tr></table></figure>
+
 </li>
 </ul>
 <h4 id="举例讲解"><a href="#举例讲解" class="headerlink" title="举例讲解"></a>举例讲解</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; explain select * from actor;</span><br></pre></td></tr></table></figure>
+
 <p><img src="/styles/images/mysql/1.png" alt></p>
 <h4 id="id列"><a href="#id列" class="headerlink" title="id列"></a>id列</h4><ul>
 <li>id列是select的序列号，id的个数等于SQL语句中select的个数，并且id列的顺序与select出现的顺序一一对应、</li>
@@ -264,14 +266,17 @@
 <ol>
 <li><p>简单子查询</p>
  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">explain</span> <span class="keyword">select</span> (<span class="keyword">select</span> <span class="number">1</span> <span class="keyword">from</span> actor <span class="keyword">limit</span> <span class="number">1</span>) <span class="keyword">from</span> film;</span><br></pre></td></tr></table></figure>
+
 <p> <img src="/styles/images/mysql/2.png" alt></p>
 </li>
 <li><p>from子句子查询</p>
  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">explain</span> <span class="keyword">select</span> <span class="keyword">id</span> <span class="keyword">from</span> (<span class="keyword">select</span> <span class="keyword">id</span> <span class="keyword">from</span> film) <span class="keyword">as</span> der;</span><br></pre></td></tr></table></figure>
+
 <p> <img src="/styles/images/mysql/3.png" alt><br> 这条查询语句执行时产生了一张临时表der，外部select引用了这张临时表。</p>
 </li>
 <li><p>union查询</p>
  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">explain</span> <span class="keyword">select</span> <span class="number">1</span> <span class="keyword">union</span> <span class="keyword">all</span> <span class="keyword">select</span> <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+
 <p> <img src="/styles/images/mysql/4.png" alt><br> union执行结果总是放在一个匿名临时表中，因为这种临时表不在SQL中出现，所以它的id是NULL。</p>
 </li>
 </ol>
@@ -279,6 +284,7 @@
 <ul>
 <li><p><code>SIMPLE</code>: 简单查询，不包含子查询和union查询</p>
   <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">explain</span> <span class="keyword">select</span> * <span class="keyword">from</span> film <span class="keyword">where</span> <span class="keyword">id</span> = <span class="number">2</span>;</span><br></pre></td></tr></table></figure>
+
 <p>  <img src="/styles/images/mysql/5.png" alt></p>
 </li>
 <li><p><code>PRIMARY</code>: 复杂查询中最外层的select</p>
@@ -287,12 +293,14 @@
 </li>
 <li><p><code>DERIVED</code>: 包含在from子句中的子查询，MySQL会将结果存放在一个临时表中，也称为派生表</p>
   <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">explain</span> <span class="keyword">select</span> (<span class="keyword">select</span> <span class="number">1</span> <span class="keyword">from</span> actor <span class="keyword">where</span> <span class="keyword">id</span> = <span class="number">1</span>) <span class="keyword">from</span> (<span class="keyword">select</span> * <span class="keyword">from</span> film <span class="keyword">where</span> <span class="keyword">id</span> = <span class="number">1</span>) der;</span><br></pre></td></tr></table></figure>
+
 <p>  <img src="/styles/images/mysql/6.png" alt></p>
 </li>
 <li><p><code>UNION</code>: 在union语句中的第二个和后面的select</p>
 </li>
 <li><p><code>UNION RESULT</code>: 在union匿名临时表中查询的select</p>
   <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">explain</span> <span class="keyword">select</span> <span class="number">1</span> <span class="keyword">union</span> <span class="keyword">all</span> <span class="keyword">select</span> <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+
 <p>  <img src="/styles/images/mysql/7.png" alt></p>
 </li>
 </ul>
@@ -301,45 +309,55 @@
 <li>当from子句中有子查询时，table列为<code>&lt;derivenN&gt;</code>格式，表示当前查询依赖<code>id=N</code>的查询，于是先执行<code>id=N</code>的查询。</li>
 <li>当有union时，UNION RESULT的table列的值是<code>&lt;union1,2&gt;</code>，其中<code>1</code>和<code>2</code>表示参与union的select的id。</li>
 </ul>
-<h4 id="type列"><a href="#type列" class="headerlink" title="type列"></a>type列</h4><p>这一列表示查询语句是关联类型还是访问类型，查找数据行记录的大概范围。<br>type列数值从最优到最差的排序是：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">system &gt; const &gt; eq_ref &gt; ref &gt; range &gt; index &gt; ALL。</span><br></pre></td></tr></table></figure></p>
+<h4 id="type列"><a href="#type列" class="headerlink" title="type列"></a>type列</h4><p>这一列表示查询语句是关联类型还是访问类型，查找数据行记录的大概范围。<br>type列数值从最优到最差的排序是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">system &gt; const &gt; eq_ref &gt; ref &gt; range &gt; index &gt; ALL。</span><br></pre></td></tr></table></figure>
+
 <p>在日常的开发中，我们建议确保查询能达到range以上，最好达到ref。</p>
 <ul>
 <li><p><code>NULL</code>: MySQL能够在优化阶段分解查询语句，在执行阶段不用再访问表或索引。例如，在索引列中选取最小值，可以通过查找索引完成，并不需要在执行时访问数据表。从下面的执行计划结果能看到table列为NULL，说明这条查询语句并没有访问表，而是直接查找索引得出结果。</p>
   <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">explain</span> <span class="keyword">select</span> <span class="keyword">min</span>(<span class="keyword">id</span>) <span class="keyword">from</span> film;</span><br></pre></td></tr></table></figure>
+
 <p>  <img src="/styles/images/mysql/8.png" alt></p>
 </li>
 <li><p><code>const</code>: 当我们使用primary key或unique key的所在列与常量进行等值比较时，可以猜到查询结果只能是0条记录或者1条记录，这个结果的记录数是一个可预见常量，因此使用const标识。</p>
 </li>
 <li><p><code>system</code>: system是const的一种特例，如果数据表中只有一条记录的话，那么我们查询的结果也最多是一条记录，这时结果记录数也是一个可预见常量，因此用system标识。</p>
   <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">explain</span> <span class="keyword">extended</span> <span class="keyword">select</span> * <span class="keyword">from</span> (<span class="keyword">select</span> * <span class="keyword">from</span> film <span class="keyword">where</span> <span class="keyword">id</span> = <span class="number">1</span>) tmp;</span><br></pre></td></tr></table></figure>
+
 <p>  <img src="/styles/images/mysql/9.png" alt></p>
 </li>
 <li><p><code>eq_ref</code>: 当使用关联查询（join）时，如果在关联条件join on中使用的字段是primary key或unique key，就会被标识为eq_ref。</p>
   <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">explain</span> <span class="keyword">select</span> * <span class="keyword">from</span> film_actor <span class="keyword">left</span> <span class="keyword">join</span> film <span class="keyword">on</span> film_actor.film_id = film.id;</span><br></pre></td></tr></table></figure>
+
 <p>  <img src="/styles/images/mysql/10.png" alt><br>  如上图中显示的第二行film表的查询记录，因为在join on条件中使用的film.id就是film表的primary key，所以film表的查询计划结果行的type列为eq_ref。</p>
 </li>
 <li><p><code>ref</code>: 相比于eq_ref的区别是查询条件中使用的字段是普通索引，或者是联合索引的前导列，下面列出两种出现ref类型的场景：</p>
 <ul>
 <li><p>简单select查询，name是普通索引。</p>
   <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">explain</span> <span class="keyword">select</span> * <span class="keyword">from</span> film <span class="keyword">where</span> <span class="keyword">name</span> = <span class="string">"film1"</span>;</span><br></pre></td></tr></table></figure>
+
 <p>  <img src="/styles/images/mysql/11.png" alt></p>
 </li>
 <li><p>关联selevt查询。</p>
   <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">explain</span> <span class="keyword">select</span> film_id <span class="keyword">from</span> film <span class="keyword">left</span> <span class="keyword">join</span> film_actor <span class="keyword">on</span> film.id = film_actor.film_id;</span><br></pre></td></tr></table></figure>
+
 <p>  <img src="/styles/images/mysql/12.png" alt><br>  idx_film_actor_id是包含film_id和actor_id字段的联合索引，关联查询中使用到了film_actor表联合索引idx_film_actor_id的前导列film_id。</p>
 </li>
 </ul>
 </li>
 <li><p><code>range</code>: 使用索引字段进行范围查找，通常是in()、between…and…、&gt;、&gt;=、&lt;、&lt;=等操作。</p>
   <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">explain</span> <span class="keyword">select</span> * <span class="keyword">from</span> actor <span class="keyword">where</span> <span class="keyword">id</span> &gt; <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+
 <p>  <img src="/styles/images/mysql/13.png" alt></p>
 </li>
 <li><p><code>index</code>: 扫描索引，通常是比ALL快一些，index是从索引中读取数据，ALL从硬盘中读取，</p>
   <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">explain</span> <span class="keyword">select</span> * <span class="keyword">from</span> film;</span><br></pre></td></tr></table></figure>
+
 <p>  <img src="/styles/images/mysql/14.png" alt><br>  因为film表中所有字段都走了索引，所以MySQL通过扫描索引取到了数据，因此没有再扫描表。</p>
 </li>
 <li><p><code>ALL</code>: 全表扫描，意味着MySQL需要从头到尾的查找需要的行，遇到这种情况通常都是需要增加索引进行优化。</p>
   <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">explain</span> <span class="keyword">select</span> * <span class="keyword">from</span> actor;</span><br></pre></td></tr></table></figure>
+
 <p>  <img src="/styles/images/mysql/15.png" alt></p>
 </li>
 </ul>
@@ -350,8 +368,10 @@
 <li>如果想强制使用possible_keys列中分析出的索引，可以在查询中使用force index、反之强制不使用possible_keys列的索引需要使用ignore index。</li>
 </ul>
 <h4 id="key-len列"><a href="#key-len列" class="headerlink" title="key_len列"></a>key_len列</h4><ul>
-<li>这一列显示查询时使用的索引的字节数总和，在使用到联合索引时能通过该值分析出使用到了索引中的那些字段。</li>
-<li>key_len的计算规则：<ul>
+<li><p>这一列显示查询时使用的索引的字节数总和，在使用到联合索引时能通过该值分析出使用到了索引中的那些字段。</p>
+</li>
+<li><p>key_len的计算规则：</p>
+<ul>
 <li>字符串<ul>
 <li>char(n): n为字节长度</li>
 <li>varchar(n): 需要2个字节用于存储字符串长度，在使用utf-8字符集时，长度计算公式是3n + 2</li>
@@ -373,15 +393,18 @@
 <li>如果字段允许为NULL，还需要1字节用于记录是否为NULL</li>
 </ul>
 </li>
-<li>索引的最大长度为768字节，当字符串过长时，MySQL会做一个类似左前缀索引的处理，将前半部分的字符提取出来做索引。</li>
+<li><p>索引的最大长度为768字节，当字符串过长时，MySQL会做一个类似左前缀索引的处理，将前半部分的字符提取出来做索引。</p>
+</li>
 <li><p>样例说明：在film_actor表中创建了一个联合索引idx_film_actor_id，它由film_id和actor_id两个int类型字段组成。</p>
 <ul>
 <li><p>执行下面的语句并得到结果</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">explain</span> <span class="keyword">select</span> * <span class="keyword">from</span> film_actor <span class="keyword">where</span> film_id = <span class="number">2</span>;</span><br></pre></td></tr></table></figure>
+
 <p><img src="/styles/images/mysql/16.png" alt><br>按照我们上面的计算规则每个int是4字节，结果中key_len=4说明使用了film_id列进行索引查询。</p>
 </li>
 <li><p>执行另一条语句并得到结果</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">explain</span> <span class="keyword">select</span> * <span class="keyword">from</span> film_actor <span class="keyword">where</span> film_id = <span class="number">2</span> <span class="keyword">and</span> actor_id = <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+
 <p><img src="/styles/images/mysql/17.png" alt><br>结果中key_len=8，刚好是film_id和actor_id字节之和。</p>
 </li>
 </ul>
@@ -391,10 +414,12 @@
 <ul>
 <li><p>const（常量）</p>
   <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">explain</span> <span class="keyword">select</span> * <span class="keyword">from</span> film_actor <span class="keyword">where</span> film_id = <span class="number">2</span>;</span><br></pre></td></tr></table></figure>
+
 <p>  <img src="/styles/images/mysql/16.png" alt><br>  where子句film_id = 2中film_id是联合索引的前导列，2是常量，因此ref=const。</p>
 </li>
 <li><p>字段名</p>
   <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">explain</span> <span class="keyword">select</span> film_actor.film_id <span class="keyword">from</span> film <span class="keyword">left</span> <span class="keyword">join</span> film_actor <span class="keyword">on</span> film.id = film_actor.film_id;</span><br></pre></td></tr></table></figure>
+
 <p>  <img src="/styles/images/mysql/18.png" alt><br>  我们看图中第二行是film_actor表的结论，关联条件是film.id = film_actor.film_id，其中film_actor.film_id是联合索引前导列，film.id是关联表字段，因此ref=test.film.id（数据库.表名.字段名），</p>
 </li>
 </ul>
@@ -403,32 +428,39 @@
 <ul>
 <li><p><code>Using index</code>: 查询的所有列被索引覆盖，并且where筛选条件（如果有where子句）是索引的前导列，这种结果代表了查询性能高效，一般是使用了<strong>覆盖索引</strong>。</p>
   <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- film_id列是film_actor表中联合索引idx_film_actor_id的前导列 </span></span><br><span class="line"><span class="keyword">explain</span> <span class="keyword">select</span> film_id <span class="keyword">from</span> film_actor <span class="keyword">where</span> film_id = <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+
 <p>  <img src="/styles/images/mysql/19.png" alt></p>
 </li>
 <li><p><code>Using where; Using index</code>: 查询的列被索引覆盖，并且where的筛选条件是索引列之一，但不是前导列，这种情况无法直接通过索引查找方式查询出符合条件的数据。</p>
   <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">explain</span> <span class="keyword">select</span> film_id <span class="keyword">from</span> film_actor <span class="keyword">where</span> actor_id = <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+
 <p>  <img src="/styles/images/mysql/21.png" alt></p>
 </li>
 <li><p><code>Using where</code>: 查询的列未被索引全部覆盖，并且where子句的筛选条件也不是索引的前导列。</p>
   <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">explain</span> <span class="keyword">select</span> * <span class="keyword">from</span> actor <span class="keyword">where</span> <span class="keyword">name</span> = <span class="string">'a'</span>;</span><br></pre></td></tr></table></figure>
+
 <p>  <img src="/styles/images/mysql/20.png" alt></p>
 </li>
 <li><p><code>NULL</code>: 查询的列未被索引覆盖，但是where筛选条件是索引的前导列。可以这么理解，where子句走了索引，但是需要select的数据列不能全部从索引中获取，需要通过索引回表查询。</p>
   <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">explain</span> <span class="keyword">select</span> * <span class="keyword">from</span> film_actor <span class="keyword">where</span> film_id = <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+
 <p>  <img src="/styles/images/mysql/22.png" alt></p>
 </li>
 <li><p><code>Using index condition</code>: 与<code>Using where</code>类似，查询的列未被索引全部覆盖，where筛选条件是索引的前导列而且是一个范围查找。</p>
   <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">explain</span> <span class="keyword">select</span> * <span class="keyword">from</span> film_actor <span class="keyword">where</span> film_id &gt; <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+
 <p>  <img src="/styles/images/mysql/23.png" alt></p>
 </li>
 <li><p><code>Using temporary</code>: MySQL需要创建一张临时表来处理查询，这种情况一般都是需要优化的，可以考虑索引优化。<br>  我们可以通过分析actor表和film表的name列去重查询进行分析对比，如下:</p>
 <ul>
 <li><p>actor表去重查询name:</p>
   <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">explain</span> <span class="keyword">select</span> <span class="keyword">distinct</span> <span class="keyword">name</span> <span class="keyword">from</span> actor;</span><br></pre></td></tr></table></figure>
+
 <p>  <img src="/styles/images/mysql/24.png" alt><br>  因为actor表的name没有加索引，所以MySQL创建了张临时表后再做去重。</p>
 </li>
 <li><p>film表去重查询name:</p>
   <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">explain</span> <span class="keyword">select</span> <span class="keyword">distinct</span> <span class="keyword">name</span> <span class="keyword">from</span> film;</span><br></pre></td></tr></table></figure>
+
 <p>  <img src="/styles/images/mysql/25.png" alt><br>  因为film表的name建立了idx_name索引，所以查询时Extra列显示为Using index，没有创建临时表。</p>
 </li>
 </ul>
@@ -437,10 +469,12 @@
 <ul>
 <li><p>按name排序查询actor表</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">explain</span> <span class="keyword">select</span> * <span class="keyword">from</span> actor <span class="keyword">order</span> <span class="keyword">by</span> <span class="keyword">name</span>;</span><br></pre></td></tr></table></figure>
+
 <p><img src="/styles/images/mysql/26.png" alt></p>
 </li>
 <li><p>按name排序查询film表</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">explain</span> <span class="keyword">select</span> * <span class="keyword">from</span> film <span class="keyword">order</span> <span class="keyword">by</span> <span class="keyword">name</span>;</span><br></pre></td></tr></table></figure>
+
 <p><img src="/styles/images/mysql/27.png" alt><br>从上面的执行结果可以看出，按name排序查询actor表时Extra=Using filesort，也就是对查询结果集做了外部排序；但按name排序查询film表时Extra=Using index；相同类型的查询语句，只是查询的表不同，为什么Extra的值不同呢？原因就是film表的name列加了索引，看过我之前文章的朋友应该都知道MySQL索引是一种排好序的数据结构，因此按name排序查询film表数据实际上是按照索引的顺序查询数据的，不需要再进行外部排序。</p>
 </li>
 </ul>
