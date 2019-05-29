@@ -6,16 +6,14 @@
   <meta charset="utf-8">
   <meta name="author" content="董沅鑫, yuanxin.me@gmail.com">
   
-    <meta name="robots" content="noindex">
   
   
-  
-  <title>子敬的博客</title>
+  <title>MySQL存储引擎MyISAM和InnoDB底层索引结构 | 子敬的博客</title>
 
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
   
-    <meta name="keywords" content="Hexo, theme-bmw">
+    <meta name="keywords" content="性能调优,MySQL,">
   
 
   <script>
@@ -193,447 +191,248 @@
 </script>
 
       
-<div class="container home-index">
-  
-  <div class="post">
-    <h1 class="article-title">
-      <a href="/2019/04/08/nginx-2019-04-08-Nginx之ngx-http-rewrite-module模块/">
-        <span>Nginx之ngx_http_rewrite_module模块</span>
-      </a>
-    </h1>
-    <!-- PC端文章信息 -->
-    <div class="article-top-meta pc-view">
-      <span>
-        发布时间 : 2019-04-08
-      </span>
-    </div>
-    <!-- 移动端文章信息 -->
-    <div class="article-top-meta mobile-view">
-      <span>
-        发布 : 2019-04-08
-      </span>
-      
-        <span>
-        分类 :
-          <a href="/categories/性能调优/">
-            性能调优
-          </a>
-        </span>
-      
-      
-        <span>
-          浏览 : <span class="article-timer" data-identity="nginx-2019-04-08-Nginx之ngx-http-rewrite-module模块"></span>
-        </span>
-      
-    </div>
-    
-    <!-- 文章简介 -->
-    <div class="article-content">
-      <div class="markdown-body article-content--inner" v-html="mdToHtml(psg.summary)">
-        
-      </div>
-    </div>
-    <div class="article-footer">
-      <div class="article-meta pull-left">
-        <!-- 分类pc端可见 -->
-        <span class="pc-view">
-          
-            <i class="iconfont icon-tag"></i>分类:
-            <a href="/categories/性能调优/">
-              性能调优
-            </a>
-          </span>
-          
-        <span>
-          
-            <i class="iconfont icon-06tags"></i>标签:
-            
-              <span class="span--tag">
-                <a href="/tags/Nginx/">
-                  #Nginx
-                </a>
-              </span>
-            
-                    
-        </span>
-      </div>
-      
-        <div class="article-meta pull-right">
-          <span class="pc-view">
-            <i class="iconfont icon-view"></i>浏览: <span class="article-timer" data-identity="nginx-2019-04-08-Nginx之ngx-http-rewrite-module模块"></span>
-          </span>
-        </div>
-      
-    </div>
-  </div>
-  
-  <div class="post">
-    <h1 class="article-title">
-      <a href="/2019/04/06/nginx-2019-04-06-Nginx负载均衡/">
-        <span>Nginx负载均衡</span>
-      </a>
-    </h1>
-    <!-- PC端文章信息 -->
-    <div class="article-top-meta pc-view">
-      <span>
-        发布时间 : 2019-04-06
-      </span>
-    </div>
-    <!-- 移动端文章信息 -->
-    <div class="article-top-meta mobile-view">
-      <span>
-        发布 : 2019-04-06
-      </span>
-      
-        <span>
-        分类 :
-          <a href="/categories/性能调优/">
-            性能调优
-          </a>
-        </span>
-      
-      
-        <span>
-          浏览 : <span class="article-timer" data-identity="nginx-2019-04-06-Nginx负载均衡"></span>
-        </span>
-      
-    </div>
-    
-    <!-- 文章简介 -->
-    <div class="article-content">
-      <div class="markdown-body article-content--inner" v-html="mdToHtml(psg.summary)">
-        
-      </div>
-    </div>
-    <div class="article-footer">
-      <div class="article-meta pull-left">
-        <!-- 分类pc端可见 -->
-        <span class="pc-view">
-          
-            <i class="iconfont icon-tag"></i>分类:
-            <a href="/categories/性能调优/">
-              性能调优
-            </a>
-          </span>
-          
-        <span>
-          
-            <i class="iconfont icon-06tags"></i>标签:
-            
-              <span class="span--tag">
-                <a href="/tags/Nginx/">
-                  #Nginx
-                </a>
-              </span>
-            
-                    
-        </span>
-      </div>
-      
-        <div class="article-meta pull-right">
-          <span class="pc-view">
-            <i class="iconfont icon-view"></i>浏览: <span class="article-timer" data-identity="nginx-2019-04-06-Nginx负载均衡"></span>
-          </span>
-        </div>
-      
-    </div>
-  </div>
-  
-  <div class="post">
-    <h1 class="article-title">
-      <a href="/2019/04/04/nginx-2019-04-04-Nginx反向代理/">
-        <span>Nginx反向代理</span>
-      </a>
-    </h1>
-    <!-- PC端文章信息 -->
-    <div class="article-top-meta pc-view">
-      <span>
-        发布时间 : 2019-04-04
-      </span>
-    </div>
-    <!-- 移动端文章信息 -->
-    <div class="article-top-meta mobile-view">
-      <span>
-        发布 : 2019-04-04
-      </span>
-      
-        <span>
-        分类 :
-          <a href="/categories/性能调优/">
-            性能调优
-          </a>
-        </span>
-      
-      
-        <span>
-          浏览 : <span class="article-timer" data-identity="nginx-2019-04-04-Nginx反向代理"></span>
-        </span>
-      
-    </div>
-    
-    <!-- 文章简介 -->
-    <div class="article-content">
-      <div class="markdown-body article-content--inner" v-html="mdToHtml(psg.summary)">
-        
-      </div>
-    </div>
-    <div class="article-footer">
-      <div class="article-meta pull-left">
-        <!-- 分类pc端可见 -->
-        <span class="pc-view">
-          
-            <i class="iconfont icon-tag"></i>分类:
-            <a href="/categories/性能调优/">
-              性能调优
-            </a>
-          </span>
-          
-        <span>
-          
-            <i class="iconfont icon-06tags"></i>标签:
-            
-              <span class="span--tag">
-                <a href="/tags/Nginx/">
-                  #Nginx
-                </a>
-              </span>
-            
-                    
-        </span>
-      </div>
-      
-        <div class="article-meta pull-right">
-          <span class="pc-view">
-            <i class="iconfont icon-view"></i>浏览: <span class="article-timer" data-identity="nginx-2019-04-04-Nginx反向代理"></span>
-          </span>
-        </div>
-      
-    </div>
-  </div>
-  
-  <div class="post">
-    <h1 class="article-title">
-      <a href="/2019/04/03/mysql-2019-04-03-数据库事务特性及隔离级别/">
-        <span>数据库事务特性及隔离级别</span>
-      </a>
-    </h1>
-    <!-- PC端文章信息 -->
-    <div class="article-top-meta pc-view">
-      <span>
-        发布时间 : 2019-04-03
-      </span>
-    </div>
-    <!-- 移动端文章信息 -->
-    <div class="article-top-meta mobile-view">
-      <span>
-        发布 : 2019-04-03
-      </span>
-      
-        <span>
-        分类 :
-          <a href="/categories/性能调优/">
-            性能调优
-          </a>
-        </span>
-      
-      
-        <span>
-          浏览 : <span class="article-timer" data-identity="mysql-2019-04-03-数据库事务特性及隔离级别"></span>
-        </span>
-      
-    </div>
-    
-    <!-- 文章简介 -->
-    <div class="article-content">
-      <div class="markdown-body article-content--inner" v-html="mdToHtml(psg.summary)">
-        
-      </div>
-    </div>
-    <div class="article-footer">
-      <div class="article-meta pull-left">
-        <!-- 分类pc端可见 -->
-        <span class="pc-view">
-          
-            <i class="iconfont icon-tag"></i>分类:
-            <a href="/categories/性能调优/">
-              性能调优
-            </a>
-          </span>
-          
-        <span>
-          
-            <i class="iconfont icon-06tags"></i>标签:
-            
-              <span class="span--tag">
-                <a href="/tags/MySQL/">
-                  #MySQL
-                </a>
-              </span>
-            
-                    
-        </span>
-      </div>
-      
-        <div class="article-meta pull-right">
-          <span class="pc-view">
-            <i class="iconfont icon-view"></i>浏览: <span class="article-timer" data-identity="mysql-2019-04-03-数据库事务特性及隔离级别"></span>
-          </span>
-        </div>
-      
-    </div>
-  </div>
-  
-  <div class="post">
-    <h1 class="article-title">
-      <a href="/2019/03/28/nginx-2019-03-28-Nginx核心配置讲解与实践/">
-        <span>Nginx核心配置讲解与实践</span>
-      </a>
-    </h1>
-    <!-- PC端文章信息 -->
-    <div class="article-top-meta pc-view">
-      <span>
-        发布时间 : 2019-03-28
-      </span>
-    </div>
-    <!-- 移动端文章信息 -->
-    <div class="article-top-meta mobile-view">
-      <span>
-        发布 : 2019-03-28
-      </span>
-      
-        <span>
-        分类 :
-          <a href="/categories/性能调优/">
-            性能调优
-          </a>
-        </span>
-      
-      
-        <span>
-          浏览 : <span class="article-timer" data-identity="nginx-2019-03-28-Nginx核心配置讲解与实践"></span>
-        </span>
-      
-    </div>
-    
-    <!-- 文章简介 -->
-    <div class="article-content">
-      <div class="markdown-body article-content--inner" v-html="mdToHtml(psg.summary)">
-        
-      </div>
-    </div>
-    <div class="article-footer">
-      <div class="article-meta pull-left">
-        <!-- 分类pc端可见 -->
-        <span class="pc-view">
-          
-            <i class="iconfont icon-tag"></i>分类:
-            <a href="/categories/性能调优/">
-              性能调优
-            </a>
-          </span>
-          
-        <span>
-          
-            <i class="iconfont icon-06tags"></i>标签:
-            
-              <span class="span--tag">
-                <a href="/tags/Nginx/">
-                  #Nginx
-                </a>
-              </span>
-            
-                    
-        </span>
-      </div>
-      
-        <div class="article-meta pull-right">
-          <span class="pc-view">
-            <i class="iconfont icon-view"></i>浏览: <span class="article-timer" data-identity="nginx-2019-03-28-Nginx核心配置讲解与实践"></span>
-          </span>
-        </div>
-      
-    </div>
-  </div>
-  
-  <div class="post">
-    <h1 class="article-title">
-      <a href="/2019/03/20/Hello-World/">
-        <span>开博纪念</span>
-      </a>
-    </h1>
-    <!-- PC端文章信息 -->
-    <div class="article-top-meta pc-view">
-      <span>
-        发布时间 : 2019-03-20
-      </span>
-    </div>
-    <!-- 移动端文章信息 -->
-    <div class="article-top-meta mobile-view">
-      <span>
-        发布 : 2019-03-20
-      </span>
-      
-        <span>
-        分类 :
-          <a href="/categories/随笔/">
-            随笔
-          </a>
-        </span>
-      
-      
-        <span>
-          浏览 : <span class="article-timer" data-identity="Hello-World"></span>
-        </span>
-      
-    </div>
-    
-    <!-- 文章简介 -->
-    <div class="article-content">
-      <div class="markdown-body article-content--inner" v-html="mdToHtml(psg.summary)">
-        
-      </div>
-    </div>
-    <div class="article-footer">
-      <div class="article-meta pull-left">
-        <!-- 分类pc端可见 -->
-        <span class="pc-view">
-          
-            <i class="iconfont icon-tag"></i>分类:
-            <a href="/categories/随笔/">
-              随笔
-            </a>
-          </span>
-          
-        <span>
-          
-            <i class="iconfont icon-06tags"></i>标签:
-            
-              <span class="span--tag">
-                <a href="/tags/随笔/">
-                  #随笔
-                </a>
-              </span>
-            
-                    
-        </span>
-      </div>
-      
-        <div class="article-meta pull-right">
-          <span class="pc-view">
-            <i class="iconfont icon-view"></i>浏览: <span class="article-timer" data-identity="Hello-World"></span>
-          </span>
-        </div>
-      
-    </div>
-  </div>
+
+
+
+
+
+
+
+
+<div class="container post-index">
+
   
 
-  <nav class="page-navigation">
+<div class="post">
+  <h1 class="article-title">
+    <span>MySQL存储引擎MyISAM和InnoDB底层索引结构</span>
+  </h1>
+  <div class="article-top-meta">
+    <span>
+      发布 : 
+      2019-05-21
+    </span>
     
-      <a href="/">上一页</a>
+      <span>
+        分类 : 
+          <a href="/categories/性能调优/">
+            性能调优
+          </a>
+      </span>
     
+    
+      <span>
+        浏览 : <span class="article-timer" data-identity="mysql-2019-05-21-MySQL存储引擎MyISAM和InnoDB底层索引结构"></span>
+      </span>
+    
+  </div>
+
+  
+
+  <div class="article-content">
+    <div class="markdown-body">
+      <blockquote>
+<p>PS：为了更好地理解本文内容，我强烈建议先阅读完我的上一篇文章<a href="/2019/05/20/mysql-2019-05-20-深入理解MySQL索引底层数据结构与算法/">深入理解MySQL索引底层数据结构与算法</a>。</p>
+</blockquote>
+<h2 id="一-存储引擎作用于什么对象"><a href="#一-存储引擎作用于什么对象" class="headerlink" title="一. 存储引擎作用于什么对象"></a>一. 存储引擎作用于什么对象</h2><p>存储引擎是作用在表上的，而不是数据库。</p>
+<h2 id="二-MyISAM和InnoDB对索引和数据的存储在磁盘上是如何体现的"><a href="#二-MyISAM和InnoDB对索引和数据的存储在磁盘上是如何体现的" class="headerlink" title="二. MyISAM和InnoDB对索引和数据的存储在磁盘上是如何体现的"></a>二. MyISAM和InnoDB对索引和数据的存储在磁盘上是如何体现的</h2><p>先来看下面创建的两张表信息，role表使用的存储引擎是MyISAM，而user使用的是InnoDB：<br><img src="/styles/images/mysql/28.png" alt="28.png"></p>
+<p>再来看下两张表在磁盘中的索引文件和数据文件:<br><img src="/styles/images/mysql/29.png" alt="29.png"></p>
+<ol>
+<li><p>role表有三个文件，对应如下:</p>
+<ul>
+<li>role.frm：表结构文件</li>
+<li>role.MYD：数据文件（MyISAM Data）</li>
+<li>role.MYI：索引文件（MyISAM Index）</li>
+</ul>
+</li>
+<li><p>user表有两个文件，对应如下:</p>
+<ul>
+<li>user.frm：表结构文件</li>
+<li>user.ibd：索引和数据文件（InnoDB Data）</li>
+</ul>
+</li>
+</ol>
+<p>也由于两种引擎对索引和数据的存储方式的不同，我们也称MyISAM的索引为非聚集索引，InnoDB的索引为聚集索引。</p>
+<h2 id="MyISAM主键索引与辅助索引的结构"><a href="#MyISAM主键索引与辅助索引的结构" class="headerlink" title="MyISAM主键索引与辅助索引的结构"></a>MyISAM主键索引与辅助索引的结构</h2><p>我们先列举一部分数据出来分析，如下:<br><img src="/styles/images/mysql/30.png" alt="30.png"></p>
+<p>上面已经说明了MyISAM引擎的索引文件和数据文件是分离的，我们接着看一下下面两种索引结构异同。</p>
+<h4 id="1-主键索引"><a href="#1-主键索引" class="headerlink" title="1. 主键索引"></a>1. 主键索引</h4><p>上一篇文章已经介绍过数据库索引是采用B+Tree存储，并且只在叶子节点存储数据，在MyISAM引擎中叶子结点存储的数据其实是索引和数据的文件指针两类.<br>如下图中我们以Col1列作为主键建立索引，对应的叶子结点储存形式可以看一下表格。<br><img src="/styles/images/mysql/31.png" alt="31.png"></p>
+<!-- 
+|索引值|15|18|→|20|30|→|49|50|→|
+|--|--|--|--|--|--|--|--|--|--|
+|文件指针|0x07|0x56|→|0x6A|0xF3|→|0x90|0x77|→| -->
+
+<table>
+  <tr>
+    <th>索引值</th>
+    <th>15</th>
+    <th>18</th>
+    <th rowspan="2">←→</th>
+    <th>20</th>
+    <th>30</th>
+    <th rowspan="2">←→</th>
+    <th>49</th>
+    <th>50</th>
+    <th rowspan="2">←→</th>
+  </tr>
+  <tr>
+    <td>文件指针</td>
+    <td>0x07</td>
+    <td>0x56</td>
+    <td>0x6A</td>
+    <td>0xF3</td>
+    <td>0x90</td>
+    <td>0x77</td>
+  </tr>
+</table>
+
+<p>通过索引查找数据的流程：先从索引文件中查找到索引节点，从中拿到数据的文件指针，再到数据文件中通过文件指针定位了具体的数据。</p>
+<h4 id="2-辅助（非主键）索引"><a href="#2-辅助（非主键）索引" class="headerlink" title="2. 辅助（非主键）索引"></a>2. 辅助（非主键）索引</h4><p>以Col2列建立索引，得到的辅助索引结构跟上面的主键索引的结构是相同的。<br><img src="/styles/images/mysql/32.png" alt="32.png"></p>
+<h2 id="四-InnoDB主键索引与辅助索引的结构"><a href="#四-InnoDB主键索引与辅助索引的结构" class="headerlink" title="四. InnoDB主键索引与辅助索引的结构"></a>四. InnoDB主键索引与辅助索引的结构</h2><h4 id="1-主键索引-1"><a href="#1-主键索引-1" class="headerlink" title="1. 主键索引"></a>1. 主键索引</h4><p>我们已经知道InnoDB索引是聚集索引，它的索引和数据是存入同一个.idb文件中的，因此它的索引结构是在同一个树节点中同时存放索引和数据，如下图中最底层的叶子节点有三行数据，对应于数据表中的Col1、Col2、Col3数据项。<br><img src="/styles/images/mysql/33.png" alt="33.png"></p>
+<h4 id="2-辅助（非主键）索引-1"><a href="#2-辅助（非主键）索引-1" class="headerlink" title="2. 辅助（非主键）索引"></a>2. 辅助（非主键）索引</h4><p>这次我们以数据表中的Col3列的字符串数据建立辅助索引，它的索引结构跟主键索引的结构有很大差别，我们来看下面的图：<br><img src="/styles/images/mysql/34.png" alt="34.png"><br>在最底层的叶子结点有两行数据，第一行的字符串是辅助索引，按照ASCII码进行排序，第二行的整数是主键的值。</p>
+<h2 id="五-InnoDB索引结构需要注意的点"><a href="#五-InnoDB索引结构需要注意的点" class="headerlink" title="五. InnoDB索引结构需要注意的点"></a>五. InnoDB索引结构需要注意的点</h2><ol>
+<li>数据文件本身就是索引文件.</li>
+<li>表数据文件本身就是按B+Tree组织的一个索引结构文件.</li>
+<li>聚集索引中叶节点包含了完整的数据记录.</li>
+<li>InnoDB表必须要有主键，并且推荐使用整型自增主键.<ul>
+<li>正如我们上面介绍InnoDB存储结构，索引与数据是共同存储的，不管是主键索引还是辅助索引，在查找时都是通过先查找到索引节点才能拿到相对应的数据，如果我们在设计表结构时没有显式指定索引列的话，MySQL会从表中选择数据不重复的列建立索引，如果没有符合的列，则MySQL自动为InnoDB表生成一个隐含字段作为主键，并且这个字段长度为6个字节，类型为整型。</li>
+</ul>
+</li>
+<li>那为什么推荐使用整型自增主键而不是选择UUID？<ul>
+<li>UUID是字符串，比整型消耗更多的存储空间；</li>
+<li>在B+树中进行查找时需要跟经过的节点值比较大小，整型数据的比较运算比字符串更快速；</li>
+<li>自增的整型索引在磁盘中会连续存储，在读取一页数据时也是连续；UUID是随机产生的，读取的上下两行数据存储是分散的，不适合执行where id &gt; 5 &amp;&amp; id &lt; 20的条件查询语句。</li>
+<li>在插入或删除数据时，整型自增主键会在叶子结点的末尾建立新的叶子节点，不会破坏左侧子树的结构；UUID主键很容易出现这样的情况，B+树为了维持自身的特性，有可能会进行结构的重构，消耗更多的时间。</li>
+</ul>
+</li>
+<li>为什么非主键索引结构叶子节点存储的是主键值？<ul>
+<li>保证数据一致性和节省存储空间，可以这么理解：商城系统订单表会存储一个用户ID作为关联外键，而不推荐存储完整的用户信息，因为当我们用户表中的信息（真是名称、手机号、收货地址···）修改后，不需要再次维护订单表的用户数据，同时也节省了存储空间。</li>
+</ul>
+</li>
+</ol>
+    </div>
+  </div>
+  
+    <div class="copy-right">
+      <div class="markdown-body">
+        <blockquote>
+        
+        
+          本文作者 : 子敬 <br>
+        
+        原文链接 : <a href>https://kwilove.github.io/2019/05/21/mysql-2019-05-21-MySQL存储引擎MyISAM和InnoDB底层索引结构/</a><br>
+        版权声明 : 本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！
+        </blockquote>
+      </div>
+    </div>
+  
+  
+  
+    <div class="social-share" style="margin-top: -2rem" data-wechat-qrcode-title="<p>微信扫一扫</p>" data-wechat-qrcode-helper="<p>微信右上角, 扫一扫分享</p>" data-sites="qzone, qq, weibo, wechat, douban">
+  <span style="color: #6b7487; font-size: 1.4rem;">分享到: </span>
+</div>
+<script src="https://cdn.bootcss.com/social-share.js/1.0.16/js/social-share.min.js" async></script>
+  
+
+  
+    <div id="reward">
+  
+    <p id="reward-meta">知识 & 情怀 | 二者兼得</p>
+  
+  <button id="reward-btn">
+    
+    <span>投食</span>
+  </button>
+  <div id="reward-qrcode">
+    
+      <div class="reward-qrcode--container">
+        <img class="qrcode-img" src="/styles/wechat.png" alt="微信扫一扫, 向我投食">
+        <p class="qrcode-meta">微信扫一扫, 向我投食</p>
+      </div>
+    
+  </div>
+
+</div>
+
+<script>
+  (() => {
+    let button = document.querySelector('#reward-btn'),
+      qrcode = document.querySelector('#reward-qrcode'),
+      display = false;
+    
+    button.addEventListener('click', () => {
+      qrcode.style.display = display ? 'none' : 'block'
+      display = !display
+    }, false)
+  })()
+</script>
+  
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+      <span>
+        
+          <i class="iconfont icon-06tags"></i>标签: 
+          
+          <span class="span--tag">
+            <a href="/tags/MySQL/">
+              #MySQL
+            </a>
+          </span>
+          
+        
+      </span>
+    </div>
+    <div class="article-meta pull-right">
+    </div>
+  </div>
+</div>
+
+
+  <aside id="sidebar">
+    <p id="sidebar-header"></p>
+    <ol id="sidebar-toc"></ol>
+  </aside>
+  <script async>setTimeout(generateToc, 10);</script>
+
+
+  <nav class="post-navigation">
+    
+      <div class="nav-pre">
+        <i class="iconfont icon-prev"></i>
+        上一篇:
+        <a href="/2019/05/20/mysql-2019-05-20-深入理解MySQL索引底层数据结构与算法/" target="_self">深入理解MySQL索引底层数据结构与算法</a>
+      </div>
+    
+    
+      <div class="nav-next">
+        下一篇:
+        <a href="/2019/05/23/hello-world/" target="_self">Hello World</a>
+        <i class="iconfont icon-next"></i>
+      </div>
     
   </nav>
+
+  
+    <a href="#comment" class="comment-anchor"></a>
+<div class="comment-title"><i class="iconfont icon-footprint"></i> 留下足迹 <i class="iconfont icon-footprint"></i></div>
+<div id="vcomments"></div>
+
+<script defer>
+  if( true ) {
+    let path = getRealPath()
+    new Valine({
+      el: "#vcomments",
+      appId: "Hyq9wkH495DgNHWhDQCOfQSp-gzGzoHsz",
+      appKey: "WaR7nrzhliHj9aVwdQzkdlGd",
+      notify: false,
+      verify: false,
+      avatar: "robohash",
+      placeholder: "正确填写邮箱, 才能及时收到回复哦♪(^∇^*)",
+      path
+    });
+  }
+</script>
+   
 
   
     <script defer>
@@ -708,7 +507,7 @@ const valineAPI = (() => {
 })()
 
 const calcAndWriteTimes = () => {
-  let isPost = false;
+  let isPost = true;
 
   let timerAllDOM = document.querySelectorAll(".article-timer");
 
@@ -763,6 +562,7 @@ if(true){
 }
 </script>
    
+
 </div>
 
 

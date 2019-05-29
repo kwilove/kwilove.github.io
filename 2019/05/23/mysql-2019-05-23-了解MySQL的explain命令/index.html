@@ -222,7 +222,7 @@
     
     
       <span>
-        浏览 : <span class="article-timer" data-identity="了解MySQL的explain命令"></span>
+        浏览 : <span class="article-timer" data-identity="mysql-2019-05-23-了解MySQL的explain命令"></span>
       </span>
     
   </div>
@@ -234,7 +234,7 @@
       <h2 id="一-预备知识"><a href="#一-预备知识" class="headerlink" title="一. 预备知识"></a>一. 预备知识</h2><p><strong>阅读本文章前需要掌握MySQL索引的底层数据结构相关知识，可以查看我之前的文章了解。</strong></p>
 <ul>
 <li><code>索引前导列</code>: 所谓前导列，就是联合索引的第一列或者从第一列开始连续多列的组合。比如通过语句<code>CREATE INDEX table1_index ON table1 (x, y, z)</code>创建索引，那么x、xy、xyz都是前导列，而yz，y，z这样的就不是。</li>
-<li><code>覆盖索引</code>: 覆盖索引是select的数据列只用从索引中就能够取得，不必读取数据表，换句话说查询列要被所建的索引覆盖。</li>
+<li><code>覆盖索引</code>: 覆盖索引指的是select的数据列可以直接从索引中取得，不必读取数据表，换句话说查询列要被所建的索引覆盖。</li>
 </ul>
 <h2 id="二-explain命令的作用"><a href="#二-explain命令的作用" class="headerlink" title="二. explain命令的作用"></a>二. explain命令的作用</h2><ul>
 <li>使用<code>explain</code>关键字可以模拟优化器执行SQL语句，知道MySQL是如何处理你的SQL语句的，从而分析你的查询语句的性能瓶颈。</li>
@@ -498,7 +498,7 @@
         
           本文作者 : 子敬 <br>
         
-        原文链接 : <a href>https://kwilove.github.io/2019/05/23/了解MySQL的explain命令/</a><br>
+        原文链接 : <a href>https://kwilove.github.io/2019/05/23/mysql-2019-05-23-了解MySQL的explain命令/</a><br>
         版权声明 : 本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！
         </blockquote>
       </div>
@@ -582,6 +582,12 @@
         <a href="/2019/05/23/Springboot加载自定义yml文件配置的方法/" target="_self">Springboot加载自定义yml文件配置的方法</a>
       </div>
     
+    
+      <div class="nav-next">
+        下一篇:
+        <a href="/2019/05/29/SpringMVC执行原理解析/" target="_self">SpringMVC执行原理解析</a>
+        <i class="iconfont icon-next"></i>
+      </div>
     
   </nav>
 
