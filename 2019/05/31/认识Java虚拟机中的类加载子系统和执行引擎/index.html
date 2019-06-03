@@ -272,11 +272,11 @@
 <h4 id="3-双亲委派机制的优势"><a href="#3-双亲委派机制的优势" class="headerlink" title="3. 双亲委派机制的优势"></a>3. 双亲委派机制的优势</h4><ul>
 <li>沙箱安全机制：我们自定义的String.class类不会被加载，防止了核心类库被篡改。</li>
 <li>避免类的重复加载：当父类加载器加载了目标类后，就没必要让子类加载器再重复加载同一个类。</li>
-<li>JVM对类的加载方式是按需加载，也就是在运行期间动态加载，验证的方式见下方示例，注意在启动时加载参数：<strong>-verbose:class</strong>。</li>
+<li>JVM对类的加载方式是按需加载，也就是在运行期间动态加载，验证的方式见下方示例，注意在启动时加上参数：<strong>-verbose:class</strong>。</li>
 </ul>
 <p><img src="/styles/images/jvm/9.png" alt="9.png"></p>
 <h2 id="三-JVM执行引擎"><a href="#三-JVM执行引擎" class="headerlink" title="三. JVM执行引擎"></a>三. JVM执行引擎</h2><p>执行引擎：读取运行时数据区的Java字节码并逐个执行。<br><img src="/styles/images/jvm/10.png" alt="10.png"></p>
-<h3 id="（一）时编译器（JIT编译器）"><a href="#（一）时编译器（JIT编译器）" class="headerlink" title="（一）时编译器（JIT编译器）"></a>（一）时编译器（JIT编译器）</h3><p>Java程序最初是通过解释器进行解释执行的，当虚拟机发现某个方法或代码块的运行特别频繁，就会把这些代码认定为“热点代码”（Hot Spot Code）。</p>
+<h3 id="（一）即时编译器（JIT编译器）"><a href="#（一）即时编译器（JIT编译器）" class="headerlink" title="（一）即时编译器（JIT编译器）"></a>（一）即时编译器（JIT编译器）</h3><p>Java程序最初是通过解释器进行解释执行的，当虚拟机发现某个方法或代码块的运行特别频繁，就会把这些代码认定为“热点代码”（Hot Spot Code）。</p>
 <p>为了提高热点代码的执行效率，在运行时，虚拟机将会把这些代码编译成与本地平台相关的机器码，并进行各种层次的优化，完成这个任务的编译器成为即时编译器（Just In Time Compiler，JIT编译器）。</p>
 <h3 id="（二）解释器和编译器"><a href="#（二）解释器和编译器" class="headerlink" title="（二）解释器和编译器"></a>（二）解释器和编译器</h3><p>许多主流的商用虚拟机，都同时包含解释器和编译器。</p>
 <ol>
@@ -379,6 +379,12 @@
         <a href="/2019/05/31/认识Java虚拟机-JVM内存结构/" target="_self">认识Java虚拟机-JVM内存结构</a>
       </div>
     
+    
+      <div class="nav-next">
+        下一篇:
+        <a href="/2019/06/03/初识Java-NIO/" target="_self">初识Java NIO</a>
+        <i class="iconfont icon-next"></i>
+      </div>
     
   </nav>
 
