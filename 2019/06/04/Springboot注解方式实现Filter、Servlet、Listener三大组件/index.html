@@ -13,7 +13,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
   
-    <meta name="keywords" content="技巧,Springboot,">
+    <meta name="keywords" content="微服务,Springboot,">
   
 
   <script>
@@ -215,8 +215,8 @@
     
       <span>
         分类 : 
-          <a href="/categories/技巧/">
-            技巧
+          <a href="/categories/微服务/">
+            微服务
           </a>
       </span>
     
@@ -242,10 +242,14 @@
 <p>在启动类上添加了三个注解，<code>@SpringBootApplication</code>和<code>@RestController</code>应该不需要解释了，我们来看下javadoc中关于<code>@ServletComponentScan</code>的描述:</p>
 <blockquote>
 <p>Enables scanning for Servlet components ({@link WebFilter filters}, {@link WebServlet servlets}, and {@link WebListener listeners}). Scanning is only performed when using an embedded web server.  </p>
-<p>开启Servlet组件扫描，组件包含WebFilter、WebServlet和WebListener，而且扫描只在嵌入式Web服务器中有效。<br>意思很清楚了，就是如果我们要使用WebFilter、WebServlet和WebListener这三种servlet组件，可以借助<code>@ServletComponentScan</code>注解使之生效。</p>
+<p>
+Typically, one of {@code value}, {@code basePackages}, or {@code basePackageClasses} should be specified to control the packages to be scanned for components. In their absence, scanning will be performed from the package of the class with the annotation.
+
+</p><p>开启Servlet组件扫描，组件包含WebFilter、WebServlet和WebListener，而且扫描只在嵌入式Web服务器中有效。<br>应该为value、basePackages或basePackageClasses三个属性中的一个设置值，用于指定组件的扫描包路径。如果都没有配置，应用容器将从带有<code>@ServletComponentScan</code>注解的类所在包路径开始扫描。</p>
 </blockquote>
+<p>意思很清楚了，就是如果我们要使用WebFilter、WebServlet和WebListener这三种servlet组件，可以借助<code>@ServletComponentScan</code>注解使之生效。</p>
 <h2 id="二-实现Filter"><a href="#二-实现Filter" class="headerlink" title="二. 实现Filter"></a>二. 实现Filter</h2><ol>
-<li><p>实现<code>Filter</code>接口，重写接口方法。</p>
+<li><p>创建子类实现<code>Filter</code>接口，重写接口方法。</p>
 </li>
 <li><p>添加<code>@WebFilter</code>注解，必须设置<code>urlPatterns</code>参数的值，这是个字符串数组；其他参数可选择性地设置，不设置也行。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.sdsj.springboot.config;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.slf4j.Logger;</span><br><span class="line"><span class="keyword">import</span> org.slf4j.LoggerFactory;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.servlet.*;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.annotation.WebFilter;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletRequest;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"></span><br><span class="line"><span class="meta">@WebFilter</span>(filterName = <span class="string">"first_filter"</span>, urlPatterns = &#123;<span class="string">"/*"</span>&#125;)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FirstFilter</span> <span class="keyword">implements</span> <span class="title">Filter</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Logger log = LoggerFactory.getLogger(<span class="keyword">this</span>.getClass());</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">(FilterConfig filterConfig)</span> <span class="keyword">throws</span> ServletException </span>&#123;</span><br><span class="line">        log.info(<span class="string">"first filter init, filter name: "</span> + filterConfig.getFilterName());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doFilter</span><span class="params">(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)</span> <span class="keyword">throws</span> IOException, ServletException </span>&#123;</span><br><span class="line">        log.info(<span class="string">"first filter uri: "</span> + ((HttpServletRequest) servletRequest).getServletPath());</span><br><span class="line">        filterChain.doFilter(servletRequest, servletResponse);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">destroy</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        log.info(<span class="string">"first filter destroy"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -262,7 +266,7 @@
 </li>
 </ol>
 <h2 id="三-实现Servlet"><a href="#三-实现Servlet" class="headerlink" title="三. 实现Servlet"></a>三. 实现Servlet</h2><ol>
-<li><p>继承<code>HttpServlet</code>类，选择性地重写父类方法，比如我只重写了doGet方法用于处理GET请求。</p>
+<li><p>创建子类继承<code>HttpServlet</code>抽象类，选择性地重写父类方法，比如我只重写了doGet方法用于处理GET请求。</p>
 </li>
 <li><p>添加<code>@WebServlet</code>注解，依然是必须设置<code>urlPatterns</code>参数的值，这是个字符串数组；其他参数可选择性地设置，不设置也行。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.sdsj.springboot.config;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.slf4j.Logger;</span><br><span class="line"><span class="keyword">import</span> org.slf4j.LoggerFactory;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.servlet.ServletConfig;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.ServletException;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.annotation.WebServlet;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServlet;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletRequest;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletResponse;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"></span><br><span class="line"><span class="meta">@WebServlet</span>(name = <span class="string">"first_servlet"</span>, urlPatterns = <span class="string">"/first_servlet"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FirstServlet</span> <span class="keyword">extends</span> <span class="title">HttpServlet</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Logger log = LoggerFactory.getLogger(<span class="keyword">this</span>.getClass());</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">(ServletConfig servletConfig)</span> <span class="keyword">throws</span> ServletException </span>&#123;</span><br><span class="line">        log.info(<span class="string">"first servlet init, servlet name: "</span> + servletConfig.getServletName());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">doGet</span><span class="params">(HttpServletRequest req, HttpServletResponse resp)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</span><br><span class="line">        log.info(<span class="string">"first servlet uri: "</span> + req.getServletPath());</span><br><span class="line">        PrintWriter out = resp.getWriter();</span><br><span class="line">        out.write(<span class="string">"first servlet is running"</span>);</span><br><span class="line">        out.flush();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">destroy</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        log.info(<span class="string">"first servlet destroy"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -289,7 +293,7 @@
 </li>
 </ol>
 <h2 id="四-实现Listener"><a href="#四-实现Listener" class="headerlink" title="四. 实现Listener"></a>四. 实现Listener</h2><ol>
-<li><p>实现以下接口中的一个或多个，并且重写相应的接口方法。<br>根据实现的接口不同，监听器作用范围也不相同，本文不做详细介绍，可以查看对应的javadoc描述，案例中我实现了<code>ServletRequestListener</code>接口，在Web应用程序接收到请求和做出响应时执行监听器方法。</p>
+<li><p>创建子类实现以下接口中的一个或多个，并且重写相应的接口方法。<br>根据实现的接口不同，监听器作用范围也不相同，本文不做详细介绍，可以查看对应的javadoc描述，案例中我实现了<code>ServletRequestListener</code>接口，在Web应用程序接收到请求和做出响应时执行监听器方法。</p>
 <ul>
 <li>javax.servlet.http.HttpSessionAttributeListener</li>
 <li>javax.servlet.http.HttpSessionListener</li>
@@ -407,6 +411,12 @@
         <a href="/2019/06/03/初识Java-NIO/" target="_self">初识Java NIO</a>
       </div>
     
+    
+      <div class="nav-next">
+        下一篇:
+        <a href="/2019/06/05/Springboot通过创建RegistrationBean子类方式实现Filter、Servlet、Listener三大组件/" target="_self">Springboot通过创建RegistrationBean子类方式实现Filter、Servlet、Listener三大组件</a>
+        <i class="iconfont icon-next"></i>
+      </div>
     
   </nav>
 
