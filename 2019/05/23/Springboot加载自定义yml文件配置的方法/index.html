@@ -231,7 +231,10 @@
 
   <div class="article-content">
     <div class="markdown-body">
-      <p><strong>Springboot在1.5.x版本之后，去除了@ConfigurationProperties注解中的location参数，因此无法再通过这种方式加载自定义的yml配置文件了。</strong></p>
+      <blockquote>
+<p>本文讲解到的知识点是基于Springboot 1.5.*的版本。</p>
+</blockquote>
+<p><strong>Springboot在1.5.x版本之后，去除了@ConfigurationProperties注解中的location参数，因此无法再通过这种方式加载自定义的yml配置文件了。</strong></p>
 <p>我在网上看到很多资料都是这么说明的，我也没去验证，先不管吧，总之我搜集资料后特意总结了以下三种解决方法，亲测有效。</p>
 <p>首先先在resources目录下创建一个测试用的yml配置文件，内容如下：</p>
 <p><strong>PS：注意yml文件中key: value的冒号后面是有一个空格的</strong></p>
@@ -339,7 +342,7 @@
   <div id="reward-qrcode">
     
       <div class="reward-qrcode--container">
-        <img class="qrcode-img" src="/styles/wechat.png" alt="微信扫一扫, 向我投食">
+        <img class="qrcode-img" src="/styles/images/wechat.png" alt="微信扫一扫, 向我投食">
         <p class="qrcode-meta">微信扫一扫, 向我投食</p>
       </div>
     
