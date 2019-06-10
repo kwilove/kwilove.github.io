@@ -194,7 +194,7 @@
   <div class="article-top-meta">
     <span>
       发布 : 
-      2019-05-20
+      2018-10-08
     </span>
     
       <span>
@@ -206,7 +206,7 @@
     
     
       <span>
-        浏览 : <span class="article-timer" data-identity="mysql-2019-05-20-深入理解MySQL索引底层数据结构与算法"></span>
+        浏览 : <span class="article-timer" data-identity="mysql-2018-10-08-深入理解MySQL索引底层数据结构与算法"></span>
       </span>
     
   </div>
@@ -220,7 +220,7 @@
 <li>索引存储在文件里</li>
 </ul>
 <h2 id="二-索引的各种存储结构及其优缺点"><a href="#二-索引的各种存储结构及其优缺点" class="headerlink" title="二. 索引的各种存储结构及其优缺点"></a>二. 索引的各种存储结构及其优缺点</h2><p>在开始讲这一小节之前，我们先来看一下在数据库没有加索引的情况下，SQL中的where字句是如何查找目标记录的。</p>
-<p>我们先看下左边表格第二列Col2列的数据时如何查找的，如果我怕希望查找<code>where Col2 = 22</code>的记录，我们在没加索引的情况下是按顺序从第一条记录查找，由此可知需要查找5次才能找到；</p>
+<p>我们先看下左边表格第二列Col2列的数据时如何查找的，如果我们希望查找<code>where Col2 = 22</code>的记录，我们在没加索引的情况下是按顺序从第一条记录查找，由此可知需要查找5次才能找到；</p>
 <p>如果对Col2字段加上索引后，我们假设使用最简单的二叉树作为索引存储方式，再次查找<code>where Col2 = 22</code>的记录这次只需要查找2次就能找到目标记录，效率提高十分明显。<br><img src="/styles/images/mysql/35.png" alt="35.png"></p>
 <h3 id="（一）二叉树"><a href="#（一）二叉树" class="headerlink" title="（一）二叉树"></a>（一）二叉树</h3><ol>
 <li>优点</li>
@@ -284,7 +284,7 @@
 </ul>
 </li>
 </ol>
-<h2 id="三-联合索引底层存储结构"><a href="#三-联合索引底层存储结构" class="headerlink" title="三. 联合索引底层存储结构"></a>三. 联合索引底层存储结构</h2><p>单列索引其实也可以看做联合索引，索引列为1的联合索引，从下图就可以看出联合索引的底层存储跟单列索引时类似的，区别在于联合索引是每个树节点中包含多个索引值，在通过索引查找记录时，会先将联合索引中第一个索引列与节点中第一个索引值进行匹配，匹配成功接着匹配第二个索引列和索引值，直到联合索引的所有索引列都匹配完；如果过程中出现某一个索引列与节点相应位置的索引值不匹配的情况，则无需再匹配节点中剩余索引列，前往下一个节点。<br><img src="/styles/images/mysql/45.png" alt="45.png"></p>
+<h2 id="三-联合索引底层存储结构"><a href="#三-联合索引底层存储结构" class="headerlink" title="三. 联合索引底层存储结构"></a>三. 联合索引底层存储结构</h2><p>单列索引其实也可以看做联合索引，索引列为1的联合索引，从下图就可以看出联合索引的底层存储跟单列索引是类似的，区别在于联合索引是每个树节点中包含多个索引值，在通过索引查找记录时，会先将联合索引中第一个索引列与节点中第一个索引值进行匹配，匹配成功接着匹配第二个索引列和索引值，直到联合索引的所有索引列都匹配完；如果过程中出现某一个索引列与节点相应位置的索引值不匹配的情况，则无需再匹配节点中剩余索引列，前往下一个节点。<br><img src="/styles/images/mysql/45.png" alt="45.png"></p>
     </div>
   </div>
   
@@ -295,7 +295,7 @@
         
           本文作者 : 黄子敬 <br>
         
-        原文链接 : <a href>https://kwilove.gitee.io/2019/05/20/mysql-2019-05-20-深入理解MySQL索引底层数据结构与算法/</a><br>
+        原文链接 : <a href>https://kwilove.gitee.io/2018/10/08/mysql-2018-10-08-深入理解MySQL索引底层数据结构与算法/</a><br>
         版权声明 : 本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！
         </blockquote>
       </div>
@@ -373,16 +373,10 @@
 
   <nav class="post-navigation">
     
-      <div class="nav-pre">
-        <i class="iconfont icon-prev"></i>
-        上一篇:
-        <a href="/2019/04/12/nginx-2019-04-12-Nginx性能参数调优/" target="_self">Nginx性能参数调优</a>
-      </div>
-    
     
       <div class="nav-next">
         下一篇:
-        <a href="/2019/05/21/mysql-2019-05-21-MySQL存储引擎MyISAM和InnoDB底层索引结构/" target="_self">MySQL存储引擎MyISAM和InnoDB底层索引结构</a>
+        <a href="/2018/10/09/mysql-2018-10-09-MySQL存储引擎MyISAM和InnoDB底层索引结构/" target="_self">MySQL存储引擎MyISAM和InnoDB底层索引结构</a>
         <i class="iconfont icon-next"></i>
       </div>
     
