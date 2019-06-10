@@ -107,22 +107,6 @@
           
         </li>
       
-        <li class="nav-item" data-path="/friends/">
-          
-            <a href="/friends/" target="_self">
-              友链
-            </a>
-          
-        </li>
-      
-        <li class="nav-item" data-path="/about/">
-          
-            <a href="/about/" target="_self">
-              关于
-            </a>
-          
-        </li>
-      
         <li class="nav-item" data-path>
           
             <a href="javascript:void(0);" v-else>抓到我</a>
@@ -231,7 +215,7 @@
 
   <div class="article-content">
     <div class="markdown-body">
-      <h4 id="1-worker-processes"><a href="#1-worker-processes" class="headerlink" title="1. worker_processes"></a>1. worker_processes</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">语法:worker_processes number | auto;</span><br><span class="line">* number：Nginx进程最多可以产生的工作进程数量</span><br><span class="line">* auto：  Nginx进程将自动检测</span><br></pre></td></tr></table></figure>
+      <h4 id="1-worker-processes"><a href="#1-worker-processes" class="headerlink" title="1. worker_processes"></a>1. worker_processes</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">worker_processes</span> number | auto;</span><br><span class="line">* number：Nginx进程最多可以产生的工作进程数量</span><br><span class="line">* auto：  Nginx进程将自动检测</span><br></pre></td></tr></table></figure>
 
 <p>Nginx服务器实现并发处理服务的关键。<br>每个worker进程都是单线程的进程，它们会调用各个模块以实现多种多样的功能。如果这些模块确认不会出现阻塞式的调用，那么，有多少CPU内核就应该配置多少个进程；反之，如果有可能出现阻塞式调用，那么需要配置稍多一些的worker进程。<br>例如，如果业务方面会致使用户请求大量读取本地磁盘上的静态资源文件，而且服务器上的内存较小，以至于大部分的请求访问静态资源文件时都必须读取磁盘（磁头的寻址是缓慢的），而不是内存中的磁盘缓存，那么磁盘I/O调用可能会阻塞住worker进程少量时间，进而导致服务整体性能下降。</p>
 <h4 id="2-worker-connections"><a href="#2-worker-connections" class="headerlink" title="2. worker_connections"></a>2. worker_connections</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">worker_connections</span> number;</span><br><span class="line">Default: worker_connections 1024</span><br></pre></td></tr></table></figure>
@@ -268,7 +252,7 @@
         <blockquote>
         
         
-          本文作者 : 子敬 <br>
+          本文作者 : 黄子敬 <br>
         
         原文链接 : <a href>https://kwilove.gitee.io/2019/04/12/nginx-2019-04-12-Nginx性能参数调优/</a><br>
         版权声明 : 本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！
