@@ -253,7 +253,7 @@
 </li>
 </ol>
 <p>也由于两种引擎对索引和数据的存储方式的不同，我们也称MyISAM的索引为非聚集索引，InnoDB的索引为聚集索引。</p>
-<h2 id="MyISAM主键索引与辅助索引的结构"><a href="#MyISAM主键索引与辅助索引的结构" class="headerlink" title="MyISAM主键索引与辅助索引的结构"></a>MyISAM主键索引与辅助索引的结构</h2><p>我们先列举一部分数据出来分析，如下:<br><img src="/styles/images/mysql/30.png" alt="30.png"></p>
+<h2 id="三-MyISAM主键索引与辅助索引的结构"><a href="#三-MyISAM主键索引与辅助索引的结构" class="headerlink" title="三. MyISAM主键索引与辅助索引的结构"></a>三. MyISAM主键索引与辅助索引的结构</h2><p>我们先列举一部分数据出来分析，如下:<br><img src="/styles/images/mysql/30.png" alt="30.png"></p>
 <p>上面已经说明了MyISAM引擎的索引文件和数据文件是分离的，我们接着看一下下面两种索引结构异同。</p>
 <h4 id="1-主键索引"><a href="#1-主键索引" class="headerlink" title="1. 主键索引"></a>1. 主键索引</h4><p>上一篇文章已经介绍过数据库索引是采用B+Tree存储，并且只在叶子节点存储数据，在MyISAM引擎中叶子结点存储的数据其实是索引和数据的文件指针两类.<br>如下图中我们以Col1列作为主键建立索引，对应的叶子结点储存形式可以看一下表格。<br><img src="/styles/images/mysql/31.png" alt="31.png"></p>
 <!-- 
