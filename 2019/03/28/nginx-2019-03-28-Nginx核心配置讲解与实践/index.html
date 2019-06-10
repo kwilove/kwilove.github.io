@@ -231,10 +231,7 @@
 
   <div class="article-content">
     <div class="markdown-body">
-      <ul>
-<li>content<br>{:toc}</li>
-</ul>
-<h2 id="一-了解Nginx架构"><a href="#一-了解Nginx架构" class="headerlink" title="一. 了解Nginx架构"></a>一. 了解Nginx架构</h2><h4 id="1-Nginx架构图"><a href="#1-Nginx架构图" class="headerlink" title="1. Nginx架构图"></a>1. Nginx架构图</h4><p><img src="/styles/images/nginx/1.png" alt="Nginx架构图"></p>
+      <h2 id="一-了解Nginx架构"><a href="#一-了解Nginx架构" class="headerlink" title="一. 了解Nginx架构"></a>一. 了解Nginx架构</h2><h4 id="1-Nginx架构图"><a href="#1-Nginx架构图" class="headerlink" title="1. Nginx架构图"></a>1. Nginx架构图</h4><p><img src="/styles/images/nginx/1.png" alt="Nginx架构图"></p>
 <h4 id="2-架构说明"><a href="#2-架构说明" class="headerlink" title="2. 架构说明"></a>2. 架构说明</h4><ul>
 <li>Nginx在启动时，会创建两种类型的进程，一个主进程Master，和一个或多个工作进程Worker（PS：Windows操作系统下只创建一个Worker）；其中主进程并不处理网络请求，它只负责工作进程的调度工作，如上图中显示的三项：加载配置、启动工作进程和非停升级。</li>
 <li>Nginx服务器实际处理网络请求和做出响应的是工作进程Worker，在类Unix操作系统中允许配置启动多个Worker，并且每个Worker能同时处理上千个网络请求。</li>

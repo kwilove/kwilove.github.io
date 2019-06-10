@@ -231,10 +231,7 @@
 
   <div class="article-content">
     <div class="markdown-body">
-      <ul>
-<li>content<br>{:toc}</li>
-</ul>
-<h2 id="一-动静分离"><a href="#一-动静分离" class="headerlink" title="一. 动静分离"></a>一. 动静分离</h2><ol>
+      <h2 id="一-动静分离"><a href="#一-动静分离" class="headerlink" title="一. 动静分离"></a>一. 动静分离</h2><ol>
 <li><p>基于目录实现</p>
 <figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">    <span class="attribute">listen</span> <span class="number">80</span>;</span><br><span class="line">    <span class="attribute">server_name</span> <span class="regexp">*.abc.com</span>;</span><br><span class="line">    <span class="attribute">root</span> /usr/www/abc;</span><br><span class="line">    <span class="attribute">location</span> / &#123;</span><br><span class="line">        <span class="attribute">index</span> index.html;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="attribute">location</span> /static &#123;</span><br><span class="line">        <span class="attribute">alias</span> /usr/www/static;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
