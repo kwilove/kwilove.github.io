@@ -227,12 +227,12 @@ Redis的所有数据结构都是一个唯一的字符串类型key作为名称，
 <blockquote>
 <p>expire key secords<br>secords为过期时间，单位时秒</p>
 </blockquote>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; set city guangzhou</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; get city</span><br><span class="line">"guangzhou"</span><br><span class="line">127.0.0.1:6379&gt; expire city 5</span><br><span class="line">(integer) 1</span><br><span class="line"><span class="meta">#</span><span class="bash"> 等待5s过后</span></span><br><span class="line">127.0.0.1:6379&gt; get city</span><br><span class="line">(nil)</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; set city guangzhou</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; get city</span><br><span class="line">"guangzhou"</span><br><span class="line">127.0.0.1:6379&gt; expire city 5</span><br><span class="line">(integer) 1</span><br><span class="line"><span class="meta">#</span> 等待5s过后</span><br><span class="line">127.0.0.1:6379&gt; get city</span><br><span class="line">(nil)</span><br></pre></td></tr></table></figure>
 
 <blockquote>
 <p>setex key secords value<br>secords为过期时间，单位时秒，等价于set + expire</p>
 </blockquote>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; setex city 5 guangzhou</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; get city</span><br><span class="line">"guangzhou"</span><br><span class="line"><span class="meta">#</span><span class="bash"> 等待5s过后</span></span><br><span class="line">127.0.0.1:6379&gt; get city</span><br><span class="line">(nil)</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; setex city 5 guangzhou</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; get city</span><br><span class="line">"guangzhou"</span><br><span class="line"><span class="meta">#</span> 等待5s过后</span><br><span class="line">127.0.0.1:6379&gt; get city</span><br><span class="line">(nil)</span><br></pre></td></tr></table></figure>
 
 <p>set的其他扩展命令</p>
 <blockquote>
@@ -446,7 +446,7 @@ Redis的所有数据结构都是一个唯一的字符串类型key作为名称，
       <div class="nav-pre">
         <i class="iconfont icon-prev"></i>
         上一篇:
-        <a href="/2019/05/23/hello-world/" target="_self">Hello World</a>
+        <a href="/2019/05/21/mysql-2019-05-21-了解MySQL的explain命令/" target="_self">了解MySQL的explain命令</a>
       </div>
     
     
