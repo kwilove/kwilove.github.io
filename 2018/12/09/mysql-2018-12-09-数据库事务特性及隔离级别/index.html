@@ -215,26 +215,22 @@
 
   <div class="article-content">
     <div class="markdown-body">
-      <h2 id="事务的四个基本特性（ACID）"><a href="#事务的四个基本特性（ACID）" class="headerlink" title="事务的四个基本特性（ACID）"></a>事务的四个基本特性（ACID）</h2><hr>
-<p><strong>1. 原子性（Atomicity）：</strong></p>
-<ul>
+      <h2 id="一-事务的四个基本特性（ACID）"><a href="#一-事务的四个基本特性（ACID）" class="headerlink" title="一. 事务的四个基本特性（ACID）"></a>一. 事务的四个基本特性（ACID）</h2><hr>
+<h4 id="1-原子性（Atomicity）"><a href="#1-原子性（Atomicity）" class="headerlink" title="1. 原子性（Atomicity）"></a>1. 原子性（Atomicity）</h4><ul>
 <li>同一个事务所包含的所有操作，要么全做，要么全不做，任何一项操作的失败都会导致整个事务的失败；</li>
 </ul>
-<p><strong>2. 一致性（Consistency）：</strong></p>
-<ul>
+<h4 id="2-一致性（Consistency）"><a href="#2-一致性（Consistency）" class="headerlink" title="2. 一致性（Consistency）"></a>2. 一致性（Consistency）</h4><ul>
 <li>当事务结束后，系统在执行事务操作前后的状态是一致的；</li>
 <li>这里举个例子来说，比如A（余额300元）转账给B（余额200元），在一个事务中，无论A转了多少钱，转了几次，在事务完成后，A和B的总金额还是500元；</li>
 </ul>
-<p><strong>3. 隔离性（Durability）</strong></p>
-<ul>
+<h4 id="3-隔离性（Durability）"><a href="#3-隔离性（Durability）" class="headerlink" title="3. 隔离性（Durability）"></a>3. 隔离性（Durability）</h4><ul>
 <li>并发执行的多个事务操作是相互隔离，互不影响的，并且无法看到其他事务的中间状态；</li>
 <li>数据库提供了多种隔离级别，这块后面会说道。</li>
 </ul>
-<p><strong>4. 持久性</strong></p>
-<ul>
+<h4 id="4-持久性"><a href="#4-持久性" class="headerlink" title="4. 持久性"></a>4. 持久性</h4><ul>
 <li>事务完成后所做的所有改动都会被持久化，永久生效，即使数据库发生了灾难性故障也不会对已经完成的事务结果造成影响。</li>
 </ul>
-<h2 id="事务隔离级别"><a href="#事务隔离级别" class="headerlink" title="事务隔离级别"></a>事务隔离级别</h2><hr>
+<h2 id="二-事务隔离级别"><a href="#二-事务隔离级别" class="headerlink" title="二. 事务隔离级别"></a>二. 事务隔离级别</h2><hr>
 <p>在高并发情况下，要完成保证事务ACID特性是十分困难的，除非把所有的事务串行化执行，但是因此造成的影响将是系统性能大大降低。在实际开发中很多业务对事务的要求是不一样的，因此数据库设计了四种隔离级别供用户基于业务进行选择。</p>
 <table>
 <thead>
