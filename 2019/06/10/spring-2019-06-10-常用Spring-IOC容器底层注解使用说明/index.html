@@ -8,7 +8,7 @@
   
   
   
-  <title>常用Spring IOC容器底层注解使用说明 | 子敬的博客</title>
+  <title>常用Spring IoC容器底层注解使用说明 | 子敬的博客</title>
 
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -189,7 +189,7 @@
 
 <div class="post">
   <h1 class="article-title">
-    <span>常用Spring IOC容器底层注解使用说明</span>
+    <span>常用Spring IoC容器底层注解使用说明</span>
   </h1>
   <div class="article-top-meta">
     <span>
@@ -327,7 +327,7 @@
 <p><code>@Scope</code>可指定的值</p>
 <ul>
 <li>singleton 单实例，默认，饿汉模式</li>
-<li>prototype 多实例，饿汉模式加载（IOC容器启动时不会创建实例，而是在第一次使用时创建）</li>
+<li>prototype 多实例，饿汉模式加载（IoC容器启动时不会创建实例，而是在第一次使用时创建）</li>
 <li>request 在同一个请求内创建和使用一个实例</li>
 <li>session 在同一个会话内创建和使用一个实例</li>
 </ul>
@@ -335,9 +335,13 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="meta">@Lazy</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> User <span class="title">lazyUser</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> User();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h3 id="（五）-Conditional"><a href="#（五）-Conditional" class="headerlink" title="（五）@Conditional"></a>（五）@Conditional</h3><p>允许用户自定义一套规则，按照用户定义的规则进行条件判断，是否需要加载目标Bean实例。<br>通过实现<code>org.springframework.context.annotation.Condition</code>接口，重写<code>matches</code>方法，指定判断规则，示例如下:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.zjhuang.spring.config.conditional;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Condition;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.ConditionContext;</span><br><span class="line"><span class="keyword">import</span> org.springframework.core.type.AnnotatedTypeMetadata;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FirstCondition</span> <span class="keyword">implements</span> <span class="title">Condition</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">matches</span><span class="params">(ConditionContext context, AnnotatedTypeMetadata metadata)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 判断IOC容器中是否存在名称为user的Bean对象</span></span><br><span class="line">        <span class="keyword">return</span> context.getBeanFactory().containsBean(<span class="string">"user"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.zjhuang.spring.config.conditional;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Condition;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.ConditionContext;</span><br><span class="line"><span class="keyword">import</span> org.springframework.core.type.AnnotatedTypeMetadata;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FirstCondition</span> <span class="keyword">implements</span> <span class="title">Condition</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">matches</span><span class="params">(ConditionContext context, AnnotatedTypeMetadata metadata)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 判断IoC容器中是否存在名称为user的Bean对象</span></span><br><span class="line">        <span class="keyword">return</span> context.getBeanFactory().containsBean(<span class="string">"user"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h3 id="（六）-Import"><a href="#（六）-Import" class="headerlink" title="（六）@Import"></a>（六）@Import</h3><p>导入资源，类似于xml配置的<code>&lt;import/&gt;</code>元素，可以导入带有<code>@Configuration</code>注解的配置类、或实现了<code>ImportSelector</code>/<code>ImportBeanDefinitionRegistrar</code>的子类，也可以直接导入常规组件类，Spring会将其注册为Bean。</p>
+<h3 id="（六）-Import"><a href="#（六）-Import" class="headerlink" title="（六）@Import"></a>（六）@Import</h3><p>导入资源，类似于xml配置的<code>&lt;import/&gt;</code>元素，可以导入带有<code>@Configuration</code>注解的配置类、或实现了<code>ImportSelector</code>/<code>ImportBeanDefinitionRegistrar</code>的子类，也可以直接导入常规组件类，Spring容器会将导入组件的id以类的完全限定名命名。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.zjhuang.spring.entity;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Role</span> </span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@Import</span>(value = Role.class)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Config</span> </span>&#123;</span><br><span class="line">｝</span><br></pre></td></tr></table></figure>
+
 <h3 id="（七）-AutoWired"><a href="#（七）-AutoWired" class="headerlink" title="（七）@AutoWired"></a>（七）@AutoWired</h3><ul>
 <li><code>@AutoWired</code>可以标记在一个构造方法、字段、setter方法或者配置方法上，实现spring依赖的自动注入，它用于替代<code>JSR-330</code>规范的<code>@Inject</code>注解。</li>
 <li>在自动装配时首先按照类型（byType）方式装配依赖对象、</li>
@@ -472,6 +476,12 @@
         <a href="/2019/06/05/Springboot通过创建RegistrationBean子类方式实现Filter、Servlet、Listener三大组件/" target="_self">Springboot通过创建RegistrationBean子类方式实现Filter、Servlet、Listener三大组件</a>
       </div>
     
+    
+      <div class="nav-next">
+        下一篇:
+        <a href="/2019/06/12/spring-2019-06-12-向Spring-IOC容器添加组件的四种方式/" target="_self">向Spring IoC容器添加组件的四种方式</a>
+        <i class="iconfont icon-next"></i>
+      </div>
     
   </nav>
 
